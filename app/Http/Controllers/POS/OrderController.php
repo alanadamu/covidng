@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\POS;
 
-use App\Http\Controllers\Controller;
+use App\Models\POS\Order;
 use Illuminate\Http\Request;
 
 use App\Models\Config\OdooModel;
-use App\Models\POS\Order;
+use App\Http\Controllers\Controller;
+use App\Events\OdooAPI\GetOdooDataEvent;
 use App\Http\Controllers\OdooAPI\OdooController;
 
 class OrderController extends Controller
@@ -19,24 +20,25 @@ class OrderController extends Controller
      */
     public function update_db()
     {
+        set_time_limit(60000);
         //Get odoo model
         $model = new Order;
         $odoo_model_name = $model->odoo_model_name;
         $fields = $model->fields;
-        
+        $filters = $model->filters();
         //Get Latest entry id
         $odoo_model = OdooModel::where('name',$odoo_model_name)->get()['0'];
         $latest_external_id = $odoo_model->latest_external_id;
         $odoo_api = new OdooController;
-        $new_odoo_orders = $odoo_api->get_latest($odoo_model_name,$latest_external_id,$fields);
+        $new_odoo_orders = $odoo_api->get_latest($odoo_model_name,$latest_external_id,$fields,$filters);
 
         $i = 0;
         $len = count($new_odoo_orders);
         if ($len == 0) {
-            dd('no new orders found...');
+            return('no new orders found...');
         }
         foreach ($new_odoo_orders as $odoo_order) {
-            // dd($odoo_order);
+            // return($odoo_order);
             $order = new Order;
             $order->external_id = $odoo_order['id'];
             $order->company_id = $odoo_order['company_id']['0'];
@@ -55,11 +57,13 @@ class OrderController extends Controller
 
             if ($i == $len - 1) {
                 
-                dd('save complete');
+                
             }
             // …
             $i++;
         }
+
+        return('save orders complete');
         
     }
 
@@ -71,6 +75,8 @@ class OrderController extends Controller
      */
     public function index()
     {
+        event(new GetOdooDataEvent());
+
         $model = new Order;
         $blade_data = $model->blade_data;
         // dd($blade_data);

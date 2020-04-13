@@ -2,8 +2,9 @@
 
 namespace App\Models\Res;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Models\Res\Company;
+use App\Models\Config\OdooModel;
+use Illuminate\Database\Eloquent\Model;
 
 class Partner extends Model
 {
@@ -59,4 +60,11 @@ class Partner extends Model
     {
         return $this->belongsTo(Company::class,'company_id','external_id');
     }
+
+    public function filters(){
+        $id = OdooModel::where('name',$this->odoo_model_name)->get()['0']->latest_external_id;
+        return array(
+            array('id', '>', $id),
+        );
+    } 
 }

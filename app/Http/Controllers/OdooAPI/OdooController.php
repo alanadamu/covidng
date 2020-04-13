@@ -17,14 +17,14 @@ class OdooController extends Ripcord
      *
      * @return \Illuminate\Http\Response
      */
-    public function get_latest($model, $latest_id,$fields=array())
+    public function get_latest($model, $latest_id,$fields=array(),$filters=array())
     {
         // dd([$model,$latest_id,$fields]);
         $config = array(
             'url' => 'http://67.205.128.249:8069/xmlrpc/2',
-            'db' => 'novomedtraining',
+            'db' => 'novomed',
             'user' => 'alanadamu2@gmail.com',
-            'password' => 'novomed123.'
+            'password' => '15478362'
         );
 
         $common = new Ripcord($config);
@@ -36,13 +36,12 @@ class OdooController extends Ripcord
             $model,
             'search_read',
             array(
-                    array(
-                        array('id', '>', $latest_id)
-                    ),
+                    $filters,
                 ),
             array(
                     'fields'=>$fields,
                     'order' =>'id asc',
+                    'limit' => 2000
                 )
             
         );

@@ -3113,6 +3113,134 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3133,9 +3261,57 @@ __webpack_require__.r(__webpack_exports__);
       sales_month: 0,
       sales_year: 0,
       sales_all_time: 0,
+      profit_today: 0,
+      profit_month: 0,
+      profit_year: 0,
+      profit_all_time: 0,
       loaded: false,
-      purpleLineChart: {
-        extraOptions: _components_Charts_config__WEBPACK_IMPORTED_MODULE_2__["purpleChartOptions"],
+      salesLineChart: {
+        extraOptions: _components_Charts_config__WEBPACK_IMPORTED_MODULE_2__["salesChartOptions"],
+        chartData: {
+          labels: [],
+          datasets: [{
+            label: "Data",
+            fill: true,
+            borderColor: _config__WEBPACK_IMPORTED_MODULE_5__["default"].colors.primary,
+            borderWidth: 2,
+            borderDash: [],
+            borderDashOffset: 0.0,
+            pointBackgroundColor: _config__WEBPACK_IMPORTED_MODULE_5__["default"].colors.primary,
+            pointBorderColor: "rgba(255,255,255,0)",
+            pointHoverBackgroundColor: _config__WEBPACK_IMPORTED_MODULE_5__["default"].colors.primary,
+            pointBorderWidth: 20,
+            pointHoverRadius: 4,
+            pointHoverBorderWidth: 15,
+            pointRadius: 4,
+            data: []
+          }]
+        }
+      },
+      profitLineChart: {
+        extraOptions: _components_Charts_config__WEBPACK_IMPORTED_MODULE_2__["profitChartOptions"],
+        chartData: {
+          labels: [],
+          datasets: [{
+            label: "Data",
+            fill: true,
+            borderColor: _config__WEBPACK_IMPORTED_MODULE_5__["default"].colors.primary,
+            borderWidth: 2,
+            borderDash: [],
+            borderDashOffset: 0.0,
+            pointBackgroundColor: _config__WEBPACK_IMPORTED_MODULE_5__["default"].colors.primary,
+            pointBorderColor: "rgba(255,255,255,0)",
+            pointHoverBackgroundColor: _config__WEBPACK_IMPORTED_MODULE_5__["default"].colors.primary,
+            pointBorderWidth: 20,
+            pointHoverRadius: 4,
+            pointHoverBorderWidth: 15,
+            pointRadius: 4,
+            data: []
+          }]
+        }
+      },
+      dailySalesLineChart: {
+        extraOptions: _components_Charts_config__WEBPACK_IMPORTED_MODULE_2__["dailySalesChartOptions"],
         chartData: {
           labels: [],
           datasets: [{
@@ -3168,13 +3344,26 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var vm = this;
     axios.get("http://localhost/odoo_frontend/public/api/v1/xxx").then(function (response) {
-      vm.loaded = true;
-      vm.purpleLineChart.chartData.datasets["0"].data = response.data.data.stats.flat(1);
-      vm.purpleLineChart.chartData.labels = response.data.data.labels.flat(1);
+      console.log(response.data);
+      vm.loaded = true; //Sales
+
+      vm.salesLineChart.chartData.datasets["0"].data = response.data.data.sales.flat(1);
+      vm.salesLineChart.chartData.labels = response.data.data.labels.flat(1); //Daily Sales
+
+      vm.dailySalesLineChart.chartData.datasets["0"].data = response.data.data.dailySales.flat(1);
+      vm.dailySalesLineChart.chartData.labels = response.data.data.dailyLabels.flat(1); //Profit
+
+      vm.profitLineChart.chartData.datasets["0"].data = response.data.data.profit.flat(1);
+      vm.profitLineChart.chartData.labels = response.data.data.labels.flat(1); //Others
+
       vm.sales_today = vm.numberWithCommas(response.data.data.sales_today);
       vm.sales_month = vm.numberWithCommas(response.data.data.sales_month);
       vm.sales_year = vm.numberWithCommas(response.data.data.sales_year);
       vm.sales_all_time = vm.numberWithCommas(response.data.data.sales_all_time);
+      vm.profit_today = vm.numberWithCommas(response.data.data.profit_today);
+      vm.profit_month = vm.numberWithCommas(response.data.data.profit_month);
+      vm.profit_year = vm.numberWithCommas(response.data.data.profit_year);
+      vm.profit_all_time = vm.numberWithCommas(response.data.data.profit_all_time);
     });
   }
 });
@@ -23958,7 +24147,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.modal.show {\n  background-color: rgba(0, 0, 0, 0.3);\n}\n", ""]);
+exports.push([module.i, "\n.modal.show {\r\n  background-color: rgba(0, 0, 0, 0.3);\n}\r\n", ""]);
 
 // exports
 
@@ -74999,13 +75188,13 @@ var render = function() {
                   _c("h5", { staticClass: "card-category" }, [
                     _vm._v(
                       "\n              " +
-                        _vm._s("Annual Sales") +
+                        _vm._s("Annual Data") +
                         "\n            "
                     )
                   ]),
                   _vm._v(" "),
                   _c("h2", { staticClass: "card-title" }, [
-                    _vm._v(_vm._s("Performance"))
+                    _vm._v(_vm._s("Sales"))
                   ])
                 ]),
                 _vm._v(" "),
@@ -75023,10 +75212,107 @@ var render = function() {
                       staticStyle: { height: "100%" },
                       attrs: {
                         "chart-id": "big-line-chart",
-                        "chart-data": _vm.purpleLineChart.chartData,
-                        "gradient-colors": _vm.purpleLineChart.gradientColors,
-                        "gradient-stops": _vm.purpleLineChart.gradientStops,
-                        "extra-options": _vm.purpleLineChart.extraOptions
+                        "chart-data": _vm.salesLineChart.chartData,
+                        "gradient-colors": _vm.salesLineChart.gradientColors,
+                        "gradient-stops": _vm.salesLineChart.gradientStops,
+                        "extra-options": _vm.salesLineChart.extraOptions
+                      }
+                    })
+                  : _vm._e()
+              ],
+              1
+            )
+          ],
+          2
+        ),
+        _vm._v(" "),
+        _c(
+          "card",
+          { attrs: { type: "chart" } },
+          [
+            _c("template", { slot: "header" }, [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-sm-6" }, [
+                  _c("h5", { staticClass: "card-category" }, [
+                    _vm._v(
+                      "\n              " +
+                        _vm._s("Annual Data") +
+                        "\n            "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("h2", { staticClass: "card-title" }, [
+                    _vm._v(_vm._s("Profit"))
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-sm-6" })
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "chart-area" },
+              [
+                _vm.loaded
+                  ? _c("line-chart", {
+                      ref: "bigChart",
+                      staticStyle: { height: "100%" },
+                      attrs: {
+                        "chart-id": "big-line-chart",
+                        "chart-data": _vm.profitLineChart.chartData,
+                        "gradient-colors": _vm.profitLineChart.gradientColors,
+                        "gradient-stops": _vm.profitLineChart.gradientStops,
+                        "extra-options": _vm.profitLineChart.extraOptions
+                      }
+                    })
+                  : _vm._e()
+              ],
+              1
+            )
+          ],
+          2
+        ),
+        _vm._v(" "),
+        _c(
+          "card",
+          { attrs: { type: "chart" } },
+          [
+            _c("template", { slot: "header" }, [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-sm-6" }, [
+                  _c("h5", { staticClass: "card-category" }, [
+                    _vm._v(
+                      "\n              " +
+                        _vm._s("Monthly Data") +
+                        "\n            "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("h2", { staticClass: "card-title" }, [
+                    _vm._v(_vm._s("Daily Sales"))
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-sm-6" })
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "chart-area" },
+              [
+                _vm.loaded
+                  ? _c("line-chart", {
+                      ref: "bigChart",
+                      staticStyle: { height: "100%" },
+                      attrs: {
+                        "chart-id": "big-line-chart",
+                        "chart-data": _vm.dailySalesLineChart.chartData,
+                        "gradient-colors":
+                          _vm.dailySalesLineChart.gradientColors,
+                        "gradient-stops": _vm.dailySalesLineChart.gradientStops,
+                        "extra-options": _vm.dailySalesLineChart.extraOptions
                       }
                     })
                   : _vm._e()
@@ -75126,10 +75412,138 @@ var render = function() {
           ])
         ])
       ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-lg-3 col-md-6" }, [
+      _c("div", { staticClass: "card card-stats" }, [
+        _c("div", { staticClass: "card-body" }, [
+          _c("div", { staticClass: "row" }, [
+            _vm._m(4),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-7" }, [
+              _c("div", { staticClass: "numbers" }, [
+                _c("p", { staticClass: "card-category" }, [
+                  _vm._v("Profit Today")
+                ]),
+                _vm._v(" "),
+                _c("h3", { staticClass: "card-title" }, [
+                  _vm._v(_vm._s(_vm.profit_today))
+                ])
+              ])
+            ])
+          ])
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-lg-3 col-md-6" }, [
+      _c("div", { staticClass: "card card-stats" }, [
+        _c("div", { staticClass: "card-body" }, [
+          _c("div", { staticClass: "row" }, [
+            _vm._m(5),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-7" }, [
+              _c("div", { staticClass: "numbers" }, [
+                _c("p", { staticClass: "card-category" }, [
+                  _vm._v("Profit This Month")
+                ]),
+                _vm._v(" "),
+                _c("h3", { staticClass: "card-title" }, [
+                  _vm._v(_vm._s(_vm.profit_month))
+                ])
+              ])
+            ])
+          ])
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-lg-3 col-md-6" }, [
+      _c("div", { staticClass: "card card-stats" }, [
+        _c("div", { staticClass: "card-body" }, [
+          _c("div", { staticClass: "row" }, [
+            _vm._m(6),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-7" }, [
+              _c("div", { staticClass: "numbers" }, [
+                _c("p", { staticClass: "card-category" }, [
+                  _vm._v("Profit This Year")
+                ]),
+                _vm._v(" "),
+                _c("h3", { staticClass: "card-title" }, [
+                  _vm._v(_vm._s(_vm.profit_year))
+                ])
+              ])
+            ])
+          ])
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-lg-3 col-md-6" }, [
+      _c("div", { staticClass: "card card-stats" }, [
+        _c("div", { staticClass: "card-body" }, [
+          _c("div", { staticClass: "row" }, [
+            _vm._m(7),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-7" }, [
+              _c("div", { staticClass: "numbers" }, [
+                _c("p", { staticClass: "card-category" }, [
+                  _vm._v("All Time Profit")
+                ]),
+                _vm._v(" "),
+                _c("h3", { staticClass: "card-title" }, [
+                  _vm._v(_vm._s(_vm.profit_all_time))
+                ])
+              ])
+            ])
+          ])
+        ])
+      ])
     ])
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-5" }, [
+      _c("div", { staticClass: "info-icon text-center icon-success" }, [
+        _c("i", { staticClass: "tim-icons icon-money-coins" })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-5" }, [
+      _c("div", { staticClass: "info-icon text-center icon-success" }, [
+        _c("i", { staticClass: "tim-icons icon-money-coins" })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-5" }, [
+      _c("div", { staticClass: "info-icon text-center icon-success" }, [
+        _c("i", { staticClass: "tim-icons icon-money-coins" })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-5" }, [
+      _c("div", { staticClass: "info-icon text-center icon-success" }, [
+        _c("i", { staticClass: "tim-icons icon-money-coins" })
+      ])
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -91885,14 +92299,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!**************************************************!*\
   !*** ./resources/js/components/Charts/config.js ***!
   \**************************************************/
-/*! exports provided: basicOptions, blueChartOptions, purpleChartOptions, orangeChartOptions, greenChartOptions, barChartOptions */
+/*! exports provided: basicOptions, dailySalesChartOptions, profitChartOptions, salesChartOptions, orangeChartOptions, greenChartOptions, barChartOptions */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "basicOptions", function() { return basicOptions; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "blueChartOptions", function() { return blueChartOptions; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "purpleChartOptions", function() { return purpleChartOptions; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "dailySalesChartOptions", function() { return dailySalesChartOptions; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "profitChartOptions", function() { return profitChartOptions; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "salesChartOptions", function() { return salesChartOptions; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "orangeChartOptions", function() { return orangeChartOptions; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "greenChartOptions", function() { return greenChartOptions; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "barChartOptions", function() { return barChartOptions; });
@@ -91909,7 +92324,7 @@ var basicOptions = {
   },
   responsive: true
 };
-var blueChartOptions = _objectSpread({}, basicOptions, {
+var dailySalesChartOptions = _objectSpread({}, basicOptions, {
   tooltips: {
     backgroundColor: '#f5f5f5',
     titleFontColor: '#333',
@@ -91932,24 +92347,72 @@ var blueChartOptions = _objectSpread({}, basicOptions, {
         suggestedMin: 60,
         suggestedMax: 125,
         padding: 20,
-        fontColor: "#2380f7"
+        fontColor: "#9a9a9a",
+        callback: function callback(value) {
+          var a = parseFloat(value);
+          return a.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
       }
     }],
     xAxes: [{
       barPercentage: 1.6,
       gridLines: {
         drawBorder: false,
-        color: 'rgba(29,140,248,0.1)',
+        color: 'rgba(225,78,202,0.1)',
         zeroLineColor: "transparent"
       },
       ticks: {
         padding: 20,
-        fontColor: "#2380f7"
+        fontColor: "#9a9a9a"
       }
     }]
   }
 });
-var purpleChartOptions = _objectSpread({}, basicOptions, {
+var profitChartOptions = _objectSpread({}, basicOptions, {
+  tooltips: {
+    backgroundColor: '#f5f5f5',
+    titleFontColor: '#333',
+    bodyFontColor: '#666',
+    bodySpacing: 4,
+    xPadding: 12,
+    mode: "nearest",
+    intersect: 0,
+    position: "nearest"
+  },
+  scales: {
+    yAxes: [{
+      barPercentage: 1.6,
+      gridLines: {
+        drawBorder: false,
+        color: 'rgba(29,140,248,0.0)',
+        zeroLineColor: "transparent"
+      },
+      ticks: {
+        suggestedMin: 60,
+        suggestedMax: 125,
+        padding: 20,
+        fontColor: "#9a9a9a",
+        callback: function callback(value) {
+          var a = parseFloat(value);
+          return a.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+      }
+    }],
+    xAxes: [{
+      barPercentage: 1.6,
+      gridLines: {
+        drawBorder: false,
+        color: 'rgba(225,78,202,0.1)',
+        zeroLineColor: "transparent"
+      },
+      ticks: {
+        padding: 20,
+        fontColor: "#9a9a9a"
+      }
+    }]
+  }
+});
+var salesChartOptions = _objectSpread({}, basicOptions, {
   tooltips: {
     backgroundColor: '#f5f5f5',
     titleFontColor: '#333',

@@ -2,6 +2,7 @@
 
 namespace App\Models\Product;
 
+use App\Models\Config\OdooModel;
 use Illuminate\Database\Eloquent\Model;
 
 class Template extends Model
@@ -48,4 +49,12 @@ class Template extends Model
     {
         return $this->belongsTo(Company::class,'company_id','external_id');
     }
+
+    public function filters(){
+        $id = OdooModel::where('name',$this->odoo_model_name)->get()['0']->latest_external_id;
+        return array(
+            array('id', '>', $id),
+            '|',array('active', '=', false),array('active', '=', true)
+        );
+    } 
 }

@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Res;
 
-use App\Http\Controllers\Controller;
+use App\Models\Res\OdooUser;
 use Illuminate\Http\Request;
 
 use App\Models\Config\OdooModel;
-use App\Models\Res\OdooUser;
+use App\Http\Controllers\Controller;
+use App\Events\OdooAPI\GetOdooDataEvent;
 use App\Http\Controllers\OdooAPI\OdooController;
+
 class OdooUserController extends Controller
 {
 
@@ -22,20 +24,20 @@ class OdooUserController extends Controller
         $model = new OdooUser;
         $odoo_model_name = $model->odoo_model_name;
         $fields = $model->fields;
-        
+        $filters = $model->filters();
         //Get Latest entry id
         $odoo_model = OdooModel::where('name',$odoo_model_name)->get()['0'];
         $latest_external_id = $odoo_model->latest_external_id;
         $odoo_api = new OdooController;
-        $new_odoo_users = $odoo_api->get_latest($odoo_model_name,$latest_external_id,$fields);
+        $new_odoo_users = $odoo_api->get_latest($odoo_model_name,$latest_external_id,$fields,$filters);
 
         $i = 0;
         $len = count($new_odoo_users);
         if ($len == 0) {
-            dd('no new users found...');
+            return('no new users found...');
         }
         foreach ($new_odoo_users as $user) {
-            // dd($user);
+            // return($user);
             $odoo_user = new OdooUser;
             $odoo_user->external_id = $user['id'];
             $odoo_user->name = $user['name'];
@@ -48,11 +50,12 @@ class OdooUserController extends Controller
             $odoo_model->save();
             if ($i == $len - 1) {
                 
-                dd('save complete');
+                
             }
             // …
             $i++;
         }
+        return('save odoo users complete');
         
     }
 
@@ -63,6 +66,8 @@ class OdooUserController extends Controller
      */
     public function index()
     {
+        event(new GetOdooDataEvent());
+
         $model = new OdooUser;
         $blade_data = $model->blade_data;
         // dd($blade_data);

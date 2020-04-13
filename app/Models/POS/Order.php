@@ -2,11 +2,13 @@
 
 namespace App\Models\POS;
 
+use App\Models\Res\Company;
+
+use App\Models\Res\Partner;
+use App\Models\Res\OdooUser;
+use App\Models\Config\OdooModel;
 use Illuminate\Database\Eloquent\Model;
 
-use App\Models\Res\Company;
-use App\Models\Res\OdooUser;
-use App\Models\Res\Partner;
 class Order extends Model
 {
     
@@ -105,5 +107,12 @@ class Order extends Model
     {
         return $this->belongsTo(Partner::class,'partner_id','external_id');
     }
+
+    public function filters(){
+        $id = OdooModel::where('name',$this->odoo_model_name)->get()['0']->latest_external_id;
+        return array(
+            array('id', '>', $id),
+        );
+    } 
 
 }
