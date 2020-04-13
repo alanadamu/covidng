@@ -95,7 +95,8 @@
           @include('layouts.page_templates.guest')
         @endif
 
-        
+        <!-- Scripts -->
+        <script src="{{ asset('js/app.js') }}" defer></script>
         <!--   Core JS Files   -->
         <script src="{{ asset('black') }}/js/core/jquery.min.js"></script>
         <script src="{{ asset('black') }}/js/core/popper.min.js"></script>

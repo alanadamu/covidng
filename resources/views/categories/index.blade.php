@@ -17,7 +17,7 @@
                     </div>
                   </div>
                 @endcan
-                <div class="table-responsive">
+                <div class="table">
                   <table id="datatables" class="table table-striped table-no-bordered table-hover datatable-primary" style="display:none">
                     <thead class="text-primary">
                       <th>

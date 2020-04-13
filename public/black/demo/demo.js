@@ -1,8 +1,8 @@
 type = ['', 'info', 'success', 'warning', 'danger'];
 
 demo = {
-  initPickColor: function() {
-    $('.pick-class-label').click(function() {
+  initPickColor: function () {
+    $('.pick-class-label').click(function () {
       var new_class = $(this).attr('new-class');
       var old_class = $('#display-buttons').attr('data-class');
       var display_div = $('#display-buttons');
@@ -15,7 +15,7 @@ demo = {
     });
   },
 
-  checkFullPageBackgroundImage: function() {
+  checkFullPageBackgroundImage: function () {
     $page = $('.full-page');
     image_src = $page.data('image');
 
@@ -25,7 +25,7 @@ demo = {
     }
   },
 
-  initFullCalendar: function() {
+  initFullCalendar: function () {
     $calendar = $('#fullCalendar');
 
     today = new Date();
@@ -34,7 +34,7 @@ demo = {
     d = today.getDate();
 
     $calendar.fullCalendar({
-      viewRender: function(view, element) {
+      viewRender: function (view, element) {
         // We make sure that we activate the perfect scrollbar when the view isn't on Month
         if (view.name != 'month') {
           $(element).find('.fc-scroller').perfectScrollbar();
@@ -61,7 +61,7 @@ demo = {
         }
       },
 
-      select: function(start, end) {
+      select: function (start, end) {
 
         // on select we show the Sweet Alert modal with an input
         swal({
@@ -74,7 +74,7 @@ demo = {
           confirmButtonClass: 'btn btn-success',
           cancelButtonClass: 'btn btn-danger',
           buttonsStyling: false
-        }).then(function(result) {
+        }).then(function (result) {
 
           var eventData;
           event_title = $('#input-field').val();
@@ -98,55 +98,55 @@ demo = {
 
       // color classes: [ event-blue | event-azure | event-green | event-orange | event-red ]
       events: [{
-          title: 'All Day Event',
-          start: new Date(y, m, 1),
-          className: 'event-default'
-        },
-        {
-          title: 'Meeting',
-          start: new Date(y, m, d - 1, 10, 30),
-          allDay: false,
-          className: 'event-green'
-        },
-        {
-          title: 'Lunch',
-          start: new Date(y, m, d + 7, 12, 0),
-          end: new Date(y, m, d + 7, 14, 0),
-          allDay: false,
-          className: 'event-red'
-        },
-        {
-          title: 'BD-pro Launch',
-          start: new Date(y, m, d - 2, 12, 0),
-          allDay: true,
-          className: 'event-azure'
-        },
-        {
-          title: 'Birthday Party',
-          start: new Date(y, m, d + 1, 19, 0),
-          end: new Date(y, m, d + 1, 22, 30),
-          allDay: false,
-          className: 'event-azure'
-        },
-        {
-          title: 'Click for Creative Tim',
-          start: new Date(y, m, 21),
-          end: new Date(y, m, 22),
-          url: 'http://www.creative-tim.com/',
-          className: 'event-orange'
-        },
-        {
-          title: 'Click for Google',
-          start: new Date(y, m, 21),
-          end: new Date(y, m, 22),
-          url: 'http://www.creative-tim.com/',
-          className: 'event-orange'
-        }
+        title: 'All Day Event',
+        start: new Date(y, m, 1),
+        className: 'event-default'
+      },
+      {
+        title: 'Meeting',
+        start: new Date(y, m, d - 1, 10, 30),
+        allDay: false,
+        className: 'event-green'
+      },
+      {
+        title: 'Lunch',
+        start: new Date(y, m, d + 7, 12, 0),
+        end: new Date(y, m, d + 7, 14, 0),
+        allDay: false,
+        className: 'event-red'
+      },
+      {
+        title: 'BD-pro Launch',
+        start: new Date(y, m, d - 2, 12, 0),
+        allDay: true,
+        className: 'event-azure'
+      },
+      {
+        title: 'Birthday Party',
+        start: new Date(y, m, d + 1, 19, 0),
+        end: new Date(y, m, d + 1, 22, 30),
+        allDay: false,
+        className: 'event-azure'
+      },
+      {
+        title: 'Click for Creative Tim',
+        start: new Date(y, m, 21),
+        end: new Date(y, m, 22),
+        url: 'http://www.creative-tim.com/',
+        className: 'event-orange'
+      },
+      {
+        title: 'Click for Google',
+        start: new Date(y, m, 21),
+        end: new Date(y, m, 22),
+        url: 'http://www.creative-tim.com/',
+        className: 'event-orange'
+      }
       ]
     });
   },
 
-  initDocChart: function() {
+  initDocChart: function () {
     chartColor = "#FFFFFF";
 
     // General configuration for the charts with Line gradientStroke
@@ -234,7 +234,7 @@ demo = {
     });
   },
 
-  initChartPageCharts: function() {
+  initChartPageCharts: function () {
 
     gradientChartOptionsConfigurationPurple = {
       maintainAspectRatio: false,
@@ -538,27 +538,27 @@ demo = {
       data: {
         labels: ['JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
         datasets: [{
-            label: "Data",
-            fill: true,
-            backgroundColor: '#ff8a76',
-            hoverBackgroundColor: ' #ff8a76',
-            borderColor: '#ff8a76',
-            borderWidth: 2,
-            borderDash: [],
-            borderDashOffset: 0.0,
-            data: [80, 100, 70, 80, 120, 80],
-          },
-          {
-            label: "Data",
-            fill: true,
-            backgroundColor: '#2782f0',
-            hoverBackgroundColor: ' #2782f0',
-            borderColor: '#2782f0',
-            borderWidth: 2,
-            borderDash: [],
-            borderDashOffset: 0.0,
-            data: [60, 110, 90, 70, 90, 100],
-          }
+          label: "Data",
+          fill: true,
+          backgroundColor: '#ff8a76',
+          hoverBackgroundColor: ' #ff8a76',
+          borderColor: '#ff8a76',
+          borderWidth: 2,
+          borderDash: [],
+          borderDashOffset: 0.0,
+          data: [80, 100, 70, 80, 120, 80],
+        },
+        {
+          label: "Data",
+          fill: true,
+          backgroundColor: '#2782f0',
+          hoverBackgroundColor: ' #2782f0',
+          borderColor: '#2782f0',
+          borderWidth: 2,
+          borderDash: [],
+          borderDashOffset: 0.0,
+          data: [60, 110, 90, 70, 90, 100],
+        }
         ]
       },
       options: gradientBarChartConfiguration
@@ -694,7 +694,7 @@ demo = {
     });
   },
 
-  initDashboardPageCharts: function() {
+  initDashboardPageCharts: function () {
 
     gradientChartOptionsConfigurationWithTooltipBlue = {
       maintainAspectRatio: false,
@@ -1047,13 +1047,13 @@ demo = {
       options: gradientChartOptionsConfigurationWithTooltipPurple
     };
     var myChartData = new Chart(ctx, config);
-    $("#0").click(function() {
+    $("#0").click(function () {
       var data = myChartData.config.data;
       data.datasets[0].data = chart_data;
       data.labels = chart_labels;
       myChartData.update();
     });
-    $("#1").click(function() {
+    $("#1").click(function () {
       var chart_data = [80, 120, 105, 110, 95, 105, 90, 100, 80, 95, 70, 120];
       var data = myChartData.config.data;
       data.datasets[0].data = chart_data;
@@ -1061,7 +1061,7 @@ demo = {
       myChartData.update();
     });
 
-    $("#2").click(function() {
+    $("#2").click(function () {
       var chart_data = [60, 80, 65, 130, 80, 105, 90, 130, 70, 115, 60, 130];
       var data = myChartData.config.data;
       data.datasets[0].data = chart_data;
@@ -1105,7 +1105,7 @@ demo = {
   },
 
 
-  showSwal: function(type) {
+  showSwal: function (type) {
     if (type == 'basic') {
       swal({
         title: "Here's a message!",
@@ -1140,7 +1140,7 @@ demo = {
         cancelButtonClass: 'btn btn-danger',
         confirmButtonText: 'Yes, delete it!',
         buttonsStyling: false
-      }).then(function() {
+      }).then(function () {
         swal({
           title: 'Deleted!',
           text: 'Your file has been deleted.',
@@ -1160,7 +1160,7 @@ demo = {
         confirmButtonClass: "btn btn-success",
         cancelButtonClass: "btn btn-danger",
         buttonsStyling: false
-      }).then(function() {
+      }).then(function () {
         swal({
           title: 'Deleted!',
           text: 'Your imaginary file has been deleted.',
@@ -1168,7 +1168,7 @@ demo = {
           confirmButtonClass: "btn btn-success",
           buttonsStyling: false
         }).catch(swal.noop);
-      }, function(dismiss) {
+      }, function (dismiss) {
         // dismiss can be 'overlay', 'cancel', 'close', 'esc', 'timer'
         if (dismiss === 'cancel') {
           swal({
@@ -1208,7 +1208,7 @@ demo = {
         confirmButtonClass: 'btn btn-success',
         cancelButtonClass: 'btn btn-danger',
         buttonsStyling: false
-      }).then(function(result) {
+      }).then(function (result) {
         swal({
           type: 'success',
           html: 'You entered: <strong>' +
@@ -1222,7 +1222,7 @@ demo = {
     }
   },
 
-  initNowUiWizard: function() {
+  initNowUiWizard: function () {
     // Code for the Validator
     var $validator = $('.card-wizard form').validate({
       rules: {
@@ -1244,10 +1244,10 @@ demo = {
         }
 
       },
-      highlight: function(element) {
+      highlight: function (element) {
         $(element).closest('.input-group').removeClass('has-success').addClass('has-danger');
       },
-      success: function(element) {
+      success: function (element) {
         $(element).closest('.input-group').removeClass('has-danger').addClass('has-success');
       }
     });
@@ -1258,7 +1258,7 @@ demo = {
       'nextSelector': '.btn-next',
       'previousSelector': '.btn-previous',
 
-      onNext: function(tab, navigation, index) {
+      onNext: function (tab, navigation, index) {
         var $valid = $('.card-wizard form').valid();
         if (!$valid) {
           $validator.focusInvalid();
@@ -1266,7 +1266,7 @@ demo = {
         }
       },
 
-      onInit: function(tab, navigation, index) {
+      onInit: function (tab, navigation, index) {
         //check number of tabs and fill the entire row
         var $total = navigation.find('li').length;
         $width = 100 / $total;
@@ -1275,7 +1275,7 @@ demo = {
 
       },
 
-      onTabClick: function(tab, navigation, index) {
+      onTabClick: function (tab, navigation, index) {
         var $valid = $('.card-wizard form').valid();
 
         if (!$valid) {
@@ -1285,7 +1285,7 @@ demo = {
         }
       },
 
-      onTabShow: function(tab, navigation, index) {
+      onTabShow: function (tab, navigation, index) {
         var $total = navigation.find('li').length;
         var $current = index + 1;
 
@@ -1316,11 +1316,11 @@ demo = {
 
 
     // Prepare the preview for profile picture
-    $("#wizard-picture").change(function() {
+    $("#wizard-picture").change(function () {
       readURL(this);
     });
 
-    $('[data-toggle="wizard-radio"]').click(function() {
+    $('[data-toggle="wizard-radio"]').click(function () {
       wizard = $(this).closest('.card-wizard');
       wizard.find('[data-toggle="wizard-radio"]').removeClass('active');
       $(this).addClass('active');
@@ -1328,7 +1328,7 @@ demo = {
       $(this).find('[type="radio"]').attr('checked', 'true');
     });
 
-    $('[data-toggle="wizard-checkbox"]').click(function() {
+    $('[data-toggle="wizard-checkbox"]').click(function () {
       if ($(this).hasClass('active')) {
         $(this).removeClass('active');
         $(this).find('[type="checkbox"]').removeAttr('checked');
@@ -1346,7 +1346,7 @@ demo = {
       if (input.files && input.files[0]) {
         var reader = new FileReader();
 
-        reader.onload = function(e) {
+        reader.onload = function (e) {
           $('#wizardPicturePreview').attr('src', e.target.result).fadeIn('slow');
         }
         reader.readAsDataURL(input.files[0]);
@@ -1355,7 +1355,7 @@ demo = {
 
   },
 
-  initSliders: function() {
+  initSliders: function () {
     // Sliders for demo purpose in refine cards section
     var slider = document.getElementById('sliderRegular');
 
@@ -1380,7 +1380,7 @@ demo = {
     });
   },
 
-  initVectorMap: function() {
+  initVectorMap: function () {
     var mapData = {
       "AU": 760,
       "BR": 550,
@@ -1420,198 +1420,198 @@ demo = {
   },
 
 
-  initGoogleMaps: function() {
+  initGoogleMaps: function () {
     var myLatlng = new google.maps.LatLng(40.748817, -73.985428);
     var mapOptions = {
       zoom: 13,
       center: myLatlng,
       scrollwheel: false, //we disable de scroll over the map, it is a really annoing when you scroll through page
       styles: [{
-          "elementType": "geometry",
-          "stylers": [{
-            "color": "#1d2c4d"
-          }]
-        },
-        {
-          "elementType": "labels.text.fill",
-          "stylers": [{
-            "color": "#8ec3b9"
-          }]
-        },
-        {
-          "elementType": "labels.text.stroke",
-          "stylers": [{
-            "color": "#1a3646"
-          }]
-        },
-        {
-          "featureType": "administrative.country",
-          "elementType": "geometry.stroke",
-          "stylers": [{
-            "color": "#4b6878"
-          }]
-        },
-        {
-          "featureType": "administrative.land_parcel",
-          "elementType": "labels.text.fill",
-          "stylers": [{
-            "color": "#64779e"
-          }]
-        },
-        {
-          "featureType": "administrative.province",
-          "elementType": "geometry.stroke",
-          "stylers": [{
-            "color": "#4b6878"
-          }]
-        },
-        {
-          "featureType": "landscape.man_made",
-          "elementType": "geometry.stroke",
-          "stylers": [{
-            "color": "#334e87"
-          }]
-        },
-        {
-          "featureType": "landscape.natural",
-          "elementType": "geometry",
-          "stylers": [{
-            "color": "#023e58"
-          }]
-        },
-        {
-          "featureType": "poi",
-          "elementType": "geometry",
-          "stylers": [{
-            "color": "#283d6a"
-          }]
-        },
-        {
-          "featureType": "poi",
-          "elementType": "labels.text.fill",
-          "stylers": [{
-            "color": "#6f9ba5"
-          }]
-        },
-        {
-          "featureType": "poi",
-          "elementType": "labels.text.stroke",
-          "stylers": [{
-            "color": "#1d2c4d"
-          }]
-        },
-        {
-          "featureType": "poi.park",
-          "elementType": "geometry.fill",
-          "stylers": [{
-            "color": "#023e58"
-          }]
-        },
-        {
-          "featureType": "poi.park",
-          "elementType": "labels.text.fill",
-          "stylers": [{
-            "color": "#3C7680"
-          }]
-        },
-        {
-          "featureType": "road",
-          "elementType": "geometry",
-          "stylers": [{
-            "color": "#304a7d"
-          }]
-        },
-        {
-          "featureType": "road",
-          "elementType": "labels.text.fill",
-          "stylers": [{
-            "color": "#98a5be"
-          }]
-        },
-        {
-          "featureType": "road",
-          "elementType": "labels.text.stroke",
-          "stylers": [{
-            "color": "#1d2c4d"
-          }]
-        },
-        {
-          "featureType": "road.highway",
-          "elementType": "geometry",
-          "stylers": [{
-            "color": "#2c6675"
-          }]
-        },
-        {
-          "featureType": "road.highway",
-          "elementType": "geometry.fill",
-          "stylers": [{
-            "color": "#9d2a80"
-          }]
-        },
-        {
-          "featureType": "road.highway",
-          "elementType": "geometry.stroke",
-          "stylers": [{
-            "color": "#9d2a80"
-          }]
-        },
-        {
-          "featureType": "road.highway",
-          "elementType": "labels.text.fill",
-          "stylers": [{
-            "color": "#b0d5ce"
-          }]
-        },
-        {
-          "featureType": "road.highway",
-          "elementType": "labels.text.stroke",
-          "stylers": [{
-            "color": "#023e58"
-          }]
-        },
-        {
-          "featureType": "transit",
-          "elementType": "labels.text.fill",
-          "stylers": [{
-            "color": "#98a5be"
-          }]
-        },
-        {
-          "featureType": "transit",
-          "elementType": "labels.text.stroke",
-          "stylers": [{
-            "color": "#1d2c4d"
-          }]
-        },
-        {
-          "featureType": "transit.line",
-          "elementType": "geometry.fill",
-          "stylers": [{
-            "color": "#283d6a"
-          }]
-        },
-        {
-          "featureType": "transit.station",
-          "elementType": "geometry",
-          "stylers": [{
-            "color": "#3a4762"
-          }]
-        },
-        {
-          "featureType": "water",
-          "elementType": "geometry",
-          "stylers": [{
-            "color": "#0e1626"
-          }]
-        },
-        {
-          "featureType": "water",
-          "elementType": "labels.text.fill",
-          "stylers": [{
-            "color": "#4e6d70"
-          }]
-        }
+        "elementType": "geometry",
+        "stylers": [{
+          "color": "#1d2c4d"
+        }]
+      },
+      {
+        "elementType": "labels.text.fill",
+        "stylers": [{
+          "color": "#8ec3b9"
+        }]
+      },
+      {
+        "elementType": "labels.text.stroke",
+        "stylers": [{
+          "color": "#1a3646"
+        }]
+      },
+      {
+        "featureType": "administrative.country",
+        "elementType": "geometry.stroke",
+        "stylers": [{
+          "color": "#4b6878"
+        }]
+      },
+      {
+        "featureType": "administrative.land_parcel",
+        "elementType": "labels.text.fill",
+        "stylers": [{
+          "color": "#64779e"
+        }]
+      },
+      {
+        "featureType": "administrative.province",
+        "elementType": "geometry.stroke",
+        "stylers": [{
+          "color": "#4b6878"
+        }]
+      },
+      {
+        "featureType": "landscape.man_made",
+        "elementType": "geometry.stroke",
+        "stylers": [{
+          "color": "#334e87"
+        }]
+      },
+      {
+        "featureType": "landscape.natural",
+        "elementType": "geometry",
+        "stylers": [{
+          "color": "#023e58"
+        }]
+      },
+      {
+        "featureType": "poi",
+        "elementType": "geometry",
+        "stylers": [{
+          "color": "#283d6a"
+        }]
+      },
+      {
+        "featureType": "poi",
+        "elementType": "labels.text.fill",
+        "stylers": [{
+          "color": "#6f9ba5"
+        }]
+      },
+      {
+        "featureType": "poi",
+        "elementType": "labels.text.stroke",
+        "stylers": [{
+          "color": "#1d2c4d"
+        }]
+      },
+      {
+        "featureType": "poi.park",
+        "elementType": "geometry.fill",
+        "stylers": [{
+          "color": "#023e58"
+        }]
+      },
+      {
+        "featureType": "poi.park",
+        "elementType": "labels.text.fill",
+        "stylers": [{
+          "color": "#3C7680"
+        }]
+      },
+      {
+        "featureType": "road",
+        "elementType": "geometry",
+        "stylers": [{
+          "color": "#304a7d"
+        }]
+      },
+      {
+        "featureType": "road",
+        "elementType": "labels.text.fill",
+        "stylers": [{
+          "color": "#98a5be"
+        }]
+      },
+      {
+        "featureType": "road",
+        "elementType": "labels.text.stroke",
+        "stylers": [{
+          "color": "#1d2c4d"
+        }]
+      },
+      {
+        "featureType": "road.highway",
+        "elementType": "geometry",
+        "stylers": [{
+          "color": "#2c6675"
+        }]
+      },
+      {
+        "featureType": "road.highway",
+        "elementType": "geometry.fill",
+        "stylers": [{
+          "color": "#9d2a80"
+        }]
+      },
+      {
+        "featureType": "road.highway",
+        "elementType": "geometry.stroke",
+        "stylers": [{
+          "color": "#9d2a80"
+        }]
+      },
+      {
+        "featureType": "road.highway",
+        "elementType": "labels.text.fill",
+        "stylers": [{
+          "color": "#b0d5ce"
+        }]
+      },
+      {
+        "featureType": "road.highway",
+        "elementType": "labels.text.stroke",
+        "stylers": [{
+          "color": "#023e58"
+        }]
+      },
+      {
+        "featureType": "transit",
+        "elementType": "labels.text.fill",
+        "stylers": [{
+          "color": "#98a5be"
+        }]
+      },
+      {
+        "featureType": "transit",
+        "elementType": "labels.text.stroke",
+        "stylers": [{
+          "color": "#1d2c4d"
+        }]
+      },
+      {
+        "featureType": "transit.line",
+        "elementType": "geometry.fill",
+        "stylers": [{
+          "color": "#283d6a"
+        }]
+      },
+      {
+        "featureType": "transit.station",
+        "elementType": "geometry",
+        "stylers": [{
+          "color": "#3a4762"
+        }]
+      },
+      {
+        "featureType": "water",
+        "elementType": "geometry",
+        "stylers": [{
+          "color": "#0e1626"
+        }]
+      },
+      {
+        "featureType": "water",
+        "elementType": "labels.text.fill",
+        "stylers": [{
+          "color": "#4e6d70"
+        }]
+      }
       ]
     };
 
@@ -1626,7 +1626,7 @@ demo = {
     marker.setMap(map);
   },
 
-  initSmallGoogleMaps: function() {
+  initSmallGoogleMaps: function () {
 
     // Regular Map
     var myLatlng = new google.maps.LatLng(40.748817, -73.985428);
@@ -1775,7 +1775,7 @@ demo = {
 
   },
 
-  showNotification: function(from, align) {
+  showNotification: function (from, align) {
     color = Math.floor((Math.random() * 4) + 1);
 
     $.notify({
