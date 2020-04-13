@@ -22,20 +22,20 @@ class ProductCategoryController extends Controller
         $model = new ProductCategory;
         $odoo_model_name = $model->odoo_model_name;
         $fields = $model->fields;
-        
+        $filters = $model->filters();
         //Get Latest entry id
         $odoo_model = OdooModel::where('name',$odoo_model_name)->get()['0'];
         $latest_external_id = $odoo_model->latest_external_id;
         $odoo_api = new OdooController;
-        $new_odoo_product_categories = $odoo_api->get_latest($odoo_model_name,$latest_external_id,$fields);
+        $new_odoo_product_categories = $odoo_api->get_latest($odoo_model_name,$latest_external_id,$fields,$filters);
 
         $i = 0;
         $len = count($new_odoo_product_categories);
         if ($len == 0) {
-            dd('no new product categories found...');
+            return('no new product categories found...');
         }
         foreach ($new_odoo_product_categories as $odoo_product_category) {
-            // dd($odoo_order);
+            // return($odoo_order);
             $product_category = new ProductCategory;
             $product_category->external_id = $odoo_product_category['id'];
             $product_category->name = $odoo_product_category['name'];
@@ -46,11 +46,12 @@ class ProductCategoryController extends Controller
 
             if ($i == $len - 1) {
                 
-                dd('save complete');
+                
             }
             // …
             $i++;
         }
+        return('save product categories complete');
         
     }
     

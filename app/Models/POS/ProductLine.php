@@ -2,10 +2,11 @@
 
 namespace App\Models\POS;
 
-use Illuminate\Database\Eloquent\Model;
-use App\Models\Product\Product;
-use App\Models\Res\Company;
 use App\Models\POS\Order;
+use App\Models\Res\Company;
+use App\Models\Product\Product;
+use App\Models\Config\OdooModel;
+use Illuminate\Database\Eloquent\Model;
 
 class ProductLine extends Model
 {
@@ -16,6 +17,7 @@ class ProductLine extends Model
         'external_id',
         'company_id',
         'product_id',
+        'create_date',
         'order_id',
         'price_unit',
         'qty',
@@ -29,6 +31,11 @@ class ProductLine extends Model
         'menuParent' => 'pos', 
         'titlePage' => 'Product Lines',
         'indexData' => array(
+                            array(
+                                'key' => 'create_date',
+                                'label' => 'Date',
+                                'has_relationship' => false,
+                            ),
                             array(
                                 'key' => 'product_id',
                                 'label' => 'Product',
@@ -51,8 +58,23 @@ class ProductLine extends Model
                                 'relationship_target' => 'name'
                             ),
                             array(
+                                'key' => 'price_unit',
+                                'label' => 'Sale Price',
+                                'has_relationship' => false,
+                            ),
+                            array(
+                                'key' => 'cost_price',
+                                'label' => 'Cost Price',
+                                'has_relationship' => false,
+                            ),
+                            array(
                                 'key' => 'qty',
                                 'label' => 'Quantity',
+                                'has_relationship' => false,
+                            ),
+                            array(
+                                'key' => 'profit',
+                                'label' => 'Profit',
                                 'has_relationship' => false,
                             ),
                             array(
@@ -85,6 +107,7 @@ class ProductLine extends Model
         'company_id',
         'product_id',
         'order_id',
+        'create_date',
         'price_unit',
         'qty',
         'price_subtotal',
@@ -121,4 +144,11 @@ class ProductLine extends Model
     {
         return $this->belongsTo(Order::class,'order_id','external_id');
     }
+
+    public function filters(){
+        $id = OdooModel::where('name',$this->odoo_model_name)->get()['0']->latest_external_id;
+        return array(
+            array('id', '>', $id),
+        );
+    } 
 }

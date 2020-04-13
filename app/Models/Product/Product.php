@@ -2,10 +2,11 @@
 
 namespace App\Models\Product;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Models\Res\Company;
-use App\Models\Product\ProductCategory;
+use App\Models\Config\OdooModel;
 use App\Models\Product\Template;
+use App\Models\Product\ProductCategory;
+use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
@@ -112,4 +113,12 @@ class Product extends Model
     {
         return $this->belongsTo(Company::class,'company_id','external_id');
     }
+
+    public function filters(){
+        $id = OdooModel::where('name',$this->odoo_model_name)->get()['0']->latest_external_id;
+        return array(
+            array('id', '>', $id),
+            '|',array('active', '=', false),array('active', '=', true)
+        );
+    } 
 }

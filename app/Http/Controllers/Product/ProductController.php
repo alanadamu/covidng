@@ -18,24 +18,26 @@ class ProductController extends Controller
      */
     public function update_db()
     {
+        set_time_limit(60000);
+
         //Get odoo model
         $model = new Product;
         $odoo_model_name = $model->odoo_model_name;
         $fields = $model->fields;
-        
+        $filters = $model->filters();
         //Get Latest entry id
         $odoo_model = OdooModel::where('name',$odoo_model_name)->get()['0'];
         $latest_external_id = $odoo_model->latest_external_id;
         $odoo_api = new OdooController;
-        $new_odoo_products = $odoo_api->get_latest($odoo_model_name,$latest_external_id,$fields);
+        $new_odoo_products = $odoo_api->get_latest($odoo_model_name,$latest_external_id,$fields,$filters);
 
         $i = 0;
         $len = count($new_odoo_products);
         if ($len == 0) {
-            dd('no new products found...');
+            return('no new products found...');
         }
         foreach ($new_odoo_products as $odoo_product) {
-            // dd($odoo_order);
+            // return($odoo_order);
             $product = new Product;
             $product->external_id = $odoo_product['id'];
             $product->company_id = $odoo_product['company_id']['0'];
@@ -51,11 +53,12 @@ class ProductController extends Controller
 
             if ($i == $len - 1) {
                 
-                dd('save complete');
+                
             }
             // …
             $i++;
         }
+        return('save products complete');
         
     }
     

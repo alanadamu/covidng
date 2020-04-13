@@ -18,24 +18,25 @@ class MoveController extends Controller
      */
     public function update_db()
     {
+        set_time_limit(60000);
         //Get odoo model
         $model = new Move;
         $odoo_model_name = $model->odoo_model_name;
         $fields = $model->fields;
-        
+        $filters = $model->filters();
         //Get Latest entry id
         $odoo_model = OdooModel::where('name',$odoo_model_name)->get()['0'];
         $latest_external_id = $odoo_model->latest_external_id;
         $odoo_api = new OdooController;
-        $new_odoo_product_moves = $odoo_api->get_latest($odoo_model_name,$latest_external_id,$fields);
-
+        $new_odoo_product_moves = $odoo_api->get_latest($odoo_model_name,$latest_external_id,$fields,$filters);
+        
         $i = 0;
         $len = count($new_odoo_product_moves);
         if ($len == 0) {
-            dd('no new product moves found...');
+            return('no new product moves found...');
         }
         foreach ($new_odoo_product_moves as $odoo_product_move) {
-            // dd($odoo_order);
+            // return($odoo_order);
             $product_move = new Move;
             $product_move->external_id = $odoo_product_move['id'];
             $product_move->company_id = $odoo_product_move['company_id']['0'];
@@ -50,11 +51,13 @@ class MoveController extends Controller
 
             if ($i == $len - 1) {
                 
-                dd('save complete');
+                
             }
             // …
             $i++;
         }
+
+        return('save product moves complete');
         
     }
     
