@@ -1,22 +1,10 @@
-/*
-    Defines the API route we are using.
-*/
-
-var api_url = '';
-var url = '';
-
-switch (process.env.NODE_ENV) {
-    case 'development':
-        api_url = 'http://127.0.0.1:8000/api/v1';
-        url = 'http://127.0.0.1:8000';
-        break;
-    case 'production':
-        api_url = '';
-        url = '';
-        break;
+export default {
+  colors: {
+    default: "#344675",
+    primary: "#42b883",
+    info: "#1d8cf8",
+    danger: "#fd5d93",
+    teal: "#00d6b4",
+    primaryGradient: ['rgba(76, 211, 150, 0.1)', 'rgba(53, 183, 125, 0)', 'rgba(119,52,169,0)'],
+  }
 }
-
-export const CONFIG = {
-    API_URL: api_url,
-    URL: url
-};
