@@ -15,7 +15,8 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
         "nesbot/carbon": "^2.32",
-        "phpxmlrpc/phpxmlrpc": "4"
+        "phpxmlrpc/phpxmlrpc": "4",
+        "snapappointments/bootstrap-select": "^1.13"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

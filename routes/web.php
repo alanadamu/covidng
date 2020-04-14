@@ -27,6 +27,20 @@ Route::get('pricing', 'ExamplePagesController@pricing')->name('page.pricing');
 Route::get('lock', 'ExamplePagesController@lock')->name('page.lock');
 
 Route::group(['middleware' => 'auth'], function () {
+  //Journal Routes
+		//Account Type Category Routes
+    Route::resource('journal_account_type_category', 'Journal\AccountTypeCategoryController');
+		//Account Type Routes
+			Route::resource('journal_account_type', 'Journal\AccountTypeController');
+		//Journal Routes
+			//Show Account Routes
+			Route::get('/journal/show_account/{id}', 'Journal\JournalController@show_account')->name('journal.show_account');
+			//Balance Sheet Routes
+			Route::get('journal/balance_sheet/', 'Journal\JournalController@balance_sheet')->name('journal.balance_sheet');
+			Route::resource('journal', 'Journal\JournalController');
+			
+		//Journal Account Routes
+			Route::resource('journal_account', 'Journal\AccountController');
 
     //Account Routes
       //Payment Routes

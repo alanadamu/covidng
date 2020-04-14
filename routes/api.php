@@ -22,5 +22,15 @@ Route::group(['prefix' => 'v1'], function() {
 		//APayment Voucher Request Routes		
         Route::get('xxx', 'HomeController@stats');
 
-	
+	//Journal Routes
+		//Account Type Category Routes
+		Route::resource('journal_account_type_category', 'API\Journal\AccountTypeCategoryController');
+		//Account Type Routes
+		Route::resource('journal_account_type', 'API\Journal\AccountTypeController');
+		//Journal Routes
+		Route::resource('journal', 'API\Journal\JournalController');
+			//Balance Sheet Routes
+			Route::get('journal/balance_sheet/', 'API\Journal\JournalController@balance_sheet');
+		//Journal Account Routes
+		Route::resource('journal_account', 'API\Journal\AccountController');
 });
