@@ -3,6 +3,7 @@
 namespace App\Models\Res;
 
 use App\Models\Res\Company;
+use App\Models\Journal\Account;
 use App\Models\Config\OdooModel;
 use Illuminate\Database\Eloquent\Model;
 
@@ -34,6 +35,13 @@ class Partner extends Model
                                 'relationship_name' => 'company',
                                 'relationship_target' => 'name'
                             ),
+                            array(
+                                'key' => 'journal_account_id',
+                                'label' => 'Customer Account',
+                                'has_relationship' => true,
+                                'relationship_name' => 'journal_account',
+                                'relationship_target' => 'name'
+                            ),
                             
                         )
     );
@@ -59,6 +67,16 @@ class Partner extends Model
     public function company()
     {
         return $this->belongsTo(Company::class,'company_id','external_id');
+    }
+
+    /**
+     * Get the category of the item
+     *
+     * @return \App\Models\Journal\Account;
+     */
+    public function journal_account()
+    {
+        return $this->belongsTo(Account::class,'journal_account_id');
     }
 
     public function filters(){
