@@ -65,7 +65,7 @@ class TemplateController extends Controller
     public function index()
     {
         $model = new Template;
-        $blade_data = $model->blade_data;
+        $blade_data = $model->blade_data();
         // dd($blade_data);
 
         foreach ($blade_data['indexData'] as $data) {

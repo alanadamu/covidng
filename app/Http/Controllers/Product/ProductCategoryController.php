@@ -63,7 +63,7 @@ class ProductCategoryController extends Controller
     public function index()
     {
         $model = new ProductCategory;
-        $blade_data = $model->blade_data;
+        $blade_data = $model->blade_data();
         // dd($blade_data);
 
         foreach ($blade_data['indexData'] as $data) {

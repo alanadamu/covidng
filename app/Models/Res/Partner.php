@@ -17,37 +17,39 @@ class Partner extends Model
         'company_id'
     );
 
-
-    public $blade_data = array(
-        'activePage' => 'res-partner',
-        'menuParent' => 'res', 
-        'titlePage' => 'Partners',
-        'indexData' => array(
-                            array(
-                                'key' => 'name',
-                                'label' => 'Name',
-                                'has_relationship' => false,
-                            ),
-                            array(
-                                'key' => 'company_id',
-                                'label' => 'Company',
-                                'has_relationship' => true,
-                                'relationship_name' => 'company',
-                                'relationship_target' => 'name'
-                            ),
-                            array(
-                                'key' => 'journal_account_id',
-                                'label' => 'Customer Account',
-                                'has_relationship' => true,
-                                'relationship_name' => 'journal_account',
-                                'relationship_target' => 'name'
-                            ),
-                            
-                        )
-    );
+    public function blade_data(){
+        return array(
+            'activePage' => 'res-partner',
+            'menuParent' => 'res', 
+            'titlePage' => 'Partners',            
+            'createLabel' => 'Add Partner',
+            'indexData' => array(
+                                array(
+                                    'key' => 'name',
+                                    'label' => 'Name',
+                                    'has_relationship' => false,
+                                ),
+                                array(
+                                    'key' => 'company_id',
+                                    'label' => 'Company',
+                                    'has_relationship' => true,
+                                    'relationship_name' => 'company',
+                                    'relationship_target' => 'name'
+                                ),
+                                array(
+                                    'key' => 'journal_account_id',
+                                    'label' => 'Customer Account',
+                                    'has_relationship' => true,
+                                    'relationship_name' => 'journal_account',
+                                    'relationship_target' => 'name'
+                                ),
+                                
+                            )
+        );
+    }
 
     public $ignore_columns = ['external_id'];
-
+    public $route_name = 'res.partner';
     /**
      * The attributes that are mass assignable.
      *

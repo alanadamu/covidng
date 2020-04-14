@@ -69,7 +69,7 @@ class OdooUserController extends Controller
         event(new GetOdooDataEvent());
 
         $model = new OdooUser;
-        $blade_data = $model->blade_data;
+        $blade_data = $model->blade_data();
         // dd($blade_data);
 
         foreach ($blade_data['indexData'] as $data) {
