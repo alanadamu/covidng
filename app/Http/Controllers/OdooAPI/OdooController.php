@@ -45,7 +45,7 @@ class OdooController extends Ripcord
                 )
             
         );
-        // dd($ids);
+        dd($ids);
         
         return $ids;
     }

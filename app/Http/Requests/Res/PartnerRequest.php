@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\Res;
 
+use App\Models\Res\Partner;
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class PartnerRequest extends FormRequest
@@ -13,7 +15,7 @@ class PartnerRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return auth()->check();
     }
 
     /**
@@ -24,7 +26,9 @@ class PartnerRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'journal_account_id' => [
+                'required', Rule::unique((new Partner)->getTable())->ignore($this->route()->model->journal_account_id ?? null)
+            ]
         ];
     }
 }

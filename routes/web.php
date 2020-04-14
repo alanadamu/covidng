@@ -50,41 +50,63 @@ Route::group(['middleware' => 'auth'], function () {
       Route::get('account/payment_method/update_db', 'Account\PaymentMethodController@update_db')->name('account.payment_method.update_db');
       Route::resource('account/payment_method', 'Account\PaymentMethodController');
 
-    //Res Routes
-      //Company Routes
-      Route::get('res/company/update_db', 'Res\CompanyController@update_db')->name('res.company.update_db');
-      Route::resource('res/company', 'Res\CompanyController');
-      //Partner Routes
-      Route::get('res/partner/update_db', 'Res\PartnerController@update_db')->name('res.partner.update_db');
-      Route::resource('res/partner', 'Res\PartnerController');
-      //Odoo User Routes
-      Route::get('res/odoo_user/update_db', 'Res\OdooUserController@update_db')->name('res.odoo_user.update_db');
-      Route::resource('res/odoo_user', 'Res\OdooUserController');
+      //Res Routes
+      Route::name('res.')->group(function () {
+          //Res Routes
+            //Company Routes
+            Route::get('res/company/update_db', 'Res\CompanyController@update_db')->name('company.update_db');
+            Route::resource('res/company', 'Res\CompanyController');
+            //Partner Routes
+            Route::post('res/partner/store_journal', 'Res\PartnerController@store_journal')->name('partner.store_journal');
+            Route::get('res/partner/connect_journal/{partner_id}', 'Res\PartnerController@create_journal')->name('partner.create_journal');
+            Route::get('res/partner/update_db', 'Res\PartnerController@update_db')->name('partner.update_db');
+            Route::resource('res/partner', 'Res\PartnerController');
+            //Odoo User Routes
+            Route::get('res/odoo_user/update_db', 'Res\OdooUserController@update_db')->name('odoo_user.update_db');
+            Route::resource('res/odoo_user', 'Res\OdooUserController');
+      });
+    
 
     //Product Routes
+    Route::name('product.')->group(function () {
       //Product Routes
-      Route::get('product/product/update_db', 'Product\ProductController@update_db')->name('product.product.update_db');
-      Route::resource('product/product', 'Product\ProductController');
+        Route::get('product/product/update_db', 'Product\ProductController@update_db')->name('update_db');
+        Route::resource('product/product', 'Product\ProductController');
       //Category Routes
-      Route::get('product/category/update_db', 'Product\ProductCategoryController@update_db')->name('product.category.update_db');
-      Route::resource('product/category', 'Product\ProductCategoryController');
+        Route::get('product/category/update_db', 'Product\ProductCategoryController@update_db')->name('category.update_db');
+        Route::resource('product/category', 'Product\ProductCategoryController');
       //Template Routes
-      Route::get('product/template/update_db', 'Product\TemplateController@update_db')->name('product.template.update_db');
-      Route::resource('product/template', 'Product\TemplateController');
+        Route::get('product/template/update_db', 'Product\TemplateController@update_db')->name('template.update_db');
+        Route::resource('product/template', 'Product\TemplateController');
       //Product Move Routes
-      Route::get('product/move/update_db', 'Product\MoveController@update_db')->name('product.move.update_db');
-      Route::resource('product/move', 'Product\MoveController');
+        Route::get('product/move/update_db', 'Product\MoveController@update_db')->name('move.update_db');
+        Route::resource('product/move', 'Product\MoveController');
+    });
+      
 
-    //POS Order Routes
+    //POS  Routes
+    Route::name('pos.')->group(function () {
       //Order Routes
-      Route::get('pos/order/update_db', 'POS\OrderController@update_db')->name('pos.order.update_db');
-      Route::resource('pos/order', 'POS\OrderController');
+        Route::get('pos/order/update_db', 'POS\OrderController@update_db')->name('order.update_db');
+        Route::resource('pos/order', 'POS\OrderController');
       //Product Lines Routes
-      Route::get('pos/product_line/update_db', 'POS\ProductLineController@update_db')->name('pos.product_line.update_db');
-      Route::resource('pos/product_line', 'POS\ProductLineController');
+        Route::get('pos/product_line/update_db', 'POS\ProductLineController@update_db')->name('product_line.update_db');
+        Route::resource('pos/product_line', 'POS\ProductLineController');
+    });
+      
     //Odoo API Routes
-      //Order Routes
-      Route::get('odoo_api/{model}/{latest_id}/{fields?}', ['as' => 'odoo_api.get_latest', 'uses' => 'OdooAPI\OdooController@get_latest']);
+    Route::name('odoo_api.')->group(function () {
+      //Odoo API Routes
+      Route::get('odoo_api/{model}/{latest_id}/{fields?}', ['as' => 'odoo_api.get_latest', 'uses' => 'OdooAPI\OdooController@get_latest'])->name('get_latest');
+    });
+
+    //Config Routes
+    Route::name('config.')->group(function () {
+      //Res Routes
+        //Company Routes
+        Route::resource('config/config', 'Config\ConfigController');
+  });
+      
 
     Route::resource('category', 'CategoryController', ['except' => ['show']]);
     Route::resource('tag', 'TagController', ['except' => ['show']]);
