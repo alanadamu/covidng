@@ -18,7 +18,7 @@ class PartnerPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return $user->isAdmin();
     }
 
     /**
@@ -30,7 +30,7 @@ class PartnerPolicy
      */
     public function view(User $user, Partner $partner)
     {
-        //
+        return $user->isAdmin();
     }
 
     /**
@@ -41,7 +41,7 @@ class PartnerPolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->isAdmin();
     }
 
     /**
@@ -53,7 +53,7 @@ class PartnerPolicy
      */
     public function update(User $user, Partner $partner)
     {
-        //
+        return $user->isAdmin();
     }
 
     /**
@@ -65,7 +65,7 @@ class PartnerPolicy
      */
     public function delete(User $user, Partner $partner)
     {
-        //
+        return $user->isAdmin();
     }
 
     /**
@@ -77,7 +77,7 @@ class PartnerPolicy
      */
     public function restore(User $user, Partner $partner)
     {
-        //
+        return $user->isAdmin();
     }
 
     /**
@@ -89,6 +89,28 @@ class PartnerPolicy
      */
     public function forceDelete(User $user, Partner $partner)
     {
-        //
+        return $user->isAdmin();
+    }
+
+    /**
+     * Determine whether the authenticate user can manage partners.
+     *
+     * @param  \App\User  $user
+     * @return boolean
+     */
+    public function manageResPartners(User $user)
+    {
+        return $user->isAdmin();
+    }
+
+    /**
+     * Determine whether the authenticate user can link journal accounts.
+     *
+     * @param  \App\User  $user
+     * @return boolean
+     */
+    public function linkJournalAccounts(User $user)
+    {
+        return $user->isAdmin();
     }
 }
