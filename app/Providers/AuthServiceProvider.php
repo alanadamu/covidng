@@ -8,26 +8,28 @@ use App\Role;
 use App\User;
 use App\Category;
 
-use App\Models\Journal\AccountTypeCategory AS JournalAccountTypeCategory;
-use App\Models\Journal\AccountType AS JournalAccountType;
-use App\Models\Journal\Journal AS Journal;
-use App\Models\Journal\Account AS JournalAccount;
-
-/*-------------------------Policy Classes--------------------------------------------------------*/
-//Journal Policies
-use App\Policies\Journal\AccountTypeCategoryPolicy AS JournalAccountTypeCategoryPolicy;
-use App\Policies\Journal\AccountTypePolicy AS JournalAccountTypePolicy;
-use App\Policies\Journal\JournalPolicy AS JournalPolicy;
-use App\Policies\Journal\JournalAccountPolicy AS JournalAccountPolicy;
-
-
+use App\Models\Res\Partner;
 use App\Policies\TagPolicy;
 use App\Policies\ItemPolicy;
 use App\Policies\RolePolicy;
+
+/*-------------------------Policy Classes--------------------------------------------------------*/
+//Journal Policies
 use App\Policies\UserPolicy;
 use App\Policies\CategoryPolicy;
+use App\Policies\Res\PartnerPolicy;
 use Illuminate\Support\Facades\Gate;
+
+
+use App\Models\Journal\Journal AS Journal;
+use App\Models\Journal\Account AS JournalAccount;
+use App\Policies\Journal\JournalPolicy AS JournalPolicy;
+use App\Models\Journal\AccountType AS JournalAccountType;
+use App\Policies\Journal\JournalAccountPolicy AS JournalAccountPolicy;
+use App\Policies\Journal\AccountTypePolicy AS JournalAccountTypePolicy;
+use App\Models\Journal\AccountTypeCategory AS JournalAccountTypeCategory;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use App\Policies\Journal\AccountTypeCategoryPolicy AS JournalAccountTypeCategoryPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -47,6 +49,9 @@ class AuthServiceProvider extends ServiceProvider
         JournalAccountType::class => JournalAccountTypePolicy::class,
         Journal::class => JournalPolicy::class,
         JournalAccount::class => JournalAccountPolicy::class,
+
+        //Res
+        Partner::class => PartnerPolicy::class,
     ];
 
     /**
@@ -66,5 +71,10 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('manage-journal-account-types', 'App\Policies\Journal\AccountTypePolicy@manageAccountTypes');
         Gate::define('manage-journals', 'App\Policies\Journal\JournalPolicy@manageJournals');
         Gate::define('manage-journal-accounts', 'App\Policies\Journal\JournalAccountPolicy@manageJournalAccounts');
+
+        //Res Gates
+        Gate::define('manage-res-partners', 'App\Policies\Res\PartnerPolicy@manageResPartners');
+        Gate::define('link-journal-account', 'App\Policies\Res\PartnerPolicy@linkJournalAccounts');
+
     }
 }

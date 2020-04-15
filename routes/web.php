@@ -49,7 +49,7 @@ Route::group(['middleware' => 'auth'], function () {
        Route::resource('account/payment', 'Account\PaymentController');
        //Payment Method Routes
        Route::post('account/payment_method/store_journal', 'Account\PaymentMethodController@store_journal')->name('payment_method.store_journal');
-       Route::get('account/payment_method/connect_journal/{payment_method_id}', 'Account\PaymentMethodController@create_journal')->name('payment_method.create_journal');
+       Route::get('account/payment_method/create_journal/{id}', 'Account\PaymentMethodController@create_journal')->name('payment_method.create_journal');
        Route::get('account/payment_method/update_db', 'Account\PaymentMethodController@update_db')->name('payment_method.update_db');
        Route::resource('account/payment_method', 'Account\PaymentMethodController');
     });
@@ -63,7 +63,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::resource('res/company', 'Res\CompanyController');
             //Partner Routes
             Route::post('res/partner/store_journal', 'Res\PartnerController@store_journal')->name('partner.store_journal');
-            Route::get('res/partner/connect_journal/{partner_id}', 'Res\PartnerController@create_journal')->name('partner.create_journal');
+            Route::get('res/partner/connect_journal/{id}', 'Res\PartnerController@create_journal')->name('partner.create_journal');
             Route::get('res/partner/update_db', 'Res\PartnerController@update_db')->name('partner.update_db');
             Route::resource('res/partner', 'Res\PartnerController');
             //Odoo User Routes

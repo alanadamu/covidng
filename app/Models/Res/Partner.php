@@ -43,7 +43,24 @@ class Partner extends Model
                                     'relationship_target' => 'name'
                                 ),
                                 
-                            )
+                            ),
+            'indexActions' => array(
+                'policy_name' => 'manage-res-partners',
+                'actions' => array(
+                    array(
+                        'action_indicator_field' => 'journal_account_id',
+                        'action_indicator_target' => false,
+                        'model_policy_name' => 'link-journal-account',
+                         'name' => 'Link Journal Account',
+                         'route_to' => 'res.partner.create_journal',
+                         'icon' =>  'icon-key-25',
+                         'icon_color_indicator_field' => 'journal_account_id',
+                         'icon_color_indicator_target' => '',
+                         'icon_color_indicator_true' => 'warning',
+                         'icon_color_indicator_false' => 'success',
+                        )
+                )
+            )
         );
     }
 

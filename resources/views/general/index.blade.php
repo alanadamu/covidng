@@ -33,6 +33,11 @@
                             {{ __($item['label']) }}
                         </th>
                       @endforeach
+                      @can($blade_data['indexActions']['policy_name'], App\User::class)
+                        <th class="text-right">
+                          {{ __('Actions') }}
+                        </th>
+                      @endcan
                     </thead>
                     <tbody>
                       @foreach($model as $m)
@@ -51,6 +56,30 @@
                               </td>
                               @endif
                           @endforeach
+                          @can($blade_data['indexActions']['policy_name'], App\User::class)
+                            <td class="td-actions text-right">
+                              @foreach ($blade_data['indexActions']['actions'] as $action)
+                              @php
+                                  if($m->{$action['icon_color_indicator_field']} == $action['icon_color_indicator_target']){
+                                    $icon_color = $action['icon_color_indicator_true'];
+                                  } else {
+                                    $icon_color = $action['icon_color_indicator_false'];
+                                  }
+                              @endphp
+                                @can($action['model_policy_name'], $m)
+                                  @if ($m->{$action['action_indicator_field']} == $action['action_indicator_target'])
+                                    <a href="{{ route($action['route_to'], $m->id) }}" class="btn btn-link btn-{{$icon_color}} btn-icon btn-sm edit"><i class="tim-icons {{$action['icon']}}"></i></a>
+                                  @else
+                                    <div class="btn btn-link btn-{{$icon_color}} btn-icon btn-sm edit"><i class="tim-icons {{$action['icon']}}"></i></div>
+                                  @endif
+                                  
+                                @endcan
+                              @endforeach
+                              
+                              @else
+                                
+                            </td>
+                          @endcan
                         </tr>
                       @endforeach
                     </tbody>
