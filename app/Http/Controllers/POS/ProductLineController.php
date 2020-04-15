@@ -85,6 +85,7 @@ class ProductLineController extends Controller
     {
         $model = new ProductLine;
         $blade_data = $model->blade_data();
+        $route_name = $model->route_name;
         // dd($blade_data);
 
         foreach ($blade_data['indexData'] as $data) {
@@ -94,7 +95,7 @@ class ProductLineController extends Controller
         }
 
         $model = $model->paginate(10);
-        return view('general.index', ['model' => $model, 'blade_data' => $blade_data ]);
+        return view('general.index', ['model' => $model, 'blade_data' => $blade_data, 'route_name' => $route_name ]);
     }
 
     /**

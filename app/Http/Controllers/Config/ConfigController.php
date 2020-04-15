@@ -14,8 +14,9 @@ class ConfigController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        // dd($request->route()->getName());
         $model = new Config;
         $blade_data = $model->blade_data();
         $route_name = $model->route_name;
@@ -53,7 +54,7 @@ class ConfigController extends Controller
             }
         }
 
-        // dd($options);
+        // dd($blade_data);
         return view('general.create', [
                                         'model' => $model, 
                                         'blade_data' => $blade_data, 

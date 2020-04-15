@@ -28,7 +28,8 @@ class Order extends Model
         'user_id'
     );
 
-    public $blade_data = array(
+    public function blade_data(){
+        return array(
         'activePage' => 'res-company',
         'menuParent' => 'res', 
         'titlePage' => 'Companies',
@@ -57,9 +58,10 @@ class Order extends Model
                             ),
                             
                         )
-    );
+        );
+    }
     public $ignore_columns = ['external_id'];
-
+    public $route_name = 'pos.order';
     /**
      * The attributes that are mass assignable.
      *

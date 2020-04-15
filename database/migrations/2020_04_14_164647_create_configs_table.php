@@ -18,8 +18,8 @@ class CreateConfigsTable extends Migration
             $table->string('config_odoo_model_id');
             $table->string('config_name');
             $table->string('table_name');
-            $table->string('column_name');
-            $table->string('value');
+            $table->string('column_name')->nullable();
+            $table->string('value')->nullable();
             $table->timestamps();
         });
     }

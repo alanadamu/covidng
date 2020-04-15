@@ -21,7 +21,8 @@ class Move extends Model
         'date',
     );
 
-    public $blade_data = array(
+    public function blade_data(){
+        return array(
         'activePage' => 'product-move',
         'menuParent' => 'product', 
         'titlePage' => 'Product Moves',
@@ -57,9 +58,10 @@ class Move extends Model
                             ),
                             
                         )
-    );
+        );
+    }
     public $ignore_columns = ['external_id'];
-
+    public $route_name = 'res.partner';
     /**
      * The attributes that are mass assignable.
      *

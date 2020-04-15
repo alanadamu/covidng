@@ -14,7 +14,8 @@ class Company extends Model
         'name',
     );
 
-    public $blade_data = array(
+    public function blade_data(){
+        return array(
         'activePage' => 'res-company',
         'menuParent' => 'res', 
         'titlePage' => 'Companies',
@@ -26,9 +27,10 @@ class Company extends Model
                             ),
                             
                         )
-    );
+        );
+    }
     public $ignore_columns = ['external_id'];
-
+    public $route_name = 'res.company';
     /**
      * The attributes that are mass assignable.
      *

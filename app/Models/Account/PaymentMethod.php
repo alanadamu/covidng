@@ -3,6 +3,7 @@
 namespace App\Models\Account;
 
 use App\Models\Res\Company;
+use App\Models\Journal\Account;
 use App\Models\Config\OdooModel;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,7 +18,8 @@ class PaymentMethod extends Model
         'name',
     );
 
-    public $blade_data = array(
+    public function blade_data(){
+        return array(
         'activePage' => 'account-payment-method',
         'menuParent' => 'account', 
         'titlePage' => 'Payment Methods',
@@ -34,11 +36,19 @@ class PaymentMethod extends Model
                                 'relationship_name' => 'company',
                                 'relationship_target' => 'name'
                             ),
+                            array(
+                                'key' => 'journal_account_id',
+                                'label' => 'Customer Account',
+                                'has_relationship' => true,
+                                'relationship_name' => 'journal_account',
+                                'relationship_target' => 'name'
+                            ),
                             
                         )
-    );
+        );
+    }
     public $ignore_columns = ['external_id'];
-
+    public $route_name = 'account.payment_method';
     /**
      * The attributes that are mass assignable.
      *
@@ -66,4 +76,13 @@ class PaymentMethod extends Model
             array('id', '>', $id),
         );
     } 
+    /**
+     * Get the category of the item
+     *
+     * @return \App\Models\Journal\Account;
+     */
+    public function journal_account()
+    {
+        return $this->belongsTo(Account::class,'journal_account_id');
+    }
 }

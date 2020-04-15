@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers\Account;
 
-use App\Http\Controllers\Controller;
+use App\Models\Res\Partner;
 use Illuminate\Http\Request;
 
-use App\Models\Config\OdooModel;
+use App\Models\Config\Config;
 use App\Models\Account\Payment;
+use App\Models\Config\OdooModel;
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
+use App\Models\Account\PaymentMethod;
+use App\Helpers\Journal\JournalHelper;
 use App\Http\Controllers\OdooAPI\OdooController;
 
 class PaymentController extends Controller
@@ -37,7 +42,7 @@ class PaymentController extends Controller
             return('no new payments found...');
         }
         foreach ($new_odoo_payments as $odoo_payment) {
-            // return($odoo_order);
+            Log::info('here');
             $payment = new Payment;
             $payment->external_id = $odoo_payment['id'];
             $payment->company_id = $odoo_payment['company_id']['0'];
@@ -51,14 +56,77 @@ class PaymentController extends Controller
             $odoo_model->latest_external_id = $new_latest_id;
             $odoo_model->save();
 
-            if ($i == $len - 1) {
-                
-                
+            //Store Journal Entry
+            //Get Journal Account for Payment Method
+            $journal_account_id = PaymentMethod::where('id',$payment->payment_method_id)->get()['0']->journal_account_id;
+            $journal_helper = new JournalHelper;
+            //Credit shop account
+            
+            $journal_helper->journal_entry(
+                1,
+                $journal_account_id,
+                $payment->date,
+                $payment->amount,
+                'Payment for '.$odoo_payment['pos_statement_id']['1']
+            );
+
+            //Check if it is a customer account payment method
+            //Get Config Details
+            $model = new PaymentMethod;
+            $odoo_model_name = $model->odoo_model_name;
+            $route_name = $model->route_name;
+
+            $model_id = OdooModel::where('name',$odoo_model_name)->firstOrFail()->id;
+            $filter_table_name = 'account_payment_methods';
+            $config_details = Config::where('config_odoo_model_id',$model_id)->where('table_name',$filter_table_name)->get();
+            
+            //Check to see if the payment type is the same as that of config
+            if($config_details['0']->value == $payment->payment_method_id){
+                //Get the Partner Account for this payment
+                //Get the Partner ID
+                // dump($payment->partner_id);
+                if($payment->partner_id){
+                    //Record Journal Entry
+                    /*-------------Record Customer Account Debit--------------*/
+                    //Get Customer Journal Account
+                    $journal_account_id = Partner::where('external_id',$payment->partner_id)->get()['0']->journal_account_id;
+                    if ($journal_account_id) {
+                        //Store Journal Entry
+                        $journal_helper->journal_entry(
+                            1,
+                            $journal_account_id,
+                            $payment->date,
+                            $payment->amount,
+                            'Payment for '.$odoo_payment['pos_statement_id']['1']
+                        );
+                    } else {
+                        //Create Memo to resolve the issue
+                        // dump('customer has no linked journal account');
+                    }
+                    
+                    // /*-------------Record Customer Receivable Credit--------------*/
+                    //Get Customer Receivable Account
+                    $journal_account_id = Config::where('config_name','get_customer_receivable_account_id')->get()['0']->value;
+                    //Store Journal Entry
+                    $journal_helper->journal_entry(
+                        2,
+                        $journal_account_id,
+                        $payment->date,
+                        $payment->amount,
+                        'Payment for '.$odoo_payment['pos_statement_id']['1']
+                    );
+                } else {
+                    //Create a memo to resolve the issue
+                    // dump('Customer Account Set but partner not set '.$payment->payment_method_id.' '.$config_details['0']->value);
+                }
+
+            } else {
+                //No error
+                // dump('Customer Account Method not set '.$payment->payment_method_id.' '.$config_details['0']->value);
             }
-            // …
             $i++;
         }
-
+        dd();
         return('save payments complete');
         
     }
@@ -72,6 +140,7 @@ class PaymentController extends Controller
     {
         $model = new Payment;
         $blade_data = $model->blade_data();
+        $route_name = $model->route_name;
         // dd($blade_data);
 
         foreach ($blade_data['indexData'] as $data) {
@@ -81,7 +150,7 @@ class PaymentController extends Controller
         }
 
         $model = $model->paginate(10);
-        return view('general.index', ['model' => $model, 'blade_data' => $blade_data ]);
+        return view('general.index', ['model' => $model, 'blade_data' => $blade_data, 'route_name' => $route_name ]);
     }
 
     /**

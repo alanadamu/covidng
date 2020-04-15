@@ -15,7 +15,8 @@ class OdooUser extends Model
                             'email',
                             'company_id'
                         );
-    public $blade_data = array(
+    public function blade_data(){
+        return array(
         'activePage' => 'res-odoo-users',
         'menuParent' => 'res', 
         'titlePage' => 'Odoo Users',
@@ -39,8 +40,10 @@ class OdooUser extends Model
                             ),
                             
                         )
-    );
+        );
+    }
     public $ignore_columns = ['external_id'];
+    public $route_name = 'res.odoo_user';
     /**
      * The attributes that are mass assignable.
      *

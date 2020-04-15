@@ -13,7 +13,7 @@ class PaymentMethodRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return auth()->check();
     }
 
     /**
@@ -24,7 +24,9 @@ class PaymentMethodRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'journal_account_id' => [
+                'required',
+            ]
         ];
     }
 }

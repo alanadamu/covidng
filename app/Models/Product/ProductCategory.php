@@ -16,7 +16,8 @@ class ProductCategory extends Model
         'name',
     );
 
-    public $blade_data = array(
+    public function blade_data(){
+        return array(
         'activePage' => 'product-category',
         'menuParent' => 'product', 
         'titlePage' => 'Product Categories',
@@ -28,9 +29,10 @@ class ProductCategory extends Model
                             )
                             
                         )
-    );
+        );
+    }
     public $ignore_columns = ['external_id'];
-
+    public $route_name = 'res.partner';
     /**
      * The attributes that are mass assignable.
      *
