@@ -26,7 +26,8 @@ class ProductLine extends Model
         'discount',
     );
 
-    public $blade_data = array(
+    public function blade_data(){
+        return array(
         'activePage' => 'pos-product-line',
         'menuParent' => 'pos', 
         'titlePage' => 'Product Lines',
@@ -94,9 +95,10 @@ class ProductLine extends Model
                             ),
                             
                         )
-    );
+        );
+    }
     public $ignore_columns = ['external_id'];
-
+    public $route_name = 'pos.product_line';
     /**
      * The attributes that are mass assignable.
      *

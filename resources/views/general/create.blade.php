@@ -5,7 +5,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-12">
-          <form method="post" enctype="multipart/form-data" action="{{ route($route_store ? $route_store : $route_name.'.store') }}" autocomplete="off" class="form-horizontal">
+          <form method="post" enctype="multipart/form-data" action="{{ route(isset($route_store) ? $route_store : $route_name.'.store') }}" autocomplete="off" class="form-horizontal">
             @csrf
             @method('post')
             <div class="card ">
@@ -20,44 +20,43 @@
                 </div>
                 @foreach ($blade_data['indexData'] as $item)
                 @if ($item['has_relationship'])
-                    @continue
-                @endif
                 <div class="row">
                     <label class="col-sm-2 col-form-label">{{ __($item['label']) }}</label>
                     <div class="col-sm-7">
                       <div class="form-group{{ $errors->has($item['key']) ? ' has-danger' : '' }}">
-                        <input class="form-control{{ $errors->has($item['key']) ? ' is-invalid' : '' }}" name="{{$item['key']}}" id="input-{{$item['key']}}" type="text" placeholder="{{ __($item['label']) }}" value="{{ old($item['key']) }}" required="true" aria-required="true"/>
+                          <select class="selectpicker col-sm-12 pl-0 pr-0" name={{$item['key']}} data-style="select-with-transition" title="" data-size="100">
+                          <option value="">-</option>
+                          @foreach ( $options[$item['relationship_name_plural']]['options'] as $option)
+  
+                          <option value="{{ $option->id }}" {{ $option->id == old('parent_id') ? 'selected' : '' }}>{{ $option->{$item['relationship_target']} }}</option>
+  
+  
+                          @endforeach
+                        </select>
                         @include('alerts.feedback', ['field' => $item['key']])
                       </div>
                     </div>
                   </div>
-                @endforeach
-
-                @foreach ($blade_data['indexData'] as $item)
-                @if (!$item['has_relationship'])
-                    @continue
-                @endif
+                @else
                 <div class="row">
-                  <label class="col-sm-2 col-form-label">{{ __($item['label']) }}</label>
-                  <div class="col-sm-7">
-                    <div class="form-group{{ $errors->has($item['key']) ? ' has-danger' : '' }}">
-                        <select class="selectpicker col-sm-12 pl-0 pr-0" name={{$item['key']}} data-style="select-with-transition" title="" data-size="100">
-                        <option value="">-</option>
-                        @foreach ( $options[$item['relationship_name_plural']]['options'] as $option)
-
-                        <option value="{{ $option->id }}" {{ $option->id == old('parent_id') ? 'selected' : '' }}>{{ $option->{$item['relationship_target']} }}</option>
-
-
-                        @endforeach
-                      </select>
-                      @include('alerts.feedback', ['field' => $item['key']])
+                    <label class="col-sm-2 col-form-label">{{ __($item['label']) }}</label>
+                    <div class="col-sm-7">
+                      <div class="form-group{{ $errors->has($item['key']) ? ' has-danger' : '' }}">
+                        <input class="form-control{{ $errors->has($item['key']) ? ' is-invalid' : '' }}" name="{{$item['key']}}" id="input-{{$item['key']}}" type="text" placeholder="{{ __($item['label']) }}" value="{{ old($item['key']) }}"/>
+                        @include('alerts.feedback', ['field' => $item['key']])
+                      </div>
                     </div>
                   </div>
-                </div>
+                @endif
                 @endforeach
+                
+                @if (isset($blade_data['hiddenData']))
                 @foreach ($blade_data['hiddenData'] as $item)
                     <input style="display:none" name="{{$item['key']}}" value="{{$item['value']}}">
                 @endforeach
+                @endif
+
+                
                 
               </div>
               <div class="card-footer ml-auto mr-auto">

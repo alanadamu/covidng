@@ -22,9 +22,9 @@ class OdooController extends Ripcord
         // dd([$model,$latest_id,$fields]);
         $config = array(
             'url' => 'http://67.205.128.249:8069/xmlrpc/2',
-            'db' => 'novomed',
+            'db' => 'novomedtraining',
             'user' => 'alanadamu2@gmail.com',
-            'password' => '15478362'
+            'password' => 'novomed123.'
         );
 
         $common = new Ripcord($config);
@@ -45,7 +45,7 @@ class OdooController extends Ripcord
                 )
             
         );
-        dd($ids);
+        // dd($ids);
         
         return $ids;
     }

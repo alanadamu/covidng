@@ -43,12 +43,17 @@ Route::group(['middleware' => 'auth'], function () {
 			Route::resource('journal_account', 'Journal\AccountController');
 
     //Account Routes
-      //Payment Routes
-      Route::get('account/payment/update_db', 'Account\PaymentController@update_db')->name('account.payment.update_db');
-      Route::resource('account/payment', 'Account\PaymentController');
-      //Payment Method Routes
-      Route::get('account/payment_method/update_db', 'Account\PaymentMethodController@update_db')->name('account.payment_method.update_db');
-      Route::resource('account/payment_method', 'Account\PaymentMethodController');
+    Route::name('account.')->group(function () {
+       //Payment Routes
+       Route::get('account/payment/update_db', 'Account\PaymentController@update_db')->name('payment.update_db');
+       Route::resource('account/payment', 'Account\PaymentController');
+       //Payment Method Routes
+       Route::post('account/payment_method/store_journal', 'Account\PaymentMethodController@store_journal')->name('payment_method.store_journal');
+       Route::get('account/payment_method/connect_journal/{payment_method_id}', 'Account\PaymentMethodController@create_journal')->name('payment_method.create_journal');
+       Route::get('account/payment_method/update_db', 'Account\PaymentMethodController@update_db')->name('payment_method.update_db');
+       Route::resource('account/payment_method', 'Account\PaymentMethodController');
+    });
+     
 
       //Res Routes
       Route::name('res.')->group(function () {

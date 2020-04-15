@@ -23,6 +23,9 @@ class DatabaseSeeder extends Seeder
         $this->call([RolesTableSeeder::class, UsersTableSeeder::class]);
         $this->call([TagsTableSeeder::class, CategoriesTableSeeder::class, ItemsTableSeeder::class]);
         $this->call([ConfigOdooModelSeeder::class]);
+        $this->call([JournalAccountTableSeeder::class]);
+        $this->call([JournalAccountTypeTableSeeder::class]);
+        $this->call([JournalTransactionTypeTableSeeder::class]);
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
     }

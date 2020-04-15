@@ -24,7 +24,8 @@ class Payment extends Model
         'amount',
     );
 
-    public $blade_data = array(
+    public function blade_data(){
+        return array(
         'activePage' => 'account-payment',
         'menuParent' => 'account', 
         'titlePage' => 'Payments',
@@ -69,9 +70,10 @@ class Payment extends Model
                             ),
                             
                         )
-    );
+        );
+    }
     public $ignore_columns = ['external_id'];
-
+    public $route_name = 'account.payment';
     /**
      * The attributes that are mass assignable.
      *

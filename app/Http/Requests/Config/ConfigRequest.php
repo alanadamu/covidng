@@ -33,12 +33,6 @@ class ConfigRequest extends FormRequest
             'table_name' => [
                 'required',
             ],
-            'column_name' => [
-                'required',
-            ],
-            'value' => [
-                'required',
-            ],
             'config_odoo_model_id' => [
                 'required', 
             ],

@@ -21,8 +21,7 @@ class Partner extends Model
         return array(
             'activePage' => 'res-partner',
             'menuParent' => 'res', 
-            'titlePage' => 'Partners',            
-            'createLabel' => 'Add Partner',
+            'titlePage' => 'Partners',     
             'indexData' => array(
                                 array(
                                     'key' => 'name',
