@@ -13,7 +13,7 @@ class DeathRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return auth()->check();
     }
 
     /**
@@ -24,7 +24,15 @@ class DeathRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'date' => [
+                'required'
+            ],
+            'value' => [
+                'required'
+            ],
+            'state_id' => [
+                'required'
+            ]
         ];
     }
 }

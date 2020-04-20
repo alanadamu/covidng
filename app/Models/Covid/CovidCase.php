@@ -5,23 +5,23 @@ namespace App\Models\Covid;
 use App\Models\Covid\State;
 use Illuminate\Database\Eloquent\Model;
 
-class Death extends Model
+class CovidCase extends Model
 {
     public function blade_data(){
         return array(
-            'activePage' => 'covid-death',
+            'activePage' => 'covid-covid_case',
             'menuParent' => 'covid', 
-            'titlePage' => 'Deaths',     
-            'modelName' => 'Death',
-            'createLabel' => 'Add Death',
+            'titlePage' => 'Covid Cases',  
+            'modelName' => 'Covid Case',
+            'createLabel' => 'Add Case',   
             'indexLinks' => array(
                                     array(
-                                        'label' => 'Add Death',
-                                        'route' => 'covid.death.create'
+                                        'label' => 'Add Case',
+                                        'route' => 'covid.covid_case.create'
                                     ),
                                     array(
-                                        'label' => 'Add Bulk Death',
-                                        'route' => 'covid.death.bulk_create'
+                                        'label' => 'Add Bulk Case',
+                                        'route' => 'covid.covid_case.bulk_create'
                                     )
                             ),
             'indexData' => array(
@@ -30,9 +30,9 @@ class Death extends Model
                                     'label' => 'Date',
                                     'input' => 'text',
                                     'classes' => 'datetimepicker',
-                                    'has_relationship' => false, 
+                                    'has_relationship' => false,    
                                     'format_type' => 'date',
-                                    'format_target' => 'd-m-Y'                                   
+                                    'format_target' => 'd-m-Y'                                
                                 ),
                                 array(
                                     'key' => 'state_id',
@@ -48,7 +48,7 @@ class Death extends Model
                                 ),
                                 array(
                                     'key' => 'value',
-                                    'label' => 'Number of Deaths',
+                                    'label' => 'Number of Cases',
                                     'input' => 'Number',
                                     'classes' => '',
                                     'has_relationship' => false,
@@ -66,7 +66,7 @@ class Death extends Model
                                 
                             ),
             'indexActions' => array(
-                'policy_name' => 'manage-covid-deaths',
+                'policy_name' => 'manage-covid-cases',
                 'actions' => array(
                     array(
                         
@@ -77,9 +77,9 @@ class Death extends Model
     }
 
     public $ignore_columns = ['id'];
-    public $route_name = 'covid.death';
-    public $bulk_route_create = 'covid.death.bulk_create';
-    public $bulk_route_store = 'covid.death.bulk_store';
+    public $route_name = 'covid.covid_case';
+    public $bulk_route_create = 'covid.covid_case.bulk_create';
+    public $bulk_route_store = 'covid.covid_case.bulk_store';
     /**
      * The attributes that are mass assignable.
      *
@@ -102,4 +102,5 @@ class Death extends Model
     {
         return $this->belongsTo(State::class);
     }
+
 }

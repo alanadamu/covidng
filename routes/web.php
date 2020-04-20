@@ -27,91 +27,28 @@ Route::get('pricing', 'ExamplePagesController@pricing')->name('page.pricing');
 Route::get('lock', 'ExamplePagesController@lock')->name('page.lock');
 
 Route::group(['middleware' => 'auth'], function () {
-  //Journal Routes
-		//Account Type Category Routes
-    Route::resource('journal_account_type_category', 'Journal\AccountTypeCategoryController');
-		//Account Type Routes
-			Route::resource('journal_account_type', 'Journal\AccountTypeController');
-		//Journal Routes
-			//Show Account Routes
-			Route::get('/journal/show_account/{id}', 'Journal\JournalController@show_account')->name('journal.show_account');
-			//Balance Sheet Routes
-			Route::get('journal/balance_sheet/', 'Journal\JournalController@balance_sheet')->name('journal.balance_sheet');
-			Route::resource('journal', 'Journal\JournalController');
-			
-		//Journal Account Routes
-			Route::resource('journal_account', 'Journal\AccountController');
+  //Covid Routes
+  Route::name('covid.')->group(function () {
+    Route::get('state/bulk/create', 'Covid\StateController@bulk_create')->name('state.bulk_create');
+    Route::post('state/bulk', 'Covid\StateController@bulk_store')->name('state.bulk_store');
+    Route::resource('state', 'Covid\StateController');
 
-    //Account Routes
-    Route::name('account.')->group(function () {
-       //Payment Routes
-       Route::get('account/payment/update_db', 'Account\PaymentController@update_db')->name('payment.update_db');
-       Route::resource('account/payment', 'Account\PaymentController');
-       //Payment Method Routes
-       Route::post('account/payment_method/store_journal', 'Account\PaymentMethodController@store_journal')->name('payment_method.store_journal');
-       Route::get('account/payment_method/create_journal/{id}', 'Account\PaymentMethodController@create_journal')->name('payment_method.create_journal');
-       Route::get('account/payment_method/update_db', 'Account\PaymentMethodController@update_db')->name('payment_method.update_db');
-       Route::resource('account/payment_method', 'Account\PaymentMethodController');
-    });
-     
+    Route::get('test/bulk/create', 'Covid\TestController@bulk_create')->name('test.bulk_create');
+    Route::post('test/bulk', 'Covid\TestController@bulk_store')->name('test.bulk_store');
+    Route::resource('test', 'Covid\TestController');
 
-      //Res Routes
-      Route::name('res.')->group(function () {
-          //Res Routes
-            //Company Routes
-            Route::get('res/company/update_db', 'Res\CompanyController@update_db')->name('company.update_db');
-            Route::resource('res/company', 'Res\CompanyController');
-            //Partner Routes
-            Route::post('res/partner/store_journal', 'Res\PartnerController@store_journal')->name('partner.store_journal');
-            Route::get('res/partner/connect_journal/{id}', 'Res\PartnerController@create_journal')->name('partner.create_journal');
-            Route::get('res/partner/update_db', 'Res\PartnerController@update_db')->name('partner.update_db');
-            Route::resource('res/partner', 'Res\PartnerController');
-            //Odoo User Routes
-            Route::get('res/odoo_user/update_db', 'Res\OdooUserController@update_db')->name('odoo_user.update_db');
-            Route::resource('res/odoo_user', 'Res\OdooUserController');
-      });
-    
+    Route::get('covid_case/bulk/create', 'Covid\CovidCaseController@bulk_create')->name('covid_case.bulk_create');
+    Route::post('covid_case/bulk', 'Covid\CovidCaseController@bulk_store')->name('covid_case.bulk_store');
+    Route::resource('covid_case', 'Covid\CovidCaseController');
 
-    //Product Routes
-    Route::name('product.')->group(function () {
-      //Product Routes
-        Route::get('product/product/update_db', 'Product\ProductController@update_db')->name('update_db');
-        Route::resource('product/product', 'Product\ProductController');
-      //Category Routes
-        Route::get('product/category/update_db', 'Product\ProductCategoryController@update_db')->name('category.update_db');
-        Route::resource('product/category', 'Product\ProductCategoryController');
-      //Template Routes
-        Route::get('product/template/update_db', 'Product\TemplateController@update_db')->name('template.update_db');
-        Route::resource('product/template', 'Product\TemplateController');
-      //Product Move Routes
-        Route::get('product/move/update_db', 'Product\MoveController@update_db')->name('move.update_db');
-        Route::resource('product/move', 'Product\MoveController');
-    });
-      
+    Route::get('discharge/bulk/create', 'Covid\DischargeController@bulk_create')->name('discharge.bulk_create');
+    Route::post('discharge/bulk', 'Covid\DischargeController@bulk_store')->name('discharge.bulk_store');
+    Route::resource('discharge', 'Covid\DischargeController');
 
-    //POS  Routes
-    Route::name('pos.')->group(function () {
-      //Order Routes
-        Route::get('pos/order/update_db', 'POS\OrderController@update_db')->name('order.update_db');
-        Route::resource('pos/order', 'POS\OrderController');
-      //Product Lines Routes
-        Route::get('pos/product_line/update_db', 'POS\ProductLineController@update_db')->name('product_line.update_db');
-        Route::resource('pos/product_line', 'POS\ProductLineController');
-    });
-      
-    //Odoo API Routes
-    Route::name('odoo_api.')->group(function () {
-      //Odoo API Routes
-      Route::get('odoo_api/{model}/{latest_id}/{fields?}', ['as' => 'odoo_api.get_latest', 'uses' => 'OdooAPI\OdooController@get_latest'])->name('get_latest');
-    });
-
-    //Config Routes
-    Route::name('config.')->group(function () {
-      //Res Routes
-        //Company Routes
-        Route::resource('config/config', 'Config\ConfigController');
-  });
-      
+    Route::get('death/bulk/create', 'Covid\DeathController@bulk_create')->name('death.bulk_create');
+    Route::post('death/bulk', 'Covid\DeathController@bulk_store')->name('death.bulk_store');
+    Route::resource('death', 'Covid\DeathController'); 
+ });   
 
     Route::resource('category', 'CategoryController', ['except' => ['show']]);
     Route::resource('tag', 'TagController', ['except' => ['show']]);
