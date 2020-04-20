@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddCostPriceToProductLinesTable extends Migration
+class CreateStatesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class AddCostPriceToProductLinesTable extends Migration
      */
     public function up()
     {
-        Schema::table('pos_product_lines', function (Blueprint $table) {
-            $table->decimal('cost_price',10,2)->nullable();
+        Schema::create('states', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +27,6 @@ class AddCostPriceToProductLinesTable extends Migration
      */
     public function down()
     {
-        Schema::table('pos_product_lines', function (Blueprint $table) {
-            $table->dropColumn('cost_price');
-        });
+        Schema::dropIfExists('states');
     }
 }

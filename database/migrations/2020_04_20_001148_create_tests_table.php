@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddJournalAccountIdToResPartnersTable extends Migration
+class CreateTestsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,12 @@ class AddJournalAccountIdToResPartnersTable extends Migration
      */
     public function up()
     {
-        Schema::table('res_partners', function (Blueprint $table) {
-            $table->unsignedInteger('journal_account_id')->nullable();
+        Schema::create('tests', function (Blueprint $table) {
+            $table->id();
+            $table->date('date');
+            $table->unsignedInteger('state_id');
+            $table->integer('value');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +29,6 @@ class AddJournalAccountIdToResPartnersTable extends Migration
      */
     public function down()
     {
-        Schema::table('res_partners', function (Blueprint $table) {
-            $table->dropColumn('journal_account_id');
-        });
+        Schema::dropIfExists('tests');
     }
 }
