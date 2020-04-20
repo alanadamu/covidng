@@ -4,7 +4,7 @@ namespace App\Http\Requests\Covid;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CaseRequest extends FormRequest
+class CovidCaseRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class CaseRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return auth()->check();
     }
 
     /**
@@ -24,7 +24,15 @@ class CaseRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'date' => [
+                'required'
+            ],
+            'value' => [
+                'required'
+            ],
+            'state_id' => [
+                'required'
+            ]
         ];
     }
 }

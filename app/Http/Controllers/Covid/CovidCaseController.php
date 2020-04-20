@@ -3,18 +3,14 @@
 namespace App\Http\Controllers\Covid;
 
 use Carbon\Carbon;
-use App\Models\Covid\Test;
-use App\Models\Covid\State;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
-use App\Imports\Covid\TestsImport;
+use App\Models\Covid\CovidCase;
 use App\Http\Controllers\Controller;
-use Maatwebsite\Excel\Facades\Excel;
 use App\Helpers\General\ModelFunctions;
-use App\Http\Requests\Covid\TestRequest;
-use Illuminate\Support\Facades\Validator;
+use App\Imports\Covid\CovidCasesImport;
+use App\Http\Requests\Covid\CovidCaseRequest;
 
-class TestController extends Controller
+class CovidCaseController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,7 +19,7 @@ class TestController extends Controller
      */
     public function index()
     {
-        $model = new Test;
+        $model = new CovidCase;
         list($model,$blade_data,$route_name) = ModelFunctions::get_index_data($model,10);        
         return view('general.index', ['model' => $model, 'blade_data' => $blade_data, 'route_name' => $route_name]);
     }
@@ -35,7 +31,7 @@ class TestController extends Controller
      */
     public function create()
     {
-        $model = new Test;
+        $model = new CovidCase;
         list($model,$blade_data,$route_name,$options) = ModelFunctions::get_create_data($model);       
         return view('general.create', [
                                         'model' => $model, 
@@ -52,7 +48,7 @@ class TestController extends Controller
      */
     public function bulk_create()
     {
-        $model = new Test;
+        $model = new CovidCase;
         list($model,$blade_data,$route_name,$route_store) = ModelFunctions::get_bulk_create_data($model);       
         return view('general.bulk_create', [
                                         'model' => $model, 
@@ -68,7 +64,7 @@ class TestController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(TestRequest $request, Test $model)
+    public function store(CovidCaseRequest $request, CovidCase $model)
     {
         if($request->date){
             $model->create($request->merge([
@@ -90,8 +86,8 @@ class TestController extends Controller
     public function bulk_store(Request $request)
     {
         $model_fn = new ModelFunctions;
-        $model = new Test;
-        $importClass = new TestsImport;
+        $model = new CovidCase;
+        $importClass = new CovidCasesImport;
         $result = $model_fn->upload_excel_data($model,$request->file('data'),$importClass);
         return $result;
     }

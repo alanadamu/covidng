@@ -26,7 +26,7 @@
                       <div class="form-group{{ $errors->has($item['key']) ? ' has-danger' : '' }}">
                           <select class="selectpicker col-sm-12 pl-0 pr-0" name={{$item['key']}} data-style="select-with-transition" title="" data-size="100">
                           <option value="">-</option>
-                          @foreach ( $options[$item['relationship_name_plural']]['options'] as $option)
+                          @foreach ( $options[$item['relationship_name_plural']] as $option)
   
                           <option value="{{ $option->id }}" {{ $option->id == old('parent_id') ? 'selected' : '' }}>{{ $option->{$item['relationship_target']} }}</option>
   
@@ -42,7 +42,7 @@
                     <label class="col-sm-2 col-form-label">{{ __($item['label']) }}</label>
                     <div class="col-sm-7">
                       <div class="form-group{{ $errors->has($item['key']) ? ' has-danger' : '' }}">
-                        <input class="form-control{{ $errors->has($item['key']) ? ' is-invalid' : '' }}" name="{{$item['key']}}" id="input-{{$item['key']}}" type="text" placeholder="{{ __($item['label']) }}" value="{{ old($item['key']) }}"/>
+                      <input class="form-control{{ $errors->has($item['key']) ? ' is-invalid' : '' }} {{$item['classes']}}" name="{{$item['key']}}" id="input-{{$item['key']}}" type="{{$item['input']}}" placeholder="{{ __($item['label']) }}" value="{{ old($item['key']) }}"/>
                         @include('alerts.feedback', ['field' => $item['key']])
                       </div>
                     </div>
@@ -50,7 +50,7 @@
                 @endif
                 @endforeach
                 
-                @if (isset($blade_data['hiddenData']))
+                @if (isset($blade_data['hiddenData']) && count($blade_data['hiddenData'])>0)
                 @foreach ($blade_data['hiddenData'] as $item)
                     <input style="display:none" name="{{$item['key']}}" value="{{$item['value']}}">
                 @endforeach

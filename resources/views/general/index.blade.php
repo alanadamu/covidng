@@ -14,15 +14,16 @@
                 <h4 class="card-title">{{ __($blade_data['titlePage']) }}</h4>
               </div>
               <div class="card-body">
-                @if (isset($blade_data['createLabel']))
+                <div class="btn-toolbar float-right" role="toolbar" aria-label="Toolbar with button groups">
+                  @foreach ($blade_data['indexLinks'] as $item)
                     {{-- @can('create', App\Accounts::class) --}}
-                      <div class="row">
-                        <div class="col-12 text-right mb-3">
-                            <a href="{{ route($route_name.'.create') }}" class="btn btn-sm btn-primary">{{ __($blade_data['createLabel']) }}</a>
-                        </div>
-                      </div>                               
-                    {{-- @endcan --}}
-                @endif
+                    <div class="btn-group m-2 " role="group" aria-label="First group">
+                      <a href="{{ route($item['route']) }}" class="btn btn-sm btn-primary">{{ __($item['label']) }}</a>
+                    </div>                              
+                  {{-- @endcan --}}
+                @endforeach
+                </div>
+                
                 
                 {!!$model->links()!!}
                 <div class="table">
@@ -43,17 +44,20 @@
                       @foreach($model as $m)
                         <tr>
                           @foreach ($blade_data['indexData'] as $item)
-                          @php
-                              // dd($item);
-                          @endphp
                               @if ($item['has_relationship'] && $m->{$item['relationship_name']})
                                 <td>
                                   {{ $m->{$item['relationship_name']}->{$item['relationship_target']} }}
                                 </td>
                               @else
-                              <td>
-                                {{ $m->{$item['key']} }}
-                              </td>
+                                @if ($item['format_type'] == 'date')
+                                  <td>
+                                    {{ \Carbon\Carbon::parse($m->{$item['key']})->format($item['format_target']) }}
+                                  </td>
+                                @else
+                                  <td>
+                                    {{ $m->{$item['key']} }}
+                                  </td>
+                                @endif                              
                               @endif
                           @endforeach
                           @can($blade_data['indexActions']['policy_name'], App\User::class)

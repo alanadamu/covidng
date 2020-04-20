@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\Covid;
 
+use App\Models\Covid\State;
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StateRequest extends FormRequest
@@ -13,7 +15,7 @@ class StateRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return auth()->check();
     }
 
     /**
@@ -24,7 +26,9 @@ class StateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => [
+                'required', Rule::unique((new State)->getTable())->ignore($this->route()->state->name ?? null)
+            ],
         ];
     }
 }

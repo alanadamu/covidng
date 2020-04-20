@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers\Covid;
 
-use App\Http\Controllers\Controller;
+use Carbon\Carbon;
+use App\Models\Covid\Death;
 use Illuminate\Http\Request;
+use App\Imports\Covid\DeathsImport;
+use App\Http\Controllers\Controller;
+use App\Helpers\General\ModelFunctions;
+use App\Http\Requests\Covid\DeathRequest;
 
 class DeathController extends Controller
 {
@@ -14,7 +19,9 @@ class DeathController extends Controller
      */
     public function index()
     {
-        //
+        $model = new Death;
+        list($model,$blade_data,$route_name) = ModelFunctions::get_index_data($model,10);        
+        return view('general.index', ['model' => $model, 'blade_data' => $blade_data, 'route_name' => $route_name]);
     }
 
     /**
@@ -24,7 +31,31 @@ class DeathController extends Controller
      */
     public function create()
     {
-        //
+        $model = new Death;
+        list($model,$blade_data,$route_name,$options) = ModelFunctions::get_create_data($model);       
+        return view('general.create', [
+                                        'model' => $model, 
+                                        'blade_data' => $blade_data, 
+                                        'route_name' => $route_name,
+                                        'options' => $options,
+                                    ]);
+    }
+
+    /**
+     * Show the form for bulk creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function bulk_create()
+    {
+        $model = new Death;
+        list($model,$blade_data,$route_name,$route_store) = ModelFunctions::get_bulk_create_data($model);       
+        return view('general.bulk_create', [
+                                        'model' => $model, 
+                                        'blade_data' => $blade_data, 
+                                        'route_name' => $route_name,
+                                        'route_store' => $route_store,
+                                    ]);
     }
 
     /**
@@ -33,9 +64,33 @@ class DeathController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DeathRequest $request, Death $model)
     {
-        //
+        if($request->date){
+            $model->create($request->merge([
+                'date' => $request->date ? Carbon::parse($request->date)->format('Y-m-d') : null
+            ])->all());
+        } else {
+            $model->create($request->all());
+        }   
+
+        $route_name = ModelFunctions::get_route($model);
+        $model_name = ModelFunctions::get_model_name($model);                
+        return redirect()->route($route_name.'.index')->withStatus(__($model_name.' successfully created.'));
+    }
+
+    /**
+     * Show the form for bulk storing a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function bulk_store(Request $request)
+    {
+        $model_fn = new ModelFunctions;
+        $model = new Death;
+        $importClass = new DeathsImport;
+        $result = $model_fn->upload_excel_data($model,$request->file('data'),$importClass);
+        return $result;
     }
 
     /**
