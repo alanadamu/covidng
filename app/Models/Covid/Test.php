@@ -57,7 +57,6 @@ class Test extends Model
                                     array(
                                         'key' => 'created_at',
                                         'label' => 'Created at',
-                                        'input' => 'text',
                                         'classes' => '',
                                         'has_relationship' => false,
                                         'format_type' => 'date',
@@ -89,7 +88,9 @@ class Test extends Model
         'id',
         'state_id',
         'date',
-        'value'
+        'value',
+        'state_sum_value',
+        'sum_value'
     ];
 
     /**

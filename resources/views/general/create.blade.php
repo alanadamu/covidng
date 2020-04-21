@@ -19,6 +19,9 @@
                   </div>
                 </div>
                 @foreach ($blade_data['indexData'] as $item)
+                @if (!isset($item['input']))
+                    @continue
+                @endif
                 @if ($item['has_relationship'])
                 <div class="row">
                     <label class="col-sm-2 col-form-label">{{ __($item['label']) }}</label>
@@ -26,11 +29,8 @@
                       <div class="form-group{{ $errors->has($item['key']) ? ' has-danger' : '' }}">
                           <select class="selectpicker col-sm-12 pl-0 pr-0" name={{$item['key']}} data-style="select-with-transition" title="" data-size="100">
                           <option value="">-</option>
-                          @foreach ( $options[$item['relationship_name_plural']] as $option)
-  
-                          <option value="{{ $option->id }}" {{ $option->id == old('parent_id') ? 'selected' : '' }}>{{ $option->{$item['relationship_target']} }}</option>
-  
-  
+                          @foreach ( $options[$item['relationship_name_plural']] as $option)  
+                            <option value="{{ $option->id }}" {{ $option->id == old($item['key']) ? 'selected' : '' }}>{{ $option->{$item['relationship_target']} }}</option> 
                           @endforeach
                         </select>
                         @include('alerts.feedback', ['field' => $item['key']])
@@ -54,11 +54,10 @@
                 @foreach ($blade_data['hiddenData'] as $item)
                     <input style="display:none" name="{{$item['key']}}" value="{{$item['value']}}">
                 @endforeach
-                @endif
-
-                
+                @endif           
                 
               </div>
+              <input style="display:none" name="prev_route" value="{{\Request::route()->getName()}}">
               <div class="card-footer ml-auto mr-auto">
                 <button type="submit" class="btn">{{ __($blade_data['createLabel']) }}</button>
               </div>

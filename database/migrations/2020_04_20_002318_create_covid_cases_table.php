@@ -18,6 +18,8 @@ class CreateCovidCasesTable extends Migration
             $table->date('date');
             $table->unsignedInteger('state_id');
             $table->integer('value');
+            $table->integer('state_sum_value');
+            $table->integer('sum_value');
             $table->timestamps();
         });
     }
