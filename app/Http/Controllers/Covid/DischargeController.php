@@ -66,16 +66,11 @@ class DischargeController extends Controller
      */
     public function store(DischargeRequest $request, Discharge $model)
     {
-        if($request->date){
-            $model->create($request->merge([
-                'date' => $request->date ? Carbon::parse($request->date)->format('Y-m-d') : null
-            ])->all());
-        } else {
-            $model->create($request->all());
-        }   
-        $route_name = ModelFunctions::get_route($model);
-        $model_name = ModelFunctions::get_model_name($model);                
-        return redirect()->route($route_name.'.index')->withStatus(__($model_name.' successfully created.'));
+        $new_model = new Discharge;
+        
+        $model_fn = new ModelFunctions;
+        $result = $model_fn->validate_and_store($model,$request,$new_model);        
+        return $result;
     }
 
     /**

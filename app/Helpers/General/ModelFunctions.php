@@ -149,9 +149,9 @@ class ModelFunctions
             ];
 
             $validator = Validator::make($value, [
-                'date' => 'bail', Rule::unique($model->getTable())->where(function ($query) use ($state_id) {
+                'date' => ['bail', Rule::unique($model->getTable())->where(function ($query) use ($state_id) {
                     return $query->where('state_id', $state_id);
-                }),
+                })],
                 'state_id' => Rule::unique($model->getTable())->where(function ($query) use ($date) {
                     return $query->where('date', $date);
                 }),
@@ -183,6 +183,119 @@ class ModelFunctions
 
         
     }
+
+    /**
+     * Get State Sum
+     *
+     * @return $sum
+     */
+
+     public static function get_state_sum($model,$state_id){
+        $latest_row = $model->where('state_id', $state_id)
+        ->orderBy('id', 'DESC')
+        ->limit(1)
+        ->get();
+
+        if ($latest_row->count() > 0) {
+        $sum = $latest_row['0']->state_sum_value;
+        }
+        else {
+        $sum = 0;
+        }
+
+        return $sum;
+     }
+
+     /**
+     * Get State Sum
+     *
+     * @return $sum
+     */
+
+    public static function get_sum($model){
+        $latest_row = $model
+        ->orderBy('id', 'DESC')
+        ->limit(1)
+        ->get();
+
+        if ($latest_row->count() > 0) {
+            $sum = $latest_row['0']->sum_value;
+        }
+        else {
+            $sum = 0;
+        }
+
+        return $sum;
+     }
+
+     /**
+     * Get State Sum
+     *
+     * @return $sum
+     */
+
+    public function store($model,$request,$new_model){
+        
+        //Get State ID
+        $state_id = $request->state_id;
+        $state_sum_value = $this->get_state_sum($new_model,$state_id);
+        //Get Total Current Sum
+        $sum_value = $this->get_sum($new_model);
+
+        if($request->date){
+            $model->create($request->merge([
+                'date' => $request->date ? Carbon::parse($request->date)->format('Y-m-d') : null,
+                'state_sum_value' => $state_sum_value+$request->value,
+                'sum_value' => $sum_value+$request->value
+            ])->all());
+        } else {
+            $model->create($request->all());
+        } 
+        return true;
+     }
+
+     /**
+     * Get State Sum
+     *
+     * @return $sum
+     */
+
+    public function validate_and_store($model,$request,$new_model){
+        
+        $data = $request->all();
+        $data['date'] = $request->date ? Carbon::parse($request->date)->format('Y-m-d') : null;
+        $messages = [
+            'date.unique' => 'This state and date Combination already exists',
+            'state_id.unique' => 'This state and date Combination already exists',
+        ];
+        $state_id = $data['state_id'];
+        $date = $data['date'];
+        // dd($date);
+        $validator = Validator::make($data, [
+            'date' => ['required',Rule::unique($model->getTable())->where(function ($query) use ($state_id) {
+                return $query->where('state_id', $state_id);
+            })],
+            'state_id' => ['required',Rule::unique($model->getTable())->where(function ($query) use ($date) {
+                return $query->where('date', $date);
+            })],
+            'value' => 'numeric|min:0'
+        ],$messages);
+        
+        //Redirect if Validator Fails
+        // dd($request->prev_route);
+        if ($validator->fails()) {
+            // dd('aa');
+            return redirect()->route($request->prev_route)
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+        $this->store($model,$request,$new_model);
+
+        $route_name = $this->get_route($model);
+        $model_name = $this->get_model_name($model);                
+        return redirect()->route($route_name.'.index')->withStatus(__($model_name.' successfully created.'));
+     }
 
 
 
