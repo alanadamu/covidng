@@ -8,7 +8,7 @@
               <h5 class="card-category">
                 {{ "Annual Data" }}
               </h5>
-              <h2 class="card-title">{{ "Sales" }}</h2>
+              <h2 class="card-title">{{ "Cases" }}</h2>
             </div>
             <div class="col-sm-6"></div>
           </div>
@@ -19,10 +19,37 @@
             style="height: 100%"
             ref="bigChart"
             chart-id="big-line-chart"
-            :chart-data="salesLineChart.chartData"
+            :chartData="salesLineChart.chartData"
             :gradient-colors="salesLineChart.gradientColors"
             :gradient-stops="salesLineChart.gradientStops"
             :extra-options="salesLineChart.extraOptions"
+          >
+          </line-chart>
+        </div>
+      </card>
+
+      <card type="chart">
+        <template slot="header">
+          <div class="row">
+            <div class="col-sm-6">
+              <h5 class="card-category">
+                {{ "Monthly Data" }}
+              </h5>
+              <h2 class="card-title">{{ "Daily Cases" }}</h2>
+            </div>
+            <div class="col-sm-6"></div>
+          </div>
+        </template>
+        <div class="chart-area">
+          <line-chart
+            v-if="loaded"
+            style="height: 100%"
+            ref="bigChart"
+            chart-id="big-line-chart"
+            :chartData="dailySalesLineChart.chartData"
+            :gradient-colors="dailySalesLineChart.gradientColors"
+            :gradient-stops="dailySalesLineChart.gradientStops"
+            :extra-options="dailySalesLineChart.extraOptions"
           >
           </line-chart>
         </div>
@@ -34,9 +61,28 @@
               <h5 class="card-category">
                 {{ "Annual Data" }}
               </h5>
-              <h2 class="card-title">{{ "Profit" }}</h2>
+              <h2 class="card-title">{{ "Compare States" }}</h2>
             </div>
-            <div class="col-sm-6"></div>
+            <div class="col-sm-3 my-1">
+              <!-- array of strings or numbers -->
+              <v-select
+                placeholder="Choose a State"
+                label="name"
+                :options="states"
+                v-model="selectedState['0']"
+                @input="updateStateChart('0')"
+              ></v-select>
+            </div>
+            <div class="col-sm-3 my-1">
+              <!-- array of strings or numbers -->
+              <v-select
+                placeholder="Choose a State"
+                label="name"
+                :options="states"
+                v-model="selectedState['1']"
+                @input="updateStateChart('1')"
+              ></v-select>
+            </div>
           </div>
         </template>
         <div class="chart-area">
@@ -45,192 +91,14 @@
             style="height: 100%"
             ref="bigChart"
             chart-id="big-line-chart"
-            :chart-data="profitLineChart.chartData"
-            :gradient-colors="profitLineChart.gradientColors"
-            :gradient-stops="profitLineChart.gradientStops"
-            :extra-options="profitLineChart.extraOptions"
+            :chartData="stateCasesLineChart.chartData"
+            :gradient-colors="stateCasesLineChart.gradientColors"
+            :gradient-stops="stateCasesLineChart.gradientStops"
+            :extra-options="stateCasesLineChart.extraOptions"
           >
           </line-chart>
         </div>
       </card>
-      <card type="chart">
-        <template slot="header">
-          <div class="row">
-            <div class="col-sm-6">
-              <h5 class="card-category">
-                {{ "Monthly Data" }}
-              </h5>
-              <h2 class="card-title">{{ "Daily Sales" }}</h2>
-            </div>
-            <div class="col-sm-6"></div>
-          </div>
-        </template>
-        <div class="chart-area">
-          <line-chart
-            v-if="loaded"
-            style="height: 100%"
-            ref="bigChart"
-            chart-id="big-line-chart"
-            :chart-data="dailySalesLineChart.chartData"
-            :gradient-colors="dailySalesLineChart.gradientColors"
-            :gradient-stops="dailySalesLineChart.gradientStops"
-            :extra-options="dailySalesLineChart.extraOptions"
-          >
-          </line-chart>
-        </div>
-      </card>
-    </div>
-    <div class="col-lg-3 col-md-6">
-      <div class="card card-stats">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-5">
-              <div class="info-icon text-center icon-success">
-                <i class="tim-icons icon-money-coins"></i>
-              </div>
-            </div>
-            <div class="col-7">
-              <div class="numbers">
-                <p class="card-category">Sales Today</p>
-                <h3 class="card-title">{{ sales_today }}</h3>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-3 col-md-6">
-      <div class="card card-stats">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-5">
-              <div class="info-icon text-center icon-success">
-                <i class="tim-icons icon-money-coins"></i>
-              </div>
-            </div>
-            <div class="col-7">
-              <div class="numbers">
-                <p class="card-category">Sales This Month</p>
-                <h3 class="card-title">{{ sales_month }}</h3>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-3 col-md-6">
-      <div class="card card-stats">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-5">
-              <div class="info-icon text-center icon-success">
-                <i class="tim-icons icon-money-coins"></i>
-              </div>
-            </div>
-            <div class="col-7">
-              <div class="numbers">
-                <p class="card-category">Sales This Year</p>
-                <h3 class="card-title">{{ sales_year }}</h3>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-3 col-md-6">
-      <div class="card card-stats">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-5">
-              <div class="info-icon text-center icon-success">
-                <i class="tim-icons icon-money-coins"></i>
-              </div>
-            </div>
-            <div class="col-7">
-              <div class="numbers">
-                <p class="card-category">All Time Sales</p>
-                <h3 class="card-title">{{ sales_all_time }}</h3>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-3 col-md-6">
-      <div class="card card-stats">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-5">
-              <div class="info-icon text-center icon-success">
-                <i class="tim-icons icon-money-coins"></i>
-              </div>
-            </div>
-            <div class="col-7">
-              <div class="numbers">
-                <p class="card-category">Profit Today</p>
-                <h3 class="card-title">{{ profit_today }}</h3>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-3 col-md-6">
-      <div class="card card-stats">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-5">
-              <div class="info-icon text-center icon-success">
-                <i class="tim-icons icon-money-coins"></i>
-              </div>
-            </div>
-            <div class="col-7">
-              <div class="numbers">
-                <p class="card-category">Profit This Month</p>
-                <h3 class="card-title">{{ profit_month }}</h3>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-3 col-md-6">
-      <div class="card card-stats">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-5">
-              <div class="info-icon text-center icon-success">
-                <i class="tim-icons icon-money-coins"></i>
-              </div>
-            </div>
-            <div class="col-7">
-              <div class="numbers">
-                <p class="card-category">Profit This Year</p>
-                <h3 class="card-title">{{ profit_year }}</h3>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-3 col-md-6">
-      <div class="card card-stats">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-5">
-              <div class="info-icon text-center icon-success">
-                <i class="tim-icons icon-money-coins"></i>
-              </div>
-            </div>
-            <div class="col-7">
-              <div class="numbers">
-                <p class="card-category">All Time Profit</p>
-                <h3 class="card-title">{{ profit_all_time }}</h3>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </template>
@@ -246,6 +114,13 @@ export default {
   components: { LineChart, BarChart, TaskList, UserTable, chartConfigs },
   data() {
     return {
+      dateLabels: {},
+      selectedState: {
+        "0": "",
+        "1": ""
+      },
+      stateCases: [],
+      states: [],
       sales_today: 0,
       sales_month: 0,
       sales_year: 0,
@@ -273,7 +148,7 @@ export default {
               pointBorderWidth: 20,
               pointHoverRadius: 4,
               pointHoverBorderWidth: 15,
-              pointRadius: 4,
+              pointRadius: 0,
               data: []
             }
           ]
@@ -283,24 +158,7 @@ export default {
         extraOptions: chartConfigs.profitChartOptions,
         chartData: {
           labels: [],
-          datasets: [
-            {
-              label: "Data",
-              fill: true,
-              borderColor: config.colors.primary,
-              borderWidth: 2,
-              borderDash: [],
-              borderDashOffset: 0.0,
-              pointBackgroundColor: config.colors.primary,
-              pointBorderColor: "rgba(255,255,255,0)",
-              pointHoverBackgroundColor: config.colors.primary,
-              pointBorderWidth: 20,
-              pointHoverRadius: 4,
-              pointHoverBorderWidth: 15,
-              pointRadius: 4,
-              data: []
-            }
-          ]
+          datasets: []
         }
       },
       dailySalesLineChart: {
@@ -321,7 +179,7 @@ export default {
               pointBorderWidth: 20,
               pointHoverRadius: 4,
               pointHoverBorderWidth: 15,
-              pointRadius: 4,
+              pointRadius: 0,
               data: []
             }
           ]
@@ -329,55 +187,236 @@ export default {
       }
     };
   },
-  computed: {},
+  computed: {
+    stateCasesLineChart() {
+      return this.profitLineChart;
+    }
+  },
   methods: {
     numberWithCommas(x) {
       let a = parseFloat(x);
       return a.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
+    updateStateChart(key) {
+      let state_id = 0;
+      let data = [];
+      var result = {};
+      let data2 = [];
+      var result2 = {};
+      let dataset = [];
+
+      let key2 = key => {
+        return key == 0 ? 1 : 0;
+      };
+
+      let data_exists = key => {
+        if (!this.selectedState[parseInt(key)]) {
+          return false;
+        }
+        return Object.entries(this.selectedState[parseInt(key)]).length !== 0;
+      };
+      if (data_exists(key2(key)) && data_exists(key)) {
+        // console.log("here");
+
+        // Get chart data
+        // Get the data of the state
+        state_id = this.selectedState[key].id;
+        result = this.stateCases.filter(obj => {
+          return obj.id === state_id;
+        });
+
+        data = result[0].covid_cases.map(a => ({
+          x: a.date,
+          y: a.state_sum_value
+        }));
+
+        let state_id2 = this.selectedState[key2(key)].id;
+        var result2 = this.stateCases.filter(obj => {
+          return obj.id === state_id2;
+        });
+        let data2 = result2[0].covid_cases.map(a => ({
+          x: a.date,
+          y: a.state_sum_value
+        }));
+
+        let firstData = [];
+        let secondData = [];
+        if (key == 0) {
+          firstData = data;
+          secondData = data2;
+        } else {
+          firstData = data2;
+          secondData = data;
+        }
+        dataset = [
+          {
+            label: this.selectedState[0].name,
+            fill: false,
+            borderColor: config.colors.primary,
+            borderWidth: 2,
+            borderDash: [],
+            borderDashOffset: 0.0,
+            pointBackgroundColor: config.colors.primary,
+            pointBorderColor: "rgba(255,255,255,0)",
+            pointHoverBackgroundColor: config.colors.primary,
+            pointBorderWidth: 20,
+            pointHoverRadius: 4,
+            pointHoverBorderWidth: 15,
+            pointRadius: 0,
+            yAxisID: "y-axis-1",
+            data: firstData
+          },
+          {
+            label: this.selectedState[1].name,
+            borderColor: config.colors.primary,
+            borderWidth: 2,
+            borderDash: [],
+            borderDashOffset: 0.0,
+            pointBackgroundColor: "rgb(255, 99, 132)",
+            backgroundColor: "rgb(255, 99, 132)",
+            borderColor: "rgb(255, 99, 132)",
+            pointBorderColor: "rgba(255,255,255,0)",
+            fill: false,
+            pointHoverBackgroundColor: config.colors.primary,
+            pointBorderWidth: 20,
+            pointHoverRadius: 4,
+            pointHoverBorderWidth: 15,
+            pointRadius: 0,
+            yAxisID: "y-axis-1",
+            data: secondData
+          }
+        ];
+
+        this.profitLineChart = {
+          extraOptions: chartConfigs.profitChartOptions,
+          chartData: {
+            labels: this.dateLabels,
+            datasets: dataset
+          }
+        };
+      } else if (data_exists(key2(key)) && !data_exists(key)) {
+        state_id = this.selectedState[key2(key)].id;
+        // Get the data of the state
+        result = this.stateCases.filter(obj => {
+          return obj.id === state_id;
+        });
+
+        data = result[0].covid_cases.map(a => ({
+          x: a.date,
+          y: a.state_sum_value
+        }));
+        dataset = [
+          {
+            label: this.selectedState[key2(key)].name,
+            fill: false,
+            borderColor: "rgb(255, 99, 132)",
+            borderWidth: 2,
+            borderDash: [],
+            borderDashOffset: 0.0,
+            pointBackgroundColor: "rgb(255, 99, 132)",
+            backgroundColor: "rgb(255, 99, 132)",
+            borderColor: "rgb(255, 99, 132)",
+            pointHoverBackgroundColor: "rgb(255, 99, 132)",
+            pointBorderWidth: 20,
+            pointHoverRadius: 4,
+            pointHoverBorderWidth: 15,
+            pointRadius: 0,
+            yAxisID: "y-axis-1",
+            data: data
+          }
+        ];
+
+        this.profitLineChart = {
+          extraOptions: chartConfigs.profitChartOptions,
+          chartData: {
+            labels: this.dateLabels,
+            datasets: dataset
+          }
+        };
+      } else if (!data_exists(key2(key)) && data_exists(key)) {
+        // console.log("here");
+        state_id = this.selectedState[key].id;
+        // Get the data of the state
+        result = this.stateCases.filter(obj => {
+          return obj.id === state_id;
+        });
+
+        data = result[0].covid_cases.map(a => ({
+          x: a.date,
+          y: a.state_sum_value
+        }));
+        dataset = [
+          {
+            label: this.selectedState[key].name,
+            fill: true,
+            borderColor: config.colors.primary,
+            borderWidth: 2,
+            borderDash: [],
+            borderDashOffset: 0.0,
+            pointBackgroundColor: config.colors.primary,
+            pointBorderColor: "rgba(255,255,255,0)",
+            pointHoverBackgroundColor: config.colors.primary,
+            pointBorderWidth: 20,
+            pointHoverRadius: 4,
+            pointHoverBorderWidth: 15,
+            pointRadius: 0,
+            yAxisID: "y-axis-1",
+            data: data
+          }
+        ];
+
+        this.profitLineChart = {
+          extraOptions: chartConfigs.profitChartOptions,
+          chartData: {
+            labels: this.dateLabels,
+            datasets: dataset
+          }
+        };
+      } else {
+        dataset = [{}];
+
+        this.profitLineChart = {
+          extraOptions: chartConfigs.profitChartOptions,
+          chartData: {
+            labels: this.dateLabels,
+            datasets: dataset
+          }
+        };
+      }
+
+      // Create Chart Data
+      //Set Chart Data
+
+      // this.profitLineChart.chartData.datasets["0"].data = data;
+      // this.profitLineChart.chartData.labels = labels;
     }
   },
   mounted() {
     let vm = this;
-    axios
-      .get("http://localhost/odoo_frontend/public/api/v1/xxx")
-      .then(function(response) {
-        console.log(response.data);
-        vm.loaded = true;
-        //Sales
-        vm.salesLineChart.chartData.datasets[
-          "0"
-        ].data = response.data.data.sales.flat(1);
-        vm.salesLineChart.chartData.labels = response.data.data.labels.flat(1);
+    axios.get("http://127.0.0.1:8000/api/v1/home").then(function(response) {
+      vm.loaded = true;
+      //Sales
+      vm.salesLineChart.chartData.datasets[
+        "0"
+      ].data = response.data.data.cases.flat(1);
+      vm.salesLineChart.chartData.labels = response.data.data.labels.flat(1);
+      //Daily Sales
+      vm.dailySalesLineChart.chartData.datasets[
+        "0"
+      ].data = response.data.data.dailyCases.flat(1);
+      vm.dailySalesLineChart.chartData.labels = response.data.data.dailyLabels.flat(
+        1
+      );
 
-        //Daily Sales
-        vm.dailySalesLineChart.chartData.datasets[
-          "0"
-        ].data = response.data.data.dailySales.flat(1);
-        vm.dailySalesLineChart.chartData.labels = response.data.data.dailyLabels.flat(
-          1
-        );
+      vm.stateCases = response.data.data.dailyStateCases.flat(1);
+      vm.dateLabels = response.data.data.dateLabels["0"].map(a => a.date);
+    });
 
-        //Profit
-        vm.profitLineChart.chartData.datasets[
-          "0"
-        ].data = response.data.data.profit.flat(1);
-        vm.profitLineChart.chartData.labels = response.data.data.labels.flat(1);
+    axios.get("http://127.0.0.1:8000/api/v1/state").then(function(response) {
+      vm.loaded = true;
 
-        //Others
-        vm.sales_today = vm.numberWithCommas(response.data.data.sales_today);
-        vm.sales_month = vm.numberWithCommas(response.data.data.sales_month);
-        vm.sales_year = vm.numberWithCommas(response.data.data.sales_year);
-        vm.sales_all_time = vm.numberWithCommas(
-          response.data.data.sales_all_time
-        );
-
-        vm.profit_today = vm.numberWithCommas(response.data.data.profit_today);
-        vm.profit_month = vm.numberWithCommas(response.data.data.profit_month);
-        vm.profit_year = vm.numberWithCommas(response.data.data.profit_year);
-        vm.profit_all_time = vm.numberWithCommas(
-          response.data.data.profit_all_time
-        );
-      });
+      vm.states = response.data.data.flat(1);
+    });
   }
 };
 </script>

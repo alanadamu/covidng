@@ -3,8 +3,9 @@ import { Line, mixins } from 'vue-chartjs';
 export default {
   name: 'line-chart',
   extends: Line,
-  mixins: [mixins.reactiveProp],
+  mixins: [mixins],
   props: {
+    chartData: Object,
     extraOptions: Object,
     gradientColors: {
       type: Array,
@@ -38,6 +39,14 @@ export default {
       chartData.datasets.forEach(set => {
         set.backgroundColor = gradientStroke;
       });
+    }
+  },
+  watch: {
+    chartData: function () {
+      this.$data._chart.destroy();
+      //this.renderChart(this.data, this.options);
+      this.renderChart(this.chartData,
+        this.extraOptions);
     }
   },
   mounted() {

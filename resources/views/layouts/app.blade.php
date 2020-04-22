@@ -32,8 +32,6 @@
   <link href="{{ asset('black') }}/css/nucleo-icons.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link href="{{ asset('black') }}/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
-  <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link href="{{ asset('black') }}/demo/demo.css" rel="stylesheet" />
 </head>
   <body class="{{ $class ?? '' }}">
       <style>
@@ -46,51 +44,6 @@
               @csrf
           </form>
           @include('layouts.page_templates.auth')
-          <div class="fixed-plugin">
-            <div class="dropdown show-dropdown">
-              <a href="#" data-toggle="dropdown">
-                <i class="fa fa-cog fa-2x"> </i>
-              </a>
-              <ul class="dropdown-menu">
-                <li class="header-title"> Sidebar Background</li>
-                <li class="adjustments-line">
-                  <a href="javascript:void(0)" class="switch-trigger background-color">
-                    <div class="badge-colors text-center">
-                      <span class="badge filter badge-primary" data-color="primary"></span>
-                      <span class="badge filter badge-info" data-color="blue"></span>
-                      <span class="badge filter badge-success" data-color="green"></span>
-                      <span class="badge filter badge-warning active" data-color="orange"></span>
-                      <span class="badge filter badge-danger" data-color="red"></span>
-                    </div>
-                    <div class="clearfix"></div>
-                  </a>
-                </li>
-                <li class="header-title">
-                  Sidebar Mini
-                </li>
-                <li class="adjustments-line">
-                  <div class="togglebutton switch-sidebar-mini">
-                    <span class="label-switch">OFF</span>
-                    <input type="checkbox" name="checkbox" class="bootstrap-switch" data-on-label="" data-off-label="" />
-                    <span class="label-switch label-right">ON</span>
-                  </div>
-                </li>
-                <li class="button-container mt-4">
-                  <a href="https://black-dashboard-pro-laravel.creative-tim.com/docs/getting-started/laravel-setup.html" class="btn btn-default btn-block btn-round">
-                    Documentation
-                  </a>
-                </li>
-                <li class="header-title">Thank you for 95 shares!</li>
-                <li class="button-container text-center">
-                  <button id="twitter" class="btn btn-round btn-info"><i class="fab fa-twitter"></i> &middot; 45</button>
-                  <button id="facebook" class="btn btn-round btn-info"><i class="fab fa-facebook-f"></i> &middot; 50</button>
-                  <br>
-                  <br>
-                  <a class="github-button" href="https://github.com/creativetimofficial/ct-black-dashboard-pro-laravel" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star ntkme/github-buttons on GitHub">Star</a>
-                </li>
-              </ul>
-            </div>
-          </div>
         @else
           @include('layouts.page_templates.guest')
         @endif
@@ -129,9 +82,6 @@
         <script src="{{ asset('black') }}/js/plugins/jquery-jvectormap.js"></script>
         <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
         <script src="{{ asset('black') }}/js/plugins/nouislider.min.js"></script>
-        <!--  Google Maps Plugin    -->
-        <!-- Place this tag in your head or just before your close body tag. -->
-        <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
         <!-- Chart JS -->
         <script src="{{ asset('black') }}/js/plugins/chartjs.min.js"></script>
         <!--  Notifications Plugin    -->
@@ -139,9 +89,7 @@
         <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
         <script src="{{ asset('black') }}/js/black-dashboard.min.js?v=1.0.1"></script>
         <!-- Black Dashboard DEMO methods, don't include it in your project! -->
-        <script src="{{ asset('black') }}/demo/demo.js"></script>
         <script src="{{ asset('black') }}/js/settings.js"></script>
-        <script src="{{ asset('black') }}/demo/jquery.sharrre.js"></script>
         <script>
           $(document).ready(function () {
             @if (session('status'))
@@ -158,55 +106,8 @@
               });
             @endif
 
-            $('#facebook').sharrre({
-              share: {
-                facebook: true
-              },
-              enableHover: false,
-              enableTracking: false,
-              enableCounter: false,
-              click: function(api, options) {
-                api.simulateClick();
-                api.openPopup('facebook');
-              },
-              template: '<i class="fab fa-facebook-f"></i> Facebook',
-              url: 'https://black-dashboard-pro-laravel.creative-tim.com/login'
-            });
 
-            $('#google').sharrre({
-              share: {
-                googlePlus: true
-              },
-              enableCounter: false,
-              enableHover: false,
-              enableTracking: true,
-              click: function(api, options) {
-                api.simulateClick();
-                api.openPopup('googlePlus');
-              },
-              template: '<i class="fab fa-google-plus"></i> Google',
-              url: 'https://black-dashboard-pro-laravel.creative-tim.com/login'
-            });
 
-            $('#twitter').sharrre({
-              share: {
-                twitter: true
-              },
-              enableHover: false,
-              enableTracking: false,
-              enableCounter: false,
-              buttons: {
-                twitter: {
-                  via: 'CreativeTim'
-                }
-              },
-              click: function(api, options) {
-                api.simulateClick();
-                api.openPopup('twitter');
-              },
-              template: '<i class="fab fa-twitter"></i> Twitter',
-              url: 'https://black-dashboard-pro-laravel.creative-tim.com/login'
-            });
           });
         </script>
         @stack('js')

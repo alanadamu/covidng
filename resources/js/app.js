@@ -2,12 +2,13 @@ const axios = require('axios').default;
 
 import Vue from "vue";
 import store from './store.js';
-import "vue-trix";
 import VueRouter from "vue-router";
 import App from "./App.vue";
 // TIP: change to import router from "./router/starterRouter"; to start with a clean layout
 import router from "./router/index";
 
+import vSelect from 'vue-select'
+import "vue-select/src/scss/vue-select.scss";
 import { BaseInput, Card, BaseDropdown, BaseButton, BaseCheckbox } from "./components/index";
 /**
  * You can register global components here and use them as a plugin in your main Vue instance
@@ -15,10 +16,8 @@ import { BaseInput, Card, BaseDropdown, BaseButton, BaseCheckbox } from "./compo
 
 
 window.Vue = require('vue');
-Vue.config.ignoredElements = [
-  'trix-editor',
-];
 
+Vue.component('v-select', vSelect)
 Vue.component(BaseInput.name, BaseInput);
 Vue.component(Card.name, Card);
 Vue.component(BaseDropdown.name, BaseDropdown);
