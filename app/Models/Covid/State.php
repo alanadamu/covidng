@@ -2,14 +2,18 @@
 
 namespace App\Models\Covid;
 
+use App\Models\Covid\Test;
+use App\Models\Covid\Death;
+use App\Models\Covid\CovidCase;
+use App\Models\Covid\Discharge;
 use Illuminate\Database\Eloquent\Model;
 
 class State extends Model
 {
     public function blade_data(){
         return array(
-            'activePage' => 'covid-state',
-            'menuParent' => 'covid', 
+            'activePage' => 'manage-state',
+            'menuParent' => 'manage', 
             'titlePage' => 'States',
             'modelName' => 'State',  
             'createLabel' => 'Add State',   
@@ -66,5 +70,49 @@ class State extends Model
         'id',
         'name',
     ];
+
+    /**
+     * Get the cases of the state
+     *
+     * @return \App\Models\Covid\CovidCase
+     */
+
+    public function covid_cases()
+    {
+        return $this->hasMany(CovidCase::class);
+    }
+
+    /**
+     * Get the cases of the state
+     *
+     * @return \App\Models\Covid\Death
+     */
+
+    public function death()
+    {
+        return $this->hasMany(Death::class);
+    }
+
+    /**
+     * Get the cases of the state
+     *
+     * @return \App\Models\Covid\Discharge
+     */
+
+    public function discharge()
+    {
+        return $this->hasMany(Discharge::class);
+    }
+
+    /**
+     * Get the cases of the state
+     *
+     * @return \App\Models\Covid\Test
+     */
+
+    public function test()
+    {
+        return $this->hasMany(Test::class);
+    }
 
 }

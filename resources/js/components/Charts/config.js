@@ -2,7 +2,7 @@
 export const basicOptions = {
   maintainAspectRatio: false,
   legend: {
-    display: false
+    display: true
   },
   responsive: true,
 };
@@ -27,8 +27,7 @@ export let dailySalesChartOptions = {
         zeroLineColor: "transparent",
       },
       ticks: {
-        suggestedMin: 60,
-        suggestedMax: 125,
+        suggestedMin: 0,
         padding: 20,
         fontColor: "#9a9a9a",
         callback: value => {
@@ -56,33 +55,32 @@ export let dailySalesChartOptions = {
 export let profitChartOptions = {
   ...basicOptions,
   tooltips: {
-    backgroundColor: '#f5f5f5',
     titleFontColor: '#333',
     bodyFontColor: '#666',
     bodySpacing: 4,
     xPadding: 12,
     mode: "nearest",
     intersect: 0,
-    position: "nearest"
+    position: "nearest",
   },
   scales: {
     yAxes: [{
-      barPercentage: 1.6,
       gridLines: {
         drawBorder: false,
         color: 'rgba(29,140,248,0.0)',
         zeroLineColor: "transparent",
       },
       ticks: {
-        suggestedMin: 60,
-        suggestedMax: 125,
+        beginAtZero: true,
+        suggestedMin: 0,
         padding: 20,
         fontColor: "#9a9a9a",
         callback: value => {
           let a = parseFloat(value);
           return a.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
-      }
+      },
+      id: 'y-axis-1'
     }],
 
     xAxes: [{
@@ -121,8 +119,7 @@ export let salesChartOptions = {
         zeroLineColor: "transparent",
       },
       ticks: {
-        suggestedMin: 60,
-        suggestedMax: 125,
+        suggestedMin: 0,
         padding: 20,
         fontColor: "#9a9a9a",
         callback: value => {
@@ -168,8 +165,7 @@ export let orangeChartOptions = {
         zeroLineColor: "transparent",
       },
       ticks: {
-        suggestedMin: 50,
-        suggestedMax: 110,
+        suggestedMin: 0,
         padding: 20,
         fontColor: "#ff8a76"
       }
@@ -211,8 +207,7 @@ export let greenChartOptions = {
         zeroLineColor: "transparent",
       },
       ticks: {
-        suggestedMin: 50,
-        suggestedMax: 125,
+        suggestedMin: 0,
         padding: 20,
         fontColor: "#9e9e9e"
       }
@@ -254,8 +249,7 @@ export let barChartOptions = {
         zeroLineColor: "transparent",
       },
       ticks: {
-        suggestedMin: 60,
-        suggestedMax: 120,
+        suggestedMin: 0,
         padding: 20,
         fontColor: "#9e9e9e"
       }

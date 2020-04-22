@@ -1,8 +1,11 @@
 @include('layouts.navbars.navs.guest')
 <div class="wrapper wrapper-full-page">
-    <div class="full-page {{ $classPage }}">
-  <!--   you can change the color of the filter page using: data-color="blue | purple | green | orange | red | rose " -->
-    @yield('content')
-    @include('layouts.footers.guest')
+    <div class="full-page p-2 mt-5 mb-0">
+      <div id="app">
+        @yield('content')
+      </div>
+      
   </div>
+  @include('layouts.footers.guest')
+
 </div>

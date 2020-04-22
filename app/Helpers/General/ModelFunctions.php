@@ -133,7 +133,7 @@ class ModelFunctions
 
             //Verify State Exists
             if(State::where('name',$value['state'])->count()==0){
-                return redirect()->route($bulk_route_create)->withErrors(__('Unrecognized states found. Please check again.'));
+                return redirect()->route($bulk_route_create)->withErrors(__('Unrecognized states found. Please check again.<'.$value['state'].'>'));
             }
             $state_id = State::where('name',$value['state'])->get()['0']->id;
 
@@ -141,6 +141,7 @@ class ModelFunctions
             //Run Validator
 
             $value['state_id'] = $state_id;
+            
             $date = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($value['date']);
             $value['date'] = Carbon::instance($date)->format('Y-m-d');
             $messages = [
@@ -167,15 +168,49 @@ class ModelFunctions
             }
 
             //If Validator does not fail, store data in array
-            array_push($data, [
-                                'date' => $value['date'],
-                                'state_id' => $state_id,
-                                'value' => $value['value'],
-                            ]);
+
         }
+
+        $count_row=0;
+        foreach ($array['0'] as $key => $value) {
+            //Skip blank rows
+            if ($value['date'] == null) {
+                continue;
+            }
+            $count_row++;
+            set_time_limit(1000);
+            if(State::where('name',$value['state'])->count() == 0){
+                dd([$value,$count_row]);
+            }
+            $state_id = State::where('name',$value['state'])->get()['0']->id;
+            // dd([$value,$state_id]);
+            $date = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($value['date']);
+            $value['date'] = Carbon::instance($date)->format('Y-m-d');
+            $temp = [
+                'date' => $value['date'],
+                'state_id' => $state_id,
+                'value' => $value['value'],
+                'created_at' => now(),
+                'updated_at' => now()
+            ];
+            $request = new \Illuminate\Http\Request();
+            $request->replace(
+                                [
+                                    'date' => $value['date'],
+                                    'state_id' => $state_id,
+                                    'value' => $value['value'],
+                                    'created_at' => now(),
+                                    'updated_at' => now()
+                                ]
+                            );
+            $this->store($request,$model);
+
+        }
+
+       
+
         // dd($data);
         //If all data looped through without failure
-        $model->insert($data);
         $route_name = $this->get_route($model);
         $model_name = $this->get_model_name($model);                
         return redirect()->route($route_name.'.index')->withStatus(__($model_name.'(s) successfully created.'));
@@ -234,7 +269,7 @@ class ModelFunctions
      * @return $sum
      */
 
-    public function store($model,$request,$new_model){
+    public function store($request,$new_model){
         
         //Get State ID
         $state_id = $request->state_id;
@@ -243,13 +278,13 @@ class ModelFunctions
         $sum_value = $this->get_sum($new_model);
 
         if($request->date){
-            $model->create($request->merge([
+            $new_model->create($request->merge([
                 'date' => $request->date ? Carbon::parse($request->date)->format('Y-m-d') : null,
                 'state_sum_value' => $state_sum_value+$request->value,
                 'sum_value' => $sum_value+$request->value
             ])->all());
         } else {
-            $model->create($request->all());
+            $new_model->create($request->all());
         } 
         return true;
      }
@@ -290,7 +325,7 @@ class ModelFunctions
                         ->withInput();
         }
 
-        $this->store($model,$request,$new_model);
+        $this->store($request,$new_model);
 
         $route_name = $this->get_route($model);
         $model_name = $this->get_model_name($model);                

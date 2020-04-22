@@ -45,82 +45,7 @@
         </div>
       </div>
     </div>
-    <div class="col-lg-3 col-md-6">
-      <div class="card card-stats">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-5">
-              <div class="info-icon text-center icon-success">
-                <i class="tim-icons icon-money-coins"></i>
-              </div>
-            </div>
-            <div class="col-7">
-              <div class="numbers">
-                <p class="card-category">Sales Today</p>
-                <h3 class="card-title">{{number_format($sales_today,2)}}</h3>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-3 col-md-6">
-      <div class="card card-stats">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-5">
-              <div class="info-icon text-center icon-success">
-                <i class="tim-icons icon-money-coins"></i>
-              </div>
-            </div>
-            <div class="col-7">
-              <div class="numbers">
-                <p class="card-category">Sales This Month</p>
-                <h3 class="card-title">{{number_format($sales_month,2)}}</h3>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-3 col-md-6">
-      <div class="card card-stats">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-5">
-              <div class="info-icon text-center icon-success">
-                <i class="tim-icons icon-money-coins"></i>
-              </div>
-            </div>
-            <div class="col-7">
-              <div class="numbers">
-                <p class="card-category">Sales This Year</p>
-                <h3 class="card-title">{{number_format($sales_year,2)}}</h3>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-3 col-md-6">
-      <div class="card card-stats">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-5">
-              <div class="info-icon text-center icon-success">
-                <i class="tim-icons icon-money-coins"></i>
-              </div>
-            </div>
-            <div class="col-7">
-              <div class="numbers">
-                <p class="card-category">All Time Sales</p>
-                <h3 class="card-title">{{number_format($sales_all_time,2)}}</h3>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+
     <div class="col-lg-4">
       <div class="card card-chart">
         <div class="card-header">
@@ -134,19 +59,7 @@
         </div>
       </div>
     </div>
-    <div class="col-lg-4">
-      <div class="card card-chart">
-        <div class="card-header">
-          <h5 class="card-category">Daily Sales</h5>
-          <h3 class="card-title"><i class="tim-icons icon-delivery-fast text-info"></i> 3,500€</h3>
-        </div>
-        <div class="card-body">
-          <div class="chart-area">
-            <canvas id="CountryChart"></canvas>
-          </div>
-        </div>
-      </div>
-    </div>
+
     <div class="col-lg-4">
       <div class="card card-chart">
         <div class="card-header">

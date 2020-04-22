@@ -4,7 +4,11 @@ import NotFound from "../pages/NotFoundPage.vue";
 
 const routes = [
   {
-    path: "/odoo_frontend/public/dashboard",
+    path: "/dashboard",
+    component: Dashboard,
+  },
+  {
+    path: "/home",
     component: Dashboard,
   },
   { path: "*", component: NotFound },

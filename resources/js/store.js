@@ -16,12 +16,6 @@ Imports Vue and Vuex
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-/**
- * VueX persisted store
- * https://github.com/robinvdvleuten/vuex-persistedstate
- */
-import createPersistedState from 'vuex-persistedstate'
-
 /*
 Initializes Vuex on Vue.
 */
