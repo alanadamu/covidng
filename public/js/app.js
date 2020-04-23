@@ -3324,6 +3324,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../config */ "./resources/js/config.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _app_config_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../app_config.js */ "./resources/js/app_config.js");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 //
@@ -3430,6 +3431,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+
 
 
 
@@ -3704,8 +3706,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   mounted: function mounted() {
+    console.log("production");
     var vm = this;
-    axios__WEBPACK_IMPORTED_MODULE_6___default.a.get("http://127.0.0.1:8000/api/v1/home").then(function (response) {
+    axios__WEBPACK_IMPORTED_MODULE_6___default.a.get(_app_config_js__WEBPACK_IMPORTED_MODULE_7__["APP_CONFIG"].API_URL + "/home").then(function (response) {
       vm.loaded = true; //Sales
 
       vm.salesLineChart.chartData.datasets["0"].data = response.data.data.cases.flat(1);
@@ -3718,7 +3721,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return a.date;
       });
     });
-    axios__WEBPACK_IMPORTED_MODULE_6___default.a.get("http://127.0.0.1:8000/api/v1/state").then(function (response) {
+    axios__WEBPACK_IMPORTED_MODULE_6___default.a.get(_app_config_js__WEBPACK_IMPORTED_MODULE_7__["APP_CONFIG"].API_URL + "/state").then(function (response) {
       vm.loaded = true;
       vm.states = response.data.data.flat(1);
     });
@@ -59172,7 +59175,7 @@ __webpack_require__.r(__webpack_exports__);
    */
   getAccounts: function getAccounts() {
     var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-    url = url || _app_config_js__WEBPACK_IMPORTED_MODULE_0__["CONFIG"].API_URL + '/journal_account';
+    url = url || _app_config_js__WEBPACK_IMPORTED_MODULE_0__["APP_CONFIG"].API_URL + '/journal_account';
     return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(url);
   },
 
@@ -59180,7 +59183,7 @@ __webpack_require__.r(__webpack_exports__);
    * POST  /api/v1/user
   */
   addJournalEntries: function addJournalEntries(payload) {
-    return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post(_app_config_js__WEBPACK_IMPORTED_MODULE_0__["CONFIG"].API_URL + '/journal_account', {
+    return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post(_app_config_js__WEBPACK_IMPORTED_MODULE_0__["APP_CONFIG"].API_URL + '/journal_account', {
       payload: payload
     });
   }
@@ -59250,12 +59253,12 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
 /*!************************************!*\
   !*** ./resources/js/app_config.js ***!
   \************************************/
-/*! exports provided: CONFIG */
+/*! exports provided: APP_CONFIG */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CONFIG", function() { return CONFIG; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "APP_CONFIG", function() { return APP_CONFIG; });
 /*
     Defines the API route we are using.
 */
@@ -59274,7 +59277,7 @@ switch ("development") {
     break;
 }
 
-var CONFIG = {
+var APP_CONFIG = {
   API_URL: api_url,
   URL: url
 };

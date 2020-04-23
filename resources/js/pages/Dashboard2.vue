@@ -394,8 +394,9 @@ export default {
     }
   },
   mounted() {
+    console.log(process.env.MIX_ENV_MODE);
     let vm = this;
-    axios.get(CONFIG.API_URL + "home").then(function(response) {
+    axios.get(APP_CONFIG.API_URL + "/home").then(function(response) {
       vm.loaded = true;
       //Sales
       vm.salesLineChart.chartData.datasets[
@@ -414,7 +415,7 @@ export default {
       vm.dateLabels = response.data.data.dateLabels["0"].map(a => a.date);
     });
 
-    axios.get(CONFIG.API_URL + "state").then(function(response) {
+    axios.get(APP_CONFIG.API_URL + "/state").then(function(response) {
       vm.loaded = true;
 
       vm.states = response.data.data.flat(1);
