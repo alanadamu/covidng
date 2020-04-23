@@ -41,20 +41,20 @@ export default {
       });
     }
   },
-  watch: {
-    chartData: function () {
-      this.$data._chart.destroy();
-      //this.renderChart(this.data, this.options);
-      this.renderChart(this.chartData,
-        this.extraOptions);
-    }
-  },
+
   mounted() {
 
     this.$watch('chartData', (newVal, oldVal) => {
       this.updateGradients(this.chartData);
       if (!oldVal) {
-        console.log(this.chartData)
+        console.log('new instance')
+        this.renderChart(
+          this.chartData,
+          this.extraOptions
+        );
+      } else {
+        this.$data._chart.destroy();
+        console.log('changed')
         this.renderChart(
           this.chartData,
           this.extraOptions
