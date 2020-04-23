@@ -50,6 +50,7 @@ export default {
     }
   },
   mounted() {
+    console.log('here')
     this.$watch('chartData', (newVal, oldVal) => {
       this.updateGradients(this.chartData);
       if (!oldVal) {
