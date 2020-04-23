@@ -394,9 +394,9 @@ export default {
     }
   },
   mounted() {
-    console.log(process.env.MIX_ENV_MODE);
     let vm = this;
     axios.get(APP_CONFIG.API_URL + "/home").then(function(response) {
+      console.log(response.data);
       vm.loaded = true;
       //Sales
       vm.salesLineChart.chartData.datasets[
