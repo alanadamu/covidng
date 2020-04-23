@@ -42,7 +42,7 @@ export default {
     }
   },
 
-  mounted() {
+  mounted: function () {
 
     this.$watch('chartData', (newVal, oldVal) => {
       this.updateGradients(this.chartData);
