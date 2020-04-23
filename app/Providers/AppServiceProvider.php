@@ -6,6 +6,7 @@ use App\Item;
 use App\User;
 use App\Observers\ItemObserver;
 use App\Observers\UserObserver;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
