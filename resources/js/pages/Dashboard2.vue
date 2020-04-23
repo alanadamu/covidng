@@ -110,6 +110,8 @@ import TaskList from "./Dashboard/TaskList";
 import UserTable from "./Dashboard/UserTable";
 import config from "../config";
 import axios from "axios";
+import { APP_CONFIG } from "../app_config.js";
+
 export default {
   components: { LineChart, BarChart, TaskList, UserTable, chartConfigs },
   data() {
@@ -393,7 +395,7 @@ export default {
   },
   mounted() {
     let vm = this;
-    axios.get("http://127.0.0.1:8000/api/v1/home").then(function(response) {
+    axios.get(CONFIG.API_URL + "home").then(function(response) {
       vm.loaded = true;
       //Sales
       vm.salesLineChart.chartData.datasets[
@@ -412,7 +414,7 @@ export default {
       vm.dateLabels = response.data.data.dateLabels["0"].map(a => a.date);
     });
 
-    axios.get("http://127.0.0.1:8000/api/v1/state").then(function(response) {
+    axios.get(CONFIG.API_URL + "state").then(function(response) {
       vm.loaded = true;
 
       vm.states = response.data.data.flat(1);
