@@ -22,7 +22,7 @@
                     @include('alerts.errors')
                 </div>
                 
-                <div class="row">
+                <div class="row ml-auto">
                     <div class="col">
                         <div class="fileinput fileinput-new text-center" data-provides="fileinput">
                             <div class="fileinput-new thumbnail">
@@ -31,7 +31,7 @@
                             <div class="fileinput-preview fileinput-exists thumbnail"></div>
                             <div>
                              <span class="btn btn-raised btn-round btn-primary btn-file">
-                                <span class="fileinput-new">Select image</span>
+                                <span class="fileinput-new">Select File</span>
                                 <span class="fileinput-exists">Change</span>
                                 <input type="file" name="data" />
                              </span>

@@ -23,26 +23,26 @@
             <i class="tim-icons icon-minimal-left"></i> {{ __('Back to Dashboard') }}
           </a>
         </li>
-        <li class="nav-item {{ $activePage == 'register' ? ' active' : '' }}">
+        {{-- <li class="nav-item {{ $activePage == 'register' ? ' active' : '' }}">
           <a href="{{ route('register') }}" class="nav-link">
             <i class="tim-icons icon-laptop"></i> {{ __('Register') }}
           </a>
-        </li>
+        </li> --}}
         <li class="nav-item {{ $activePage == 'login' ? ' active' : '' }}">
           <a href="{{ route('login') }}" class="nav-link">
             <i class="tim-icons icon-single-02"></i> {{ __('Login') }}
           </a>
         </li>
-        <li class="nav-item{{ $activePage == 'pricing' ? ' active' : '' }}">
+        {{-- <li class="nav-item{{ $activePage == 'pricing' ? ' active' : '' }}">
           <a href="{{ route('page.pricing') }}" class="nav-link">
             <i class="tim-icons icon-coins"></i> {{ __('Pricing') }}
           </a>
-        </li>
-        <li class="nav-item {{ $activePage == 'lock' ? ' active' : '' }}">
+        </li> --}}
+        {{-- <li class="nav-item {{ $activePage == 'lock' ? ' active' : '' }}">
           <a href="{{ route('page.lock') }}" class="nav-link">
             <i class="tim-icons icon-lock-circle"></i> {{ __('Lock') }}
           </a>
-        </li>
+        </li> --}}
         @auth()
           <li class="nav-item">
               <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault();

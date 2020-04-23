@@ -41,7 +41,8 @@
               </a>
             </li>
             <li class="{{ $activePage == 'covid-discharge' ? ' active' : '' }}">
-              <a href="{{ route('covid.discharge.index') }}">                
+              <a href="{{ route('covid.discharge.index') }}">    
+                <span class="sidebar-mini-icon">RF</span>            
                 <span class="sidebar-normal"> {{ __('Recoveries') }} </span>
               </a>
             </li>
