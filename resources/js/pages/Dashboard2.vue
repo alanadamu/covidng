@@ -195,6 +195,19 @@ export default {
     }
   },
   methods: {
+    updateStatsData(response) {
+      this.dailySalesLineChart.chartData.datasets["0"].data =
+        response.data.data.dailyCases;
+      this.dailySalesLineChart.chartData.labels =
+        response.data.data.dailyLabels;
+
+      this.stateCases = response.data.data.dailyStateCases;
+      this.dateLabels = response.data.data.dateLabels["0"].map(a => a.date);
+
+      return new Promise(function(resolve, reject) {
+        resolve("data updated successfully");
+      });
+    },
     numberWithCommas(x) {
       let a = parseFloat(x);
       return a.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -397,17 +410,10 @@ export default {
   mounted: function() {
     let vm = this;
     axios.get(APP_CONFIG.API_URL + "/home").then(function(response) {
-      vm.loaded = true;
-      //Sales
-      // vm.salesLineChart.chartData.datasets["0"].data = response.data.data.cases;
-      // vm.salesLineChart.chartData.labels = response.data.data.labels;
-      //Daily Sales
-      vm.dailySalesLineChart.chartData.datasets["0"].data =
-        response.data.data.dailyCases;
-      vm.dailySalesLineChart.chartData.labels = response.data.data.dailyLabels;
-
-      vm.stateCases = response.data.data.dailyStateCases;
-      vm.dateLabels = response.data.data.dateLabels["0"].map(a => a.date);
+      vm.updateStatsData(response).then(function(response) {
+        console.log(response);
+        vm.loaded = true;
+      });
     });
 
     axios.get(APP_CONFIG.API_URL + "/state").then(function(response) {

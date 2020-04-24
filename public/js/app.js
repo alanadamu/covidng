@@ -3565,6 +3565,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   methods: {
+    updateStatsData: function updateStatsData(response) {
+      this.dailySalesLineChart.chartData.datasets["0"].data = response.data.data.dailyCases;
+      this.dailySalesLineChart.chartData.labels = response.data.data.dailyLabels;
+      this.stateCases = response.data.data.dailyStateCases;
+      this.dateLabels = response.data.data.dateLabels["0"].map(function (a) {
+        return a.date;
+      });
+      return new Promise(function (resolve, reject) {
+        resolve("data updated successfully");
+      });
+    },
     numberWithCommas: function numberWithCommas(x) {
       var a = parseFloat(x);
       return a.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -3750,16 +3761,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   mounted: function mounted() {
     var vm = this;
     axios__WEBPACK_IMPORTED_MODULE_6___default.a.get(_app_config_js__WEBPACK_IMPORTED_MODULE_7__["APP_CONFIG"].API_URL + "/home").then(function (response) {
-      vm.loaded = true; //Sales
-      // vm.salesLineChart.chartData.datasets["0"].data = response.data.data.cases;
-      // vm.salesLineChart.chartData.labels = response.data.data.labels;
-      //Daily Sales
-
-      vm.dailySalesLineChart.chartData.datasets["0"].data = response.data.data.dailyCases;
-      vm.dailySalesLineChart.chartData.labels = response.data.data.dailyLabels;
-      vm.stateCases = response.data.data.dailyStateCases;
-      vm.dateLabels = response.data.data.dateLabels["0"].map(function (a) {
-        return a.date;
+      vm.updateStatsData(response).then(function (response) {
+        console.log(response);
+        vm.loaded = true;
       });
     });
     axios__WEBPACK_IMPORTED_MODULE_6___default.a.get(_app_config_js__WEBPACK_IMPORTED_MODULE_7__["APP_CONFIG"].API_URL + "/state").then(function (response) {
@@ -59305,13 +59309,13 @@ var url = '';
 
 switch ("development") {
   case 'development':
-    api_url = 'http://covidng.afivenet.com/api/v1';
-    url = 'http://covidng.afivenet.com';
+    api_url = 'http://127.0.0.1:8000/api/v1';
+    url = 'http://127.0.0.1:8000';
     break;
 
   case 'production':
-    api_url = 'http://covidng.afivenet.com/api/v1';
-    url = 'http://covidng.afivenet.com';
+    api_url = 'http://127.0.0.1:8000/api/v1';
+    url = 'http://127.0.0.1:8000';
     break;
 }
 
