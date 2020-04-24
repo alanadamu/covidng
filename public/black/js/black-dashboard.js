@@ -53,11 +53,11 @@ var seq2 = 0,
 
 function debounce(func, wait, immediate) {
   var timeout;
-  return function() {
+  return function () {
     var context = this,
       args = arguments;
     clearTimeout(timeout);
-    timeout = setTimeout(function() {
+    timeout = setTimeout(function () {
       timeout = null;
       if (!immediate) func.apply(context, args);
     }, wait);
@@ -65,7 +65,7 @@ function debounce(func, wait, immediate) {
   };
 };
 
-(function() {
+(function () {
   var isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
 
   if (isWindows) {
@@ -82,7 +82,7 @@ function debounce(func, wait, immediate) {
     if ($('.sidebar .sidebar-wrapper').length != 0) {
 
       var ps1 = new PerfectScrollbar('.sidebar .sidebar-wrapper');
-      $('.table-responsive').each(function() {
+      $('.table-responsive').each(function () {
         var ps2 = new PerfectScrollbar($(this)[0]);
       });
     }
@@ -95,13 +95,13 @@ function debounce(func, wait, immediate) {
   }
 })();
 
-$(document).ready(function() {
+$(document).ready(function () {
 
   var scroll_start = 0;
   var startchange = $('.row');
   var offset = startchange.offset();
   var scrollElement = navigator.platform.indexOf('Win') > -1 ? $(".ps") : $(window);
-  scrollElement.scroll(function() {
+  scrollElement.scroll(function () {
 
     scroll_start = $(this).scrollTop();
 
@@ -114,8 +114,8 @@ $(document).ready(function() {
 
   // hide the siblings opened collapse
 
-  $collapse.on('show.bs.collapse', function() {
-    $(this).parent().siblings().children('.collapse').each(function() {
+  $collapse.on('show.bs.collapse', function () {
+    $(this).parent().siblings().children('.collapse').each(function () {
       $(this).collapse('hide');
     });
   });
@@ -124,7 +124,7 @@ $(document).ready(function() {
   $('[data-toggle="tooltip"], [rel="tooltip"]').tooltip();
 
   // Activate Popovers and set color for popovers
-  $('[data-toggle="popover"]').each(function() {
+  $('[data-toggle="popover"]').each(function () {
     color_class = $(this).data('color');
     $(this).popover({
       template: '<div class="popover popover-' + color_class + '" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>'
@@ -148,7 +148,7 @@ $(document).ready(function() {
   }
 
   //when you click the modal search button the navbar will not be collapsed
-  $("#search-button").click(function() {
+  $("#search-button").click(function () {
     $(this).closest('.navbar-collapse').removeClass('show');
     $navbar.addClass('navbar-transparent').removeClass('bg-white');
 
@@ -168,12 +168,18 @@ $(document).ready(function() {
 
   if ($full_screen_map.length == 0 && $('.bd-docs').length == 0) {
     // On click navbar-collapse the menu will be white not transparent
-    $('.navbar-toggler').click(function() {
-      $collapse.on('show.bs.collapse', function() {
+    $('.navigation-toggler').click(function (e) {
+      if ($(this).closest('.navbar').hasClass('navbar-transparent')) {
         $(this).closest('.navbar').removeClass('navbar-transparent').addClass('bg-white');
-      }).on('hide.bs.collapse', function() {
+      } else {
         $(this).closest('.navbar').addClass('navbar-transparent').removeClass('bg-white');
-      });
+      }
+      // $collapse.on('show.bs.collapse', function () {
+      //   // $(this).closest('.navbar').removeClass('navbar-transparent').addClass('bg-white');
+      //   console.log('adding class')
+      // }).on('hide.bs.collapse', function () {
+      //   // $(this).closest('.navbar').addClass('navbar-transparent').removeClass('bg-white');
+      // });
       $navbar.css('transition', '');
 
     });
@@ -184,14 +190,14 @@ $(document).ready(function() {
     'transition': 'all .5s linear'
   });
 
-  $('.form-control').on("focus", function() {
+  $('.form-control').on("focus", function () {
     $(this).parent('.input-group').addClass("input-group-focus");
-  }).on("blur", function() {
+  }).on("blur", function () {
     $(this).parent(".input-group").removeClass("input-group-focus");
   });
 
   // Activate bootstrapSwitch
-  $('.bootstrap-switch').each(function() {
+  $('.bootstrap-switch').each(function () {
     var data_on_label = $(this).data('on-label') || '';
     var data_off_label = $(this).data('off-label') || '';
 
@@ -202,27 +208,27 @@ $(document).ready(function() {
   });
 });
 
-$(document).on('click', '.navbar-toggle', function() {
+$(document).on('click', '.navbar-toggle', function () {
   var $toggle = $(this);
 
   if (blackDashboard.misc.navbar_menu_visible == 1) {
     $html.removeClass('nav-open');
     blackDashboard.misc.navbar_menu_visible = 0;
-    setTimeout(function() {
+    setTimeout(function () {
       $toggle.removeClass('toggled');
       $('.bodyClick').remove();
     }, 550);
 
   } else {
-    setTimeout(function() {
+    setTimeout(function () {
       $toggle.addClass('toggled');
     }, 580);
 
     var div = '<div class="bodyClick"></div>';
-    $(div).appendTo('body').click(function() {
+    $(div).appendTo('body').click(function () {
       $html.removeClass('nav-open');
       blackDashboard.misc.navbar_menu_visible = 0;
-      setTimeout(function() {
+      setTimeout(function () {
         $toggle.removeClass('toggled');
         $('.bodyClick').remove();
       }, 550);
@@ -233,7 +239,7 @@ $(document).on('click', '.navbar-toggle', function() {
   }
 });
 
-$(window).resize(function() {
+$(window).resize(function () {
   // reset the seq for charts drawing animations
   seq = seq2 = 0;
 
@@ -252,7 +258,7 @@ var blackDashboard = {
     navbar_menu_visible: 0
   },
 
-  checkScrollForTransparentNavbar: debounce(function() {
+  checkScrollForTransparentNavbar: debounce(function () {
     if ($(document).scrollTop() > scroll_distance) {
       if (transparent) {
         transparent = false;
@@ -270,7 +276,7 @@ var blackDashboard = {
 
   // Activate DateTimePicker
 
-  initDateTimePicker: function() {
+  initDateTimePicker: function () {
     if ($datetimepicker.length != 0) {
       $datetimepicker.datetimepicker({
         icons: {
@@ -324,12 +330,12 @@ var blackDashboard = {
     }
   },
 
-  initMinimizeSidebar: function() {
+  initMinimizeSidebar: function () {
     if ($('.sidebar-mini').length != 0) {
       sidebar_mini_active = true;
     }
 
-    $('.minimize-sidebar').click(function() {
+    $('.minimize-sidebar').click(function () {
 
       if (sidebar_mini_active == true) {
         $body.removeClass('sidebar-mini');
@@ -342,19 +348,19 @@ var blackDashboard = {
       }
 
       // we simulate the window Resize so the charts will get updated in realtime.
-      var simulateWindowResize = setInterval(function() {
+      var simulateWindowResize = setInterval(function () {
         window.dispatchEvent(new Event('resize'));
       }, 180);
 
       // we stop the simulation of Window Resize after the animations are completed
-      setTimeout(function() {
+      setTimeout(function () {
         clearInterval(simulateWindowResize);
       }, 1000);
     });
   },
 
-  startAnimationForLineChart: function(chart) {
-    chart.on('draw', function(data) {
+  startAnimationForLineChart: function (chart) {
+    chart.on('draw', function (data) {
       if (data.type === 'line' || data.type === 'area') {
         data.element.animate({
           d: {
@@ -381,9 +387,9 @@ var blackDashboard = {
 
     seq = 0;
   },
-  startAnimationForBarChart: function(chart) {
+  startAnimationForBarChart: function (chart) {
 
-    chart.on('draw', function(data) {
+    chart.on('draw', function (data) {
       if (data.type === 'bar') {
         seq2++;
         data.element.animate({
@@ -400,7 +406,7 @@ var blackDashboard = {
 
     seq2 = 0;
   },
-  showSidebarMessage: function(message) {
+  showSidebarMessage: function (message) {
     try {
       $.notify({
         icon: "tim-icons icon-bell-55",

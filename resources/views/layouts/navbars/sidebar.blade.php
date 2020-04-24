@@ -10,11 +10,11 @@
 -->
   <div class="sidebar-wrapper">
     <div class="logo">
-        <a href="http://www.creative-tim.com" class="simple-text logo-mini">
-          {{ __('CT') }}
+        <a href="" class="simple-text logo-mini">
+          {{ __('C19') }}
         </a>
-        <a href="http://www.creative-tim.com" class="simple-text logo-normal">
-          {{ __('Creative Tim') }}
+        <a href="" class="simple-text logo-normal">
+          {{ __('Covid 19') }}
         </a>
     </div>
     <ul class="nav">
@@ -56,12 +56,6 @@
               <a href="{{ route('covid.test.index') }}">
                 <span class="sidebar-mini-icon">W</span>
                 <span class="sidebar-normal"> {{ __('Tests') }} </span>
-              </a>
-            </li>
-            <li class="{{ $activePage == 'covid-state' ? ' active' : '' }}">
-              <a href="{{ route('covid.state.index') }}">
-                <span class="sidebar-mini-icon">W</span>
-                <span class="sidebar-normal"> {{ __('States') }} </span>
               </a>
             </li>
           </ul>
