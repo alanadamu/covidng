@@ -306,13 +306,13 @@ export default {
           }
         ];
 
-        this.profitLineChart = {
-          extraOptions: chartConfigs.profitChartOptions,
-          chartData: {
-            labels: this.dateLabels,
-            datasets: dataset
-          }
-        };
+        // this.profitLineChart = {
+        //   extraOptions: chartConfigs.profitChartOptions,
+        //   chartData: {
+        //     labels: this.dateLabels,
+        //     datasets: dataset
+        //   }
+        // };
       } else if (data_exists(key2(key)) && !data_exists(key)) {
         state_id = this.selectedState[key2(key)].id;
         // Get the data of the state
@@ -345,13 +345,13 @@ export default {
           }
         ];
 
-        this.profitLineChart = {
-          extraOptions: chartConfigs.profitChartOptions,
-          chartData: {
-            labels: this.dateLabels,
-            datasets: dataset
-          }
-        };
+        // this.profitLineChart = {
+        //   extraOptions: chartConfigs.profitChartOptions,
+        //   chartData: {
+        //     labels: this.dateLabels,
+        //     datasets: dataset
+        //   }
+        // };
       } else if (!data_exists(key2(key)) && data_exists(key)) {
         // console.log("here");
         state_id = this.selectedState[key].id;
@@ -385,13 +385,13 @@ export default {
           }
         ];
 
-        this.profitLineChart = {
-          extraOptions: chartConfigs.profitChartOptions,
-          chartData: {
-            labels: this.dateLabels,
-            datasets: dataset
-          }
-        };
+        // this.profitLineChart = {
+        //   extraOptions: chartConfigs.profitChartOptions,
+        //   chartData: {
+        //     labels: this.dateLabels,
+        //     datasets: dataset
+        //   }
+        // };
       } else {
         dataset = [{}];
 
