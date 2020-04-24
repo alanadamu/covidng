@@ -16507,9 +16507,9 @@ textarea.form-control:active {
 }
 
 @media (max-width: 991.98px) {
-  /* .navbar {
+  .navbar {
     top: -70px;
-  } */
+  }
   .navbar .container-fluid {
     padding-right: 15px;
     padding-left: 15px;
