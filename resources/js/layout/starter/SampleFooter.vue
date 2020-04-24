@@ -10,7 +10,7 @@
 </template>
 <script>
 export default {
-  data() {
+  data: function() {
     return {
       year: new Date().getFullYear()
     };

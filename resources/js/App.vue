@@ -7,7 +7,7 @@
 <script>
 export default {
   methods: {},
-  mounted() {}
+  mounted: function() {}
 };
 </script>
 

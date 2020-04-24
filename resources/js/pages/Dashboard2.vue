@@ -114,7 +114,7 @@ import { APP_CONFIG } from "../app_config.js";
 
 export default {
   components: { LineChart, BarChart, TaskList, UserTable, chartConfigs },
-  data() {
+  data: function() {
     return {
       dateLabels: {},
       selectedState: {

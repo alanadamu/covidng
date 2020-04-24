@@ -9,26 +9,26 @@ export default {
     gradientColors: {
       type: Array,
       default: () => ['rgba(72,72,176,0.2)', 'rgba(72,72,176,0.0)', 'rgba(119,52,169,0)'],
-      validator: val =>{
+      validator: val => {
         return val.length > 2;
       }
     },
     gradientStops: {
       type: Array,
       default: () => [1, 0.4, 0],
-      validator: val =>{
+      validator: val => {
         return val.length > 2;
       }
     }
   },
-  data() {
+  data: function () {
     return {
       ctx: null
     };
   },
   methods: {
     updateGradients(chartData) {
-      if(!chartData) return;
+      if (!chartData) return;
       const ctx = this.ctx || document.getElementById(this.chartId).getContext('2d');
       const gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
 
@@ -40,7 +40,7 @@ export default {
       });
     }
   },
-  mounted() {
+  mounted: function () {
     this.$watch('chartData', (newVal, oldVal) => {
       this.updateGradients(newVal);
       if (!oldVal) {

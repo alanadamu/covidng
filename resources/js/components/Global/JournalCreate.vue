@@ -86,7 +86,7 @@
 
 <script>
 export default {
-  data() {
+  data: function() {
     return {
       journalLines: {
         date: "",
@@ -119,7 +119,7 @@ export default {
     saveJournalEntriesLoadStatus() {
       return this.$store.getters.saveJournalEntriesLoadStatus();
     },
-    postData() {
+    postdata: function() {
       return this.$store.getters.getJournalLinesAll();
     },
     validateEntries() {

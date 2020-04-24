@@ -1,13 +1,15 @@
 <template>
-  <component :is="tag"
-             @click.native="hideSidebar"
-             class="nav-item"
-             v-bind="$attrs"
-             tag="li">
+  <component
+    :is="tag"
+    @click.native="hideSidebar"
+    class="nav-item"
+    v-bind="$attrs"
+    tag="li"
+  >
     <a class="nav-link">
       <slot>
         <i v-if="icon" :class="icon"></i>
-        <p>{{name}}</p>
+        <p>{{ name }}</p>
       </slot>
     </a>
   </component>
@@ -21,10 +23,10 @@ export default {
       default: true
     },
     addLink: {
-      default: ()=>{}
+      default: () => {}
     },
     removeLink: {
-      default: ()=>{}
+      default: () => {}
     }
   },
   props: {
@@ -45,14 +47,14 @@ export default {
       return this.$el.classList.contains("active");
     }
   },
-  mounted() {
+  mounted: function() {
     if (this.addLink) {
       this.addLink(this);
     }
   },
   beforeDestroy() {
     if (this.$el && this.$el.parentNode) {
-      this.$el.parentNode.removeChild(this.$el)
+      this.$el.parentNode.removeChild(this.$el);
     }
     if (this.removeLink) {
       this.removeLink(this);

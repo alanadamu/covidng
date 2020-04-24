@@ -23,7 +23,7 @@ export default {
     BaseTable
   },
   computed: {
-    tableData() {
+    tabledata: function() {
       return this.$t("dashboard.taskList");
     }
   }

@@ -175,7 +175,7 @@ export default {
     TaskList,
     UserTable
   },
-  data() {
+  data: function() {
     return {
       bigLineChart: {
         allData: [
@@ -318,7 +318,7 @@ export default {
       this.bigLineChart.activeIndex = index;
     }
   },
-  mounted() {
+  mounted: function() {
     this.i18n = this.$i18n;
     if (this.enableRTL) {
       this.i18n.locale = "ar";

@@ -1737,27 +1737,37 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'base-alert',
+  name: "base-alert",
   components: {
     FadeTransition: vue2_transitions__WEBPACK_IMPORTED_MODULE_0__["FadeTransition"]
   },
   props: {
     type: {
       type: String,
-      "default": 'default',
-      description: 'Alert type'
+      "default": "default",
+      description: "Alert type"
     },
     dismissible: {
       type: Boolean,
       "default": false,
-      description: 'Whether alert is dismissible (closeable)'
+      description: "Whether alert is dismissible (closeable)"
     },
     withIcon: {
       type: Boolean,
       "default": false,
-      description: 'Whether alert contains icon'
+      description: "Whether alert contains icon"
     }
   },
   data: function data() {
@@ -1877,6 +1887,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "base-checkbox",
   model: {
@@ -1898,7 +1909,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      cbId: '',
+      cbId: "",
       touched: false
     };
   },
@@ -1912,7 +1923,7 @@ __webpack_require__.r(__webpack_exports__);
           this.touched = true;
         }
 
-        this.$emit('input', check);
+        this.$emit("input", check);
       }
     },
     inlineClass: function inlineClass() {
@@ -1937,6 +1948,16 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2009,7 +2030,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     closeDropDown: function closeDropDown() {
       this.isOpen = false;
-      this.$emit('change', false);
+      this.$emit("change", false);
     }
   }
 });
@@ -2027,6 +2048,15 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue2_transitions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue2-transitions */ "./node_modules/vue2-transitions/dist/vue2-transitions.m.js");
 /* harmony import */ var _NavbarToggleButton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./NavbarToggleButton */ "./resources/js/components/NavbarToggleButton.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2130,6 +2160,11 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2553,7 +2588,7 @@ __webpack_require__.r(__webpack_exports__);
     saveJournalEntriesLoadStatus: function saveJournalEntriesLoadStatus() {
       return this.$store.getters.saveJournalEntriesLoadStatus();
     },
-    postData: function postData() {
+    postdata: function postdata() {
       return this.$store.getters.getJournalLinesAll();
     },
     validateEntries: function validateEntries() {
@@ -2792,6 +2827,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   inheritAttrs: false,
   name: "base-input",
@@ -2814,8 +2852,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   model: {
-    prop: 'value',
-    event: 'input'
+    prop: "value",
+    event: "input"
   },
   data: function data() {
     return {
@@ -2839,7 +2877,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   methods: {
     onInput: function onInput(evt) {
-      this.$emit('input', evt.target.value);
+      this.$emit("input", evt.target.value);
     },
     onFocus: function onFocus() {
       this.focused = true;
@@ -3065,6 +3103,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -3114,9 +3153,9 @@ __webpack_require__.r(__webpack_exports__);
       return this.linkHeight * this.activeLinkIndex;
     },
     shortTitle: function shortTitle() {
-      return this.title.split(' ').map(function (word) {
+      return this.title.split(" ").map(function (word) {
         return word.charAt(0);
-      }).join('').toUpperCase();
+      }).join("").toUpperCase();
     }
   },
   data: function data() {
@@ -3169,6 +3208,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
 //
 //
 //
@@ -3267,7 +3308,7 @@ __webpack_require__.r(__webpack_exports__);
     BaseTable: _components__WEBPACK_IMPORTED_MODULE_0__["BaseTable"]
   },
   computed: {
-    tableData: function tableData() {
+    tabledata: function tabledata() {
       return this.$t("dashboard.taskList");
     }
   }
@@ -40700,11 +40741,7 @@ var render = function() {
                   }
                 }
               },
-              [
-                _vm._v(
-                  "\n                " + _vm._s(_vm.title) + "\n            "
-                )
-              ]
+              [_vm._v("\n        " + _vm._s(_vm.title) + "\n      ")]
             )
           ]),
           _vm._v(" "),
@@ -59266,13 +59303,13 @@ var url = '';
 
 switch ("development") {
   case 'development':
-    api_url = 'http://127.0.0.1:8000/api/v1';
-    url = 'http://127.0.0.1:8000';
+    api_url = 'http://covidng.afivenet.com/api/v1';
+    url = 'http://covidng.afivenet.com';
     break;
 
   case 'production':
-    api_url = 'http://127.0.0.1:8000/api/v1';
-    url = 'http://127.0.0.1:8000';
+    api_url = 'http://covidng.afivenet.com/api/v1';
+    url = 'http://covidng.afivenet.com';
     break;
 }
 
