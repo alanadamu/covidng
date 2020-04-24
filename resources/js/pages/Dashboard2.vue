@@ -223,7 +223,7 @@ export default {
         // Get chart data
         // Get the data of the state
         state_id = this.selectedState[key].id;
-        result = this.stateCases.filter(obj => {
+        result = this.stateCases["0"].filter(obj => {
           return obj.id === state_id;
         });
 
@@ -233,7 +233,7 @@ export default {
         }));
 
         let state_id2 = this.selectedState[key2(key)].id;
-        var result2 = this.stateCases.filter(obj => {
+        var result2 = this.stateCases["0"].filter(obj => {
           return obj.id === state_id2;
         });
         let data2 = result2[0].covid_cases.map(a => ({
@@ -299,7 +299,7 @@ export default {
       } else if (data_exists(key2(key)) && !data_exists(key)) {
         state_id = this.selectedState[key2(key)].id;
         // Get the data of the state
-        result = this.stateCases.filter(obj => {
+        result = this.stateCases["0"].filter(obj => {
           return obj.id === state_id;
         });
 
@@ -339,9 +339,10 @@ export default {
         // console.log("here");
         state_id = this.selectedState[key].id;
         // Get the data of the state
-        result = this.stateCases.filter(obj => {
+        result = this.stateCases["0"].filter(obj => {
           return obj.id === state_id;
         });
+        console.log(state_id, key, this.stateCases, result);
 
         data = result[0].covid_cases.map(a => ({
           x: a.date,

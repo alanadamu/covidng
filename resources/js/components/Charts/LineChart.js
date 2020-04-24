@@ -47,14 +47,12 @@ export default {
     this.$watch('chartData', (newVal, oldVal) => {
       this.updateGradients(this.chartData);
       if (!oldVal) {
-        console.log('new instance')
-        console.log(this.renderChart(
+        this.renderChart(
           this.chartData,
           this.extraOptions
-        ));
+        )
       } else {
         this.$data._chart.destroy();
-        console.log('changed')
         this.renderChart(
           this.chartData,
           this.extraOptions
