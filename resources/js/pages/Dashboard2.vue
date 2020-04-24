@@ -15,7 +15,7 @@
         </template>
         <div class="chart-area">
           <line-chart
-            v-if="loaded"
+            v-if="salesLineChartLoaded"
             style="height: 100%"
             ref="bigChart"
             chart-id="big-line-chart"
@@ -42,7 +42,7 @@
         </template>
         <div class="chart-area">
           <line-chart
-            v-if="loaded"
+            v-if="dailySalesLineChartLoaded"
             style="height: 100%"
             ref="bigChart"
             chart-id="big-line-chart"
@@ -87,7 +87,7 @@
         </template>
         <div class="chart-area">
           <line-chart
-            v-if="loaded"
+            v-if="stateCasesLineChartLoaded"
             style="height: 100%"
             ref="bigChart"
             chart-id="big-line-chart"
@@ -131,7 +131,9 @@ export default {
       profit_month: 0,
       profit_year: 0,
       profit_all_time: 0,
-      loaded: false,
+      salesLineChartLoaded: false,
+      dailySalesLineChartLoaded: false,
+      stateCasesLineChartLoaded: false,
       salesLineChart: {
         extraOptions: chartConfigs.salesChartOptions,
         chartData: {
@@ -194,8 +196,20 @@ export default {
       return this.profitLineChart;
     }
   },
+  watch: {
+    salesLineChart: function(val) {
+      this.salesLineChartLoaded = true;
+    },
+    dailySalesLineChart: function(val) {
+      this.dailySalesLineChartLoaded = true;
+    },
+    stateCasesLineChart: function(val) {
+      this.stateCasesLineChartLoaded = true;
+    }
+  },
   methods: {
     updateStatsData(response) {
+      let response = response => {};
       this.dailySalesLineChart.chartData.datasets["0"].data =
         response.data.data.dailyCases;
       this.dailySalesLineChart.chartData.labels =
@@ -412,13 +426,10 @@ export default {
     axios.get(APP_CONFIG.API_URL + "/home").then(function(response) {
       vm.updateStatsData(response).then(function(response) {
         console.log(response);
-        vm.loaded = true;
       });
     });
 
     axios.get(APP_CONFIG.API_URL + "/state").then(function(response) {
-      vm.loaded = true;
-
       vm.states = response.data.data;
     });
   }
