@@ -40178,6 +40178,7 @@ function generateChart(chartId, chartType) {
         }
       },
       renderChart: function renderChart(data, options) {
+        console.log('here', data)
         if (this.$data._chart) this.$data._chart.destroy();
         this.$data._chart = new chart_js__WEBPACK_IMPORTED_MODULE_0___default.a(this.$refs.canvas.getContext('2d'), {
           type: chartType,
@@ -59304,13 +59305,13 @@ var url = '';
 
 switch ("development") {
   case 'development':
-    api_url = 'http://127.0.0.1:8000/api/v1';
-    url = 'http://127.0.0.1:8000';
+    api_url = 'http://covidng.afivenet.com/api/v1';
+    url = 'http://covidng.afivenet.com';
     break;
 
   case 'production':
-    api_url = 'http://127.0.0.1:8000/api/v1';
-    url = 'http://127.0.0.1:8000';
+    api_url = 'http://covidng.afivenet.com/api/v1';
+    url = 'http://covidng.afivenet.com';
     break;
 }
 

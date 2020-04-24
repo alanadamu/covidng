@@ -56,7 +56,7 @@ export default {
         this.renderChart(
           this.chartData,
           this.extraOptions
-        );
+        )
       }
     }, { immediate: true });
   }
