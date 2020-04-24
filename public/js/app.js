@@ -3509,28 +3509,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       salesLineChart: {
         extraOptions: _components_Charts_config__WEBPACK_IMPORTED_MODULE_2__["salesChartOptions"],
         chartData: {
-          labels: [],
-          datasets: [{
-            label: "Data",
-            fill: true,
-            borderColor: _config__WEBPACK_IMPORTED_MODULE_5__["default"].colors.primary,
-            borderWidth: 2,
-            borderDash: [],
-            borderDashOffset: 0.0,
-            pointBackgroundColor: _config__WEBPACK_IMPORTED_MODULE_5__["default"].colors.primary,
-            pointBorderColor: "rgba(255,255,255,0)",
-            pointHoverBackgroundColor: _config__WEBPACK_IMPORTED_MODULE_5__["default"].colors.primary,
-            pointBorderWidth: 20,
-            pointHoverRadius: 4,
-            pointHoverBorderWidth: 15,
-            pointRadius: 0,
-            data: []
-          }]
-        }
-      },
-      profitLineChart: {
-        extraOptions: _components_Charts_config__WEBPACK_IMPORTED_MODULE_2__["profitChartOptions"],
-        chartData: {
           labels: ["a", "b", "c"],
           datasets: [{
             label: "Data",
@@ -3546,8 +3524,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             pointHoverRadius: 4,
             pointHoverBorderWidth: 15,
             pointRadius: 0,
-            data: [100, 150, 250]
+            data: ["1", "2", "3"]
           }]
+        }
+      },
+      profitLineChart: {
+        extraOptions: _components_Charts_config__WEBPACK_IMPORTED_MODULE_2__["profitChartOptions"],
+        chartData: {
+          labels: [],
+          datasets: []
         }
       },
       dailySalesLineChart: {
@@ -3669,13 +3654,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           borderDashOffset: 0.0,
           pointBackgroundColor: "rgb(255, 99, 132)",
           backgroundColor: "rgb(255, 99, 132)"
-        }, _defineProperty(_ref, "borderColor", "rgb(255, 99, 132)"), _defineProperty(_ref, "pointBorderColor", "rgba(255,255,255,0)"), _defineProperty(_ref, "fill", false), _defineProperty(_ref, "pointHoverBackgroundColor", _config__WEBPACK_IMPORTED_MODULE_5__["default"].colors.primary), _defineProperty(_ref, "pointBorderWidth", 20), _defineProperty(_ref, "pointHoverRadius", 4), _defineProperty(_ref, "pointHoverBorderWidth", 15), _defineProperty(_ref, "pointRadius", 0), _defineProperty(_ref, "yAxisID", "y-axis-1"), _defineProperty(_ref, "data", secondData), _ref)]; // this.profitLineChart = {
-        //   extraOptions: chartConfigs.profitChartOptions,
-        //   chartData: {
-        //     labels: this.dateLabels,
-        //     datasets: dataset
-        //   }
-        // };
+        }, _defineProperty(_ref, "borderColor", "rgb(255, 99, 132)"), _defineProperty(_ref, "pointBorderColor", "rgba(255,255,255,0)"), _defineProperty(_ref, "fill", false), _defineProperty(_ref, "pointHoverBackgroundColor", _config__WEBPACK_IMPORTED_MODULE_5__["default"].colors.primary), _defineProperty(_ref, "pointBorderWidth", 20), _defineProperty(_ref, "pointHoverRadius", 4), _defineProperty(_ref, "pointHoverBorderWidth", 15), _defineProperty(_ref, "pointRadius", 0), _defineProperty(_ref, "yAxisID", "y-axis-1"), _defineProperty(_ref, "data", secondData), _ref)];
+        this.profitLineChart = {
+          extraOptions: _components_Charts_config__WEBPACK_IMPORTED_MODULE_2__["profitChartOptions"],
+          chartData: {
+            labels: this.dateLabels,
+            datasets: dataset
+          }
+        };
       } else if (data_exists(key2(key)) && !data_exists(key)) {
         var _ref2;
 
@@ -3699,13 +3685,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           borderDashOffset: 0.0,
           pointBackgroundColor: "rgb(255, 99, 132)",
           backgroundColor: "rgb(255, 99, 132)"
-        }, _defineProperty(_ref2, "borderColor", "rgb(255, 99, 132)"), _defineProperty(_ref2, "pointHoverBackgroundColor", "rgb(255, 99, 132)"), _defineProperty(_ref2, "pointBorderWidth", 20), _defineProperty(_ref2, "pointHoverRadius", 4), _defineProperty(_ref2, "pointHoverBorderWidth", 15), _defineProperty(_ref2, "pointRadius", 0), _defineProperty(_ref2, "yAxisID", "y-axis-1"), _defineProperty(_ref2, "data", data), _ref2)]; // this.profitLineChart = {
-        //   extraOptions: chartConfigs.profitChartOptions,
-        //   chartData: {
-        //     labels: this.dateLabels,
-        //     datasets: dataset
-        //   }
-        // };
+        }, _defineProperty(_ref2, "borderColor", "rgb(255, 99, 132)"), _defineProperty(_ref2, "pointHoverBackgroundColor", "rgb(255, 99, 132)"), _defineProperty(_ref2, "pointBorderWidth", 20), _defineProperty(_ref2, "pointHoverRadius", 4), _defineProperty(_ref2, "pointHoverBorderWidth", 15), _defineProperty(_ref2, "pointRadius", 0), _defineProperty(_ref2, "yAxisID", "y-axis-1"), _defineProperty(_ref2, "data", data), _ref2)];
+        this.profitLineChart = {
+          extraOptions: _components_Charts_config__WEBPACK_IMPORTED_MODULE_2__["profitChartOptions"],
+          chartData: {
+            labels: this.dateLabels,
+            datasets: dataset
+          }
+        };
       } else if (!data_exists(key2(key)) && data_exists(key)) {
         // console.log("here");
         state_id = this.selectedState[key].id; // Get the data of the state
@@ -3736,13 +3723,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           pointRadius: 0,
           yAxisID: "y-axis-1",
           data: data
-        }]; // this.profitLineChart = {
-        //   extraOptions: chartConfigs.profitChartOptions,
-        //   chartData: {
-        //     labels: this.dateLabels,
-        //     datasets: dataset
-        //   }
-        // };
+        }];
+        this.profitLineChart = {
+          extraOptions: _components_Charts_config__WEBPACK_IMPORTED_MODULE_2__["profitChartOptions"],
+          chartData: {
+            labels: this.dateLabels,
+            datasets: dataset
+          }
+        };
       } else {
         dataset = [{}];
         this.profitLineChart = {
@@ -3763,9 +3751,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var vm = this;
     axios__WEBPACK_IMPORTED_MODULE_6___default.a.get(_app_config_js__WEBPACK_IMPORTED_MODULE_7__["APP_CONFIG"].API_URL + "/home").then(function (response) {
       vm.loaded = true; //Sales
-
-      vm.salesLineChart.chartData.datasets["0"].data = response.data.data.cases;
-      vm.salesLineChart.chartData.labels = response.data.data.labels; //Daily Sales
+      // vm.salesLineChart.chartData.datasets["0"].data = response.data.data.cases;
+      // vm.salesLineChart.chartData.labels = response.data.data.labels;
+      //Daily Sales
 
       vm.dailySalesLineChart.chartData.datasets["0"].data = response.data.data.dailyCases;
       vm.dailySalesLineChart.chartData.labels = response.data.data.dailyLabels;
@@ -59316,13 +59304,13 @@ var url = '';
 
 switch ("development") {
   case 'development':
-    api_url = 'http://covidng.afivenet.com/api/v1';
-    url = 'http://covidng.afivenet.com';
+    api_url = 'http://127.0.0.1:8000/api/v1';
+    url = 'http://127.0.0.1:8000';
     break;
 
   case 'production':
-    api_url = 'http://covidng.afivenet.com/api/v1';
-    url = 'http://covidng.afivenet.com';
+    api_url = 'http://127.0.0.1:8000/api/v1';
+    url = 'http://127.0.0.1:8000';
     break;
 }
 

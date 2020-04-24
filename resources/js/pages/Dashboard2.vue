@@ -135,30 +135,6 @@ export default {
       salesLineChart: {
         extraOptions: chartConfigs.salesChartOptions,
         chartData: {
-          labels: [],
-          datasets: [
-            {
-              label: "Data",
-              fill: true,
-              borderColor: config.colors.primary,
-              borderWidth: 2,
-              borderDash: [],
-              borderDashOffset: 0.0,
-              pointBackgroundColor: config.colors.primary,
-              pointBorderColor: "rgba(255,255,255,0)",
-              pointHoverBackgroundColor: config.colors.primary,
-              pointBorderWidth: 20,
-              pointHoverRadius: 4,
-              pointHoverBorderWidth: 15,
-              pointRadius: 0,
-              data: []
-            }
-          ]
-        }
-      },
-      profitLineChart: {
-        extraOptions: chartConfigs.profitChartOptions,
-        chartData: {
           labels: ["a", "b", "c"],
           datasets: [
             {
@@ -175,9 +151,16 @@ export default {
               pointHoverRadius: 4,
               pointHoverBorderWidth: 15,
               pointRadius: 0,
-              data: [100, 150, 250]
+              data: ["1", "2", "3"]
             }
           ]
+        }
+      },
+      profitLineChart: {
+        extraOptions: chartConfigs.profitChartOptions,
+        chartData: {
+          labels: [],
+          datasets: []
         }
       },
       dailySalesLineChart: {
@@ -306,13 +289,13 @@ export default {
           }
         ];
 
-        // this.profitLineChart = {
-        //   extraOptions: chartConfigs.profitChartOptions,
-        //   chartData: {
-        //     labels: this.dateLabels,
-        //     datasets: dataset
-        //   }
-        // };
+        this.profitLineChart = {
+          extraOptions: chartConfigs.profitChartOptions,
+          chartData: {
+            labels: this.dateLabels,
+            datasets: dataset
+          }
+        };
       } else if (data_exists(key2(key)) && !data_exists(key)) {
         state_id = this.selectedState[key2(key)].id;
         // Get the data of the state
@@ -345,13 +328,13 @@ export default {
           }
         ];
 
-        // this.profitLineChart = {
-        //   extraOptions: chartConfigs.profitChartOptions,
-        //   chartData: {
-        //     labels: this.dateLabels,
-        //     datasets: dataset
-        //   }
-        // };
+        this.profitLineChart = {
+          extraOptions: chartConfigs.profitChartOptions,
+          chartData: {
+            labels: this.dateLabels,
+            datasets: dataset
+          }
+        };
       } else if (!data_exists(key2(key)) && data_exists(key)) {
         // console.log("here");
         state_id = this.selectedState[key].id;
@@ -385,13 +368,13 @@ export default {
           }
         ];
 
-        // this.profitLineChart = {
-        //   extraOptions: chartConfigs.profitChartOptions,
-        //   chartData: {
-        //     labels: this.dateLabels,
-        //     datasets: dataset
-        //   }
-        // };
+        this.profitLineChart = {
+          extraOptions: chartConfigs.profitChartOptions,
+          chartData: {
+            labels: this.dateLabels,
+            datasets: dataset
+          }
+        };
       } else {
         dataset = [{}];
 
@@ -416,8 +399,8 @@ export default {
     axios.get(APP_CONFIG.API_URL + "/home").then(function(response) {
       vm.loaded = true;
       //Sales
-      vm.salesLineChart.chartData.datasets["0"].data = response.data.data.cases;
-      vm.salesLineChart.chartData.labels = response.data.data.labels;
+      // vm.salesLineChart.chartData.datasets["0"].data = response.data.data.cases;
+      // vm.salesLineChart.chartData.labels = response.data.data.labels;
       //Daily Sales
       vm.dailySalesLineChart.chartData.datasets["0"].data =
         response.data.data.dailyCases;
