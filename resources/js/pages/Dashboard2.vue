@@ -159,8 +159,25 @@ export default {
       profitLineChart: {
         extraOptions: chartConfigs.profitChartOptions,
         chartData: {
-          labels: [],
-          datasets: []
+          labels: ["a", "b", "c"],
+          datasets: [
+            {
+              label: "Data",
+              fill: true,
+              borderColor: config.colors.primary,
+              borderWidth: 2,
+              borderDash: [],
+              borderDashOffset: 0.0,
+              pointBackgroundColor: config.colors.primary,
+              pointBorderColor: "rgba(255,255,255,0)",
+              pointHoverBackgroundColor: config.colors.primary,
+              pointBorderWidth: 20,
+              pointHoverRadius: 4,
+              pointHoverBorderWidth: 15,
+              pointRadius: 0,
+              data: [100, 150, 250]
+            }
+          ]
         }
       },
       dailySalesLineChart: {
