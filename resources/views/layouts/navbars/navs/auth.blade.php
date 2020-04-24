@@ -17,66 +17,55 @@
       </div>
       <a class="navbar-brand" href="javascript:void(0)">{{ $titlePage }}</a>
     </div>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler navigation-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-bar navbar-kebab"></span>
       <span class="navbar-toggler-bar navbar-kebab"></span>
       <span class="navbar-toggler-bar navbar-kebab"></span>
     </button>
     <div class="collapse navbar-collapse" id="navigation">
       <ul class="navbar-nav ml-auto">
-        <li class="search-bar input-group">
-          <button class="btn btn-link" id="search-button" data-toggle="modal" data-target="#searchModal"><i class="tim-icons icon-zoom-split"></i>
-            <span class="d-lg-none d-md-block">{{ __('Search') }}</span>
-          </button>
+        <li class="dropdown nav-item">
+          <a href="javascript:void(0)" class="dropdown-toggle nav-link" data-toggle="dropdown">
+            <div class="notification d-none d-lg-block d-xl-block"></div>
+            <i class="tim-icons icon-notes"></i>
+            <p class="d-lg-none">
+              {{ __('Covid19 Data') }}
+            </p>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-right dropdown-navbar">
+            <li class="nav-link">
+              <a href="{{ route('covid.covid_case.index') }}" class="nav-item dropdown-item">{{ __('Cases') }}</a>
+            </li>
+            <li class="nav-link">
+              <a href="{{ route('covid.discharge.index') }}" class="nav-item dropdown-item">{{ __('Recoveries') }}</a>
+            </li>
+            <li class="nav-link">
+              <a href="{{ route('covid.death.index') }}" class="nav-item dropdown-item">{{ __('Deaths') }}</a>
+            </li>
+            <li class="nav-link">
+              <a href="{{ route('covid.test.index') }}" class="nav-item dropdown-item">{{ __('Tests') }}</a>
+            </li>
+          </ul>
         </li>
         <li class="dropdown nav-item">
           <a href="javascript:void(0)" class="dropdown-toggle nav-link" data-toggle="dropdown">
             <div class="notification d-none d-lg-block d-xl-block"></div>
             <i class="tim-icons icon-sound-wave"></i>
             <p class="d-lg-none">
-              {{ __('Notifications') }}
-            </p>
-          </a>
-          <ul class="dropdown-menu dropdown-menu-right dropdown-navbar">
-            <li class="nav-link">
-              <a href="#" class="nav-item dropdown-item">{{ __('Mike John responded to your email') }}</a>
-            </li>
-            <li class="nav-link">
-              <a href="javascript:void(0)" class="nav-item dropdown-item">{{ __('You have 5 more tasks') }}</a>
-            </li>
-            <li class="nav-link">
-              <a href="javascript:void(0)" class="nav-item dropdown-item">{{ __('Your friend Michael is in town') }}</a>
-            </li>
-            <li class="nav-link">
-              <a href="javascript:void(0)" class="nav-item dropdown-item">{{ __('Another notification') }}</a>
-            </li>
-            <li class="nav-link">
-              <a href="javascript:void(0)" class="nav-item dropdown-item">{{ __('Another one') }}</a>
-            </li>
-          </ul>
-        </li>
-        <li class="dropdown nav-item">
-          <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-            <div class="photo">
-              <img src="{{ auth()->user()->profilePicture() }}" alt="Profile Photo">
-            </div>
-            <b class="caret d-none d-lg-block d-xl-block"></b>
-            <p class="d-lg-none">
-              <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">{{ __('Log out') }}</a>
+              {{ __('Manage') }}
             </p>
           </a>
           <ul class="dropdown-menu dropdown-navbar">
             <li class="nav-link">
-              <a href="{{ route('profile.edit') }}" class="nav-item dropdown-item">{{ __('Profile') }}</a>
-            </li>
-            <li class="nav-link">
-              <a href="javascript:void(0)" class="nav-item dropdown-item">{{ __('Settings') }}</a>
-            </li>
-            <li class="dropdown-divider"></li>
-            <li class="nav-link">
-              <a href="{{ route('logout') }}" class="nav-item dropdown-item" onclick="event.preventDefault();document.getElementById('logout-form').submit();">{{ __('Log out') }}</a>
+              <a href="{{ route('covid.state.index') }}" class="nav-item dropdown-item">{{ __('States') }}</a>
             </li>
           </ul>
+        </li>
+        <li class="dropdown-divider"></li>
+        <li class="search-bar input-group">
+          <a href="{{ route('logout') }}" class="btn btn-link" onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="tim-icons icon-double-right"></i>
+            <span class="d-lg-none d-md-block">{{ __('Logout') }}</span>
+          </a>
         </li>
         <li class="separator d-lg-none"></li>
       </ul>

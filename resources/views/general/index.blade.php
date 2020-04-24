@@ -17,15 +17,16 @@
                 <div class="btn-toolbar float-right" role="toolbar" aria-label="Toolbar with button groups">
                   @foreach ($blade_data['indexLinks'] as $item)
                     {{-- @can('create', App\Accounts::class) --}}
-                    <div class="btn-group m-2 " role="group" aria-label="First group">
+                    <div class="btn-group m-2" role="group" aria-label="First group">
                       <a href="{{ route($item['route']) }}" class="btn btn-sm btn-primary">{{ __($item['label']) }}</a>
                     </div>                              
                   {{-- @endcan --}}
                 @endforeach
                 </div>
-                
-                
-                {!!$model->links()!!}
+                <div class="btn-toolbar float-left">
+                  {!!$model->links()!!}
+                </div>
+                 
                 <div class="table">
                   <table class="table table-striped table-no-bordered table-hover">
                     <thead class="text-primary">
