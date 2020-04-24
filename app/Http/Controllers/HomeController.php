@@ -24,7 +24,6 @@ class HomeController extends Controller
     }
 
     public function stats(){
-        sleep(2);
         // $cases = CovidCase::get();
 
         $cases = CovidCase::select( DB::raw('date'),'id', DB::raw('sum(value) sum'))
@@ -36,7 +35,7 @@ class HomeController extends Controller
         // ->groupBy('day')
         // ->orderBy('day', 'ASC')
         // ->get();
-        $dailyCases = CovidCase::where('date','<','2020-04-20')->where('date','>','2020-04-16')->select( DB::raw('date'),'id', DB::raw('sum(value) sum'))
+        $dailyCases = CovidCase::select( DB::raw('date'),'id', DB::raw('sum(value) sum'))
         ->groupBy('date')
         ->orderBy('date', 'ASC')
         ->get();

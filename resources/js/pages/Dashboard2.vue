@@ -140,7 +140,7 @@ export default {
           labels: ["a", "b", "c"],
           datasets: [
             {
-              label: "Data",
+              label: "Cases",
               fill: true,
               borderColor: config.colors.primary,
               borderWidth: 2,
@@ -171,7 +171,7 @@ export default {
           labels: [],
           datasets: [
             {
-              label: "Data",
+              label: "Daily Cases",
               fill: true,
               borderColor: config.colors.primary,
               borderWidth: 2,
@@ -194,24 +194,20 @@ export default {
   computed: {
     stateCasesLineChart() {
       this.stateCasesLineChartLoadStatus = 1;
-      console.log(this.stateCasesLineChartLoadStatus, "lala");
       return this.profitLineChart;
     }
   },
   watch: {
     salesLineChartLoadStatus: function(val) {
       if (val == 1) {
-        console.log("here1");
       }
     },
     dailySalesLineChartLoadStatus: function(val) {
       if (val == 1) {
-        console.log("here2");
       }
     },
     stateCasesLineChartLoadStatus: function(val) {
       if (val == 1) {
-        console.log("here3");
       }
     }
   },
@@ -222,13 +218,11 @@ export default {
       this.dailySalesLineChart.chartData.labels =
         response.data.data.dailyLabels;
       this.dailySalesLineChartLoadStatus = 1;
-      console.log(this.dailySalesLineChartLoadStatus);
 
       this.salesLineChart.chartData.datasets["0"].data =
         response.data.data.cases;
       this.salesLineChart.chartData.labels = response.data.data.labels;
       this.salesLineChartLoadStatus = 1;
-      console.log(this.salesLineChartLoadStatus);
 
       this.stateCases = response.data.data.dailyStateCases;
       this.dateLabels = response.data.data.dateLabels["0"].map(a => a.date);
@@ -261,8 +255,6 @@ export default {
         return Object.entries(this.selectedState[parseInt(key)]).length !== 0;
       };
       if (data_exists(key2(key)) && data_exists(key)) {
-        // console.log("here");
-
         // Get chart data
         // Get the data of the state
         state_id = this.selectedState[key].id;
@@ -379,13 +371,11 @@ export default {
           }
         };
       } else if (!data_exists(key2(key)) && data_exists(key)) {
-        // console.log("here");
         state_id = this.selectedState[key].id;
         // Get the data of the state
         result = this.stateCases["0"].filter(obj => {
           return obj.id === state_id;
         });
-        console.log(state_id, key, this.stateCases, result);
 
         data = result[0].covid_cases.map(a => ({
           x: a.date,
@@ -440,9 +430,7 @@ export default {
   mounted: function() {
     let vm = this;
     axios.get(APP_CONFIG.API_URL + "/home").then(function(response) {
-      vm.updateStatsData(response).then(function(response) {
-        console.log(response);
-      });
+      vm.updateStatsData(response).then(function(response) {});
     });
 
     axios.get(APP_CONFIG.API_URL + "/state").then(function(response) {
@@ -452,4 +440,9 @@ export default {
 };
 </script>
 <style>
+.v-select .vs__search::placeholder,
+.v-select .vs__search:focus,
+.v-select .vs__selected {
+  color: rgb(240, 240, 240);
+}
 </style>
