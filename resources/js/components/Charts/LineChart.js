@@ -48,10 +48,10 @@ export default {
       this.updateGradients(this.chartData);
       if (!oldVal) {
         console.log('new instance')
-        this.renderChart(
+        console.log(this.renderChart(
           this.chartData,
           this.extraOptions
-        );
+        ));
       } else {
         this.$data._chart.destroy();
         console.log('changed')
