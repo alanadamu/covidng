@@ -15,7 +15,7 @@
         </template>
         <div class="chart-area">
           <line-chart
-            v-if="salesLineChartLoaded"
+            v-if="salesLineChartLoadStatus"
             style="height: 100%"
             ref="bigChart"
             chart-id="big-line-chart"
@@ -42,7 +42,7 @@
         </template>
         <div class="chart-area">
           <line-chart
-            v-if="dailySalesLineChartLoaded"
+            v-if="dailySalesLineChartLoadStatus"
             style="height: 100%"
             ref="bigChart"
             chart-id="big-line-chart"
@@ -87,7 +87,7 @@
         </template>
         <div class="chart-area">
           <line-chart
-            v-if="stateCasesLineChartLoaded"
+            v-if="stateCasesLineChartLoadStatus"
             style="height: 100%"
             ref="bigChart"
             chart-id="big-line-chart"
@@ -131,9 +131,9 @@ export default {
       profit_month: 0,
       profit_year: 0,
       profit_all_time: 0,
-      salesLineChartLoaded: false,
-      dailySalesLineChartLoaded: false,
-      stateCasesLineChartLoaded: false,
+      salesLineChartLoadStatus: 0,
+      dailySalesLineChartLoadStatus: 0,
+      stateCasesLineChartLoadStatus: 0,
       salesLineChart: {
         extraOptions: chartConfigs.salesChartOptions,
         chartData: {
@@ -193,30 +193,46 @@ export default {
   },
   computed: {
     stateCasesLineChart() {
+      this.stateCasesLineChartLoadStatus = 1;
+      console.log(this.stateCasesLineChartLoadStatus, "lala");
       return this.profitLineChart;
     }
   },
   watch: {
-    salesLineChart: function(val) {
-      this.salesLineChartLoaded = true;
+    salesLineChartLoadStatus: function(val) {
+      if (val == 1) {
+        console.log("here1");
+      }
     },
-    dailySalesLineChart: function(val) {
-      this.dailySalesLineChartLoaded = true;
+    dailySalesLineChartLoadStatus: function(val) {
+      if (val == 1) {
+        console.log("here2");
+      }
     },
-    stateCasesLineChart: function(val) {
-      this.stateCasesLineChartLoaded = true;
+    stateCasesLineChartLoadStatus: function(val) {
+      if (val == 1) {
+        console.log("here3");
+      }
     }
   },
   methods: {
     updateStatsData(response) {
-      let response = response => {};
       this.dailySalesLineChart.chartData.datasets["0"].data =
         response.data.data.dailyCases;
       this.dailySalesLineChart.chartData.labels =
         response.data.data.dailyLabels;
+      this.dailySalesLineChartLoadStatus = 1;
+      console.log(this.dailySalesLineChartLoadStatus);
+
+      this.salesLineChart.chartData.datasets["0"].data =
+        response.data.data.cases;
+      this.salesLineChart.chartData.labels = response.data.data.labels;
+      this.salesLineChartLoadStatus = 1;
+      console.log(this.salesLineChartLoadStatus);
 
       this.stateCases = response.data.data.dailyStateCases;
       this.dateLabels = response.data.data.dateLabels["0"].map(a => a.date);
+      this.stateCasesLineChartLoadStatus = 1;
 
       return new Promise(function(resolve, reject) {
         resolve("data updated successfully");

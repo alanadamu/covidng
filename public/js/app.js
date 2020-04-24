@@ -3505,7 +3505,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       profit_month: 0,
       profit_year: 0,
       profit_all_time: 0,
-      loaded: false,
+      salesLineChartLoadStatus: 0,
+      dailySalesLineChartLoadStatus: 0,
+      stateCasesLineChartLoadStatus: 0,
       salesLineChart: {
         extraOptions: _components_Charts_config__WEBPACK_IMPORTED_MODULE_2__["salesChartOptions"],
         chartData: {
@@ -3561,17 +3563,43 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   computed: {
     stateCasesLineChart: function stateCasesLineChart() {
+      this.stateCasesLineChartLoadStatus = 1;
+      console.log(this.stateCasesLineChartLoadStatus, "lala");
       return this.profitLineChart;
+    }
+  },
+  watch: {
+    salesLineChartLoadStatus: function salesLineChartLoadStatus(val) {
+      if (val == 1) {
+        console.log("here1");
+      }
+    },
+    dailySalesLineChartLoadStatus: function dailySalesLineChartLoadStatus(val) {
+      if (val == 1) {
+        console.log("here2");
+      }
+    },
+    stateCasesLineChartLoadStatus: function stateCasesLineChartLoadStatus(val) {
+      if (val == 1) {
+        console.log("here3");
+      }
     }
   },
   methods: {
     updateStatsData: function updateStatsData(response) {
       this.dailySalesLineChart.chartData.datasets["0"].data = response.data.data.dailyCases;
       this.dailySalesLineChart.chartData.labels = response.data.data.dailyLabels;
+      this.dailySalesLineChartLoadStatus = 1;
+      console.log(this.dailySalesLineChartLoadStatus);
+      this.salesLineChart.chartData.datasets["0"].data = response.data.data.cases;
+      this.salesLineChart.chartData.labels = response.data.data.labels;
+      this.salesLineChartLoadStatus = 1;
+      console.log(this.salesLineChartLoadStatus);
       this.stateCases = response.data.data.dailyStateCases;
       this.dateLabels = response.data.data.dateLabels["0"].map(function (a) {
         return a.date;
       });
+      this.stateCasesLineChartLoadStatus = 1;
       return new Promise(function (resolve, reject) {
         resolve("data updated successfully");
       });
@@ -3763,11 +3791,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     axios__WEBPACK_IMPORTED_MODULE_6___default.a.get(_app_config_js__WEBPACK_IMPORTED_MODULE_7__["APP_CONFIG"].API_URL + "/home").then(function (response) {
       vm.updateStatsData(response).then(function (response) {
         console.log(response);
-        vm.loaded = true;
       });
     });
     axios__WEBPACK_IMPORTED_MODULE_6___default.a.get(_app_config_js__WEBPACK_IMPORTED_MODULE_7__["APP_CONFIG"].API_URL + "/state").then(function (response) {
-      vm.loaded = true;
       vm.states = response.data.data;
     });
   }
@@ -42057,7 +42083,7 @@ var render = function() {
               "div",
               { staticClass: "chart-area" },
               [
-                _vm.loaded
+                _vm.salesLineChartLoadStatus
                   ? _c("line-chart", {
                       ref: "bigChart",
                       staticStyle: { height: "100%" },
@@ -42105,7 +42131,7 @@ var render = function() {
               "div",
               { staticClass: "chart-area" },
               [
-                _vm.loaded
+                _vm.dailySalesLineChartLoadStatus
                   ? _c("line-chart", {
                       ref: "bigChart",
                       staticStyle: { height: "100%" },
@@ -42206,7 +42232,7 @@ var render = function() {
               "div",
               { staticClass: "chart-area" },
               [
-                _vm.loaded
+                _vm.stateCasesLineChartLoadStatus
                   ? _c("line-chart", {
                       ref: "bigChart",
                       staticStyle: { height: "100%" },
@@ -61410,14 +61436,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!*******************************************!*\
   !*** ./resources/js/pages/Dashboard2.vue ***!
   \*******************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Dashboard2_vue_vue_type_template_id_1a4afb67___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Dashboard2.vue?vue&type=template&id=1a4afb67& */ "./resources/js/pages/Dashboard2.vue?vue&type=template&id=1a4afb67&");
 /* harmony import */ var _Dashboard2_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Dashboard2.vue?vue&type=script&lang=js& */ "./resources/js/pages/Dashboard2.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Dashboard2_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Dashboard2_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -61447,7 +61474,7 @@ component.options.__file = "resources/js/pages/Dashboard2.vue"
 /*!********************************************************************!*\
   !*** ./resources/js/pages/Dashboard2.vue?vue&type=script&lang=js& ***!
   \********************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

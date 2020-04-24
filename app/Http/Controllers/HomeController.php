@@ -24,7 +24,7 @@ class HomeController extends Controller
     }
 
     public function stats(){
-
+        sleep(2);
         // $cases = CovidCase::get();
 
         $cases = CovidCase::select( DB::raw('date'),'id', DB::raw('sum(value) sum'))
