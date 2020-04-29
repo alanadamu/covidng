@@ -80,7 +80,7 @@
 @push('js')
   <script>
     $(document).ready(function() {
-      demo.checkFullPageBackgroundImage();
+     
     });
   </script>
 @endpush

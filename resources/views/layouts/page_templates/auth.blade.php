@@ -1,4 +1,4 @@
-<div class="wrapper" id="app">
+<div class="wrapper">
   @include('layouts.navbars.sidebar')
   <div class="main-panel" data="orange">
     @include('layouts.navbars.navs.auth')
