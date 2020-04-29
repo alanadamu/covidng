@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\POS\Order;
+use App\Models\Covid\Death;
 use App\Models\Covid\State;
 use Illuminate\Support\Arr;
 use App\Models\Product\Move;
 use App\Models\Covid\CovidCase;
+use App\Models\Covid\Discharge;
 use App\Models\POS\ProductLine;
 use Illuminate\Support\Facades\DB;
 use App\Http\Resources\Home AS HomeResource;
@@ -27,6 +29,14 @@ class HomeController extends Controller
         // $cases = CovidCase::get();
 
         $cases = CovidCase::select( DB::raw('date'),'id', DB::raw('sum(value) sum'))
+        ->groupBy('date')
+        ->orderBy('date', 'ASC')
+        ->get();
+        $recoveries = Discharge::select( DB::raw('date'),'id', DB::raw('sum(value) sum'))
+        ->groupBy('date')
+        ->orderBy('date', 'ASC')
+        ->get();
+        $deaths = Death::select( DB::raw('date'),'id', DB::raw('sum(value) sum'))
         ->groupBy('date')
         ->orderBy('date', 'ASC')
         ->get();
@@ -98,6 +108,16 @@ class HomeController extends Controller
             $data['cases'][]=$sum_value;
             $date =  Carbon::parse($case->date)->format('d/m/Y');
             $data['labels'][] = $date;
+        }
+        $sum_value = 0;
+        foreach ($recoveries as $recovery) {
+            $sum_value += $recovery['sum'];
+            $data['recoveries'][]=$sum_value;
+        }
+        $sum_value = 0;
+        foreach ($deaths as $death) {
+            $sum_value += $death['sum'];
+            $data['deaths'][]=$sum_value;
         }
 
 

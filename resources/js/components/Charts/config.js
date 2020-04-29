@@ -101,7 +101,6 @@ export let profitChartOptions = {
 export let salesChartOptions = {
   ...basicOptions,
   tooltips: {
-    backgroundColor: '#f5f5f5',
     titleFontColor: '#333',
     bodyFontColor: '#666',
     bodySpacing: 4,

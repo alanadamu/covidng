@@ -137,10 +137,29 @@ export default {
       salesLineChart: {
         extraOptions: chartConfigs.salesChartOptions,
         chartData: {
-          labels: ["a", "b", "c"],
+          labels: [],
           datasets: [
             {
               label: "Cases",
+              fill: true,
+              borderColor: config.colors.primary,
+              borderWidth: 2,
+              borderDash: [],
+              borderDashOffset: 0.0,
+              backgroundColor: "#36A2EB",
+              borderColor: "#36A2EB",
+              backgroundColor: config.colors.primary,
+              pointBackgroundColor: config.colors.primary,
+              pointBorderColor: "rgba(255,255,255,0)",
+              pointHoverBackgroundColor: config.colors.primary,
+              pointBorderWidth: 20,
+              pointHoverRadius: 4,
+              pointHoverBorderWidth: 15,
+              pointRadius: 0,
+              data: []
+            },
+            {
+              label: "Recoveries",
               fill: true,
               borderColor: config.colors.primary,
               borderWidth: 2,
@@ -153,7 +172,24 @@ export default {
               pointHoverRadius: 4,
               pointHoverBorderWidth: 15,
               pointRadius: 0,
-              data: ["1", "2", "3"]
+              data: []
+            },
+            {
+              label: "Deaths",
+              fill: true,
+              borderWidth: 2,
+              borderDash: [],
+              borderDashOffset: 0.0,
+              backgroundColor: "rgb(255, 99, 132)",
+              borderColor: "rgb(255, 99, 132)",
+              pointBackgroundColor: config.colors.primary,
+              pointBorderColor: "rgba(255,255,255,0)",
+              pointHoverBackgroundColor: config.colors.primary,
+              pointBorderWidth: 20,
+              pointHoverRadius: 4,
+              pointHoverBorderWidth: 15,
+              pointRadius: 0,
+              data: []
             }
           ]
         }
@@ -221,6 +257,10 @@ export default {
 
       this.salesLineChart.chartData.datasets["0"].data =
         response.data.data.cases;
+      this.salesLineChart.chartData.datasets["1"].data =
+        response.data.data.recoveries;
+      this.salesLineChart.chartData.datasets["2"].data =
+        response.data.data.deaths;
       this.salesLineChart.chartData.labels = response.data.data.labels;
       this.salesLineChartLoadStatus = 1;
 

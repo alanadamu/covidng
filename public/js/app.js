@@ -3489,6 +3489,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     chartConfigs: _components_Charts_config__WEBPACK_IMPORTED_MODULE_2__
   },
   data: function data() {
+    var _ref;
+
     return {
       dateLabels: {},
       selectedState: {
@@ -3511,9 +3513,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       salesLineChart: {
         extraOptions: _components_Charts_config__WEBPACK_IMPORTED_MODULE_2__["salesChartOptions"],
         chartData: {
-          labels: ["a", "b", "c"],
-          datasets: [{
+          labels: [],
+          datasets: [(_ref = {
             label: "Cases",
+            fill: true,
+            borderColor: _config__WEBPACK_IMPORTED_MODULE_5__["default"].colors.primary,
+            borderWidth: 2,
+            borderDash: [],
+            borderDashOffset: 0.0,
+            backgroundColor: "#36A2EB"
+          }, _defineProperty(_ref, "borderColor", "#36A2EB"), _defineProperty(_ref, "backgroundColor", _config__WEBPACK_IMPORTED_MODULE_5__["default"].colors.primary), _defineProperty(_ref, "pointBackgroundColor", _config__WEBPACK_IMPORTED_MODULE_5__["default"].colors.primary), _defineProperty(_ref, "pointBorderColor", "rgba(255,255,255,0)"), _defineProperty(_ref, "pointHoverBackgroundColor", _config__WEBPACK_IMPORTED_MODULE_5__["default"].colors.primary), _defineProperty(_ref, "pointBorderWidth", 20), _defineProperty(_ref, "pointHoverRadius", 4), _defineProperty(_ref, "pointHoverBorderWidth", 15), _defineProperty(_ref, "pointRadius", 0), _defineProperty(_ref, "data", []), _ref), {
+            label: "Recoveries",
             fill: true,
             borderColor: _config__WEBPACK_IMPORTED_MODULE_5__["default"].colors.primary,
             borderWidth: 2,
@@ -3526,7 +3536,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             pointHoverRadius: 4,
             pointHoverBorderWidth: 15,
             pointRadius: 0,
-            data: ["1", "2", "3"]
+            data: []
+          }, {
+            label: "Deaths",
+            fill: true,
+            borderWidth: 2,
+            borderDash: [],
+            borderDashOffset: 0.0,
+            backgroundColor: "rgb(255, 99, 132)",
+            borderColor: "rgb(255, 99, 132)",
+            pointBackgroundColor: _config__WEBPACK_IMPORTED_MODULE_5__["default"].colors.primary,
+            pointBorderColor: "rgba(255,255,255,0)",
+            pointHoverBackgroundColor: _config__WEBPACK_IMPORTED_MODULE_5__["default"].colors.primary,
+            pointBorderWidth: 20,
+            pointHoverRadius: 4,
+            pointHoverBorderWidth: 15,
+            pointRadius: 0,
+            data: []
           }]
         }
       },
@@ -3584,6 +3610,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.dailySalesLineChart.chartData.labels = response.data.data.dailyLabels;
       this.dailySalesLineChartLoadStatus = 1;
       this.salesLineChart.chartData.datasets["0"].data = response.data.data.cases;
+      this.salesLineChart.chartData.datasets["1"].data = response.data.data.recoveries;
+      this.salesLineChart.chartData.datasets["2"].data = response.data.data.deaths;
       this.salesLineChart.chartData.labels = response.data.data.labels;
       this.salesLineChartLoadStatus = 1;
       this.stateCases = response.data.data.dailyStateCases;
@@ -3622,7 +3650,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       };
 
       if (data_exists(key2(key)) && data_exists(key)) {
-        var _ref;
+        var _ref2;
 
         // Get chart data
         // Get the data of the state
@@ -3675,7 +3703,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           pointRadius: 0,
           yAxisID: "y-axis-1",
           data: firstData
-        }, (_ref = {
+        }, (_ref2 = {
           label: this.selectedState[1].name,
           borderColor: _config__WEBPACK_IMPORTED_MODULE_5__["default"].colors.primary,
           borderWidth: 2,
@@ -3683,7 +3711,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           borderDashOffset: 0.0,
           pointBackgroundColor: "rgb(255, 99, 132)",
           backgroundColor: "rgb(255, 99, 132)"
-        }, _defineProperty(_ref, "borderColor", "rgb(255, 99, 132)"), _defineProperty(_ref, "pointBorderColor", "rgba(255,255,255,0)"), _defineProperty(_ref, "fill", false), _defineProperty(_ref, "pointHoverBackgroundColor", _config__WEBPACK_IMPORTED_MODULE_5__["default"].colors.primary), _defineProperty(_ref, "pointBorderWidth", 20), _defineProperty(_ref, "pointHoverRadius", 4), _defineProperty(_ref, "pointHoverBorderWidth", 15), _defineProperty(_ref, "pointRadius", 0), _defineProperty(_ref, "yAxisID", "y-axis-1"), _defineProperty(_ref, "data", secondData), _ref)];
+        }, _defineProperty(_ref2, "borderColor", "rgb(255, 99, 132)"), _defineProperty(_ref2, "pointBorderColor", "rgba(255,255,255,0)"), _defineProperty(_ref2, "fill", false), _defineProperty(_ref2, "pointHoverBackgroundColor", _config__WEBPACK_IMPORTED_MODULE_5__["default"].colors.primary), _defineProperty(_ref2, "pointBorderWidth", 20), _defineProperty(_ref2, "pointHoverRadius", 4), _defineProperty(_ref2, "pointHoverBorderWidth", 15), _defineProperty(_ref2, "pointRadius", 0), _defineProperty(_ref2, "yAxisID", "y-axis-1"), _defineProperty(_ref2, "data", secondData), _ref2)];
         this.profitLineChart = {
           extraOptions: _components_Charts_config__WEBPACK_IMPORTED_MODULE_2__["profitChartOptions"],
           chartData: {
@@ -3692,7 +3720,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           }
         };
       } else if (data_exists(key2(key)) && !data_exists(key)) {
-        var _ref2;
+        var _ref3;
 
         state_id = this.selectedState[key2(key)].id; // Get the data of the state
 
@@ -3705,7 +3733,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             y: a.state_sum_value
           };
         });
-        dataset = [(_ref2 = {
+        dataset = [(_ref3 = {
           label: this.selectedState[key2(key)].name,
           fill: false,
           borderColor: "rgb(255, 99, 132)",
@@ -3714,7 +3742,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           borderDashOffset: 0.0,
           pointBackgroundColor: "rgb(255, 99, 132)",
           backgroundColor: "rgb(255, 99, 132)"
-        }, _defineProperty(_ref2, "borderColor", "rgb(255, 99, 132)"), _defineProperty(_ref2, "pointHoverBackgroundColor", "rgb(255, 99, 132)"), _defineProperty(_ref2, "pointBorderWidth", 20), _defineProperty(_ref2, "pointHoverRadius", 4), _defineProperty(_ref2, "pointHoverBorderWidth", 15), _defineProperty(_ref2, "pointRadius", 0), _defineProperty(_ref2, "yAxisID", "y-axis-1"), _defineProperty(_ref2, "data", data), _ref2)];
+        }, _defineProperty(_ref3, "borderColor", "rgb(255, 99, 132)"), _defineProperty(_ref3, "pointHoverBackgroundColor", "rgb(255, 99, 132)"), _defineProperty(_ref3, "pointBorderWidth", 20), _defineProperty(_ref3, "pointHoverRadius", 4), _defineProperty(_ref3, "pointHoverBorderWidth", 15), _defineProperty(_ref3, "pointRadius", 0), _defineProperty(_ref3, "yAxisID", "y-axis-1"), _defineProperty(_ref3, "data", data), _ref3)];
         this.profitLineChart = {
           extraOptions: _components_Charts_config__WEBPACK_IMPORTED_MODULE_2__["profitChartOptions"],
           chartData: {
@@ -60271,7 +60299,6 @@ var profitChartOptions = _objectSpread({}, basicOptions, {
 });
 var salesChartOptions = _objectSpread({}, basicOptions, {
   tooltips: {
-    backgroundColor: '#f5f5f5',
     titleFontColor: '#333',
     bodyFontColor: '#666',
     bodySpacing: 4,
