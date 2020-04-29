@@ -49,7 +49,7 @@
         @endif
 
         <!-- Scripts -->
-        <script src="{{ asset('js/app.js') }}" defer></script>
+        <script src="{{ asset('js/app.js?v=1.0.2') }}" defer></script>
         <!--   Core JS Files   -->
         <script src="{{ asset('black') }}/js/core/jquery.min.js"></script>
         <script src="{{ asset('black') }}/js/core/popper.min.js"></script>
@@ -87,9 +87,9 @@
         <!--  Notifications Plugin    -->
         <script src="{{ asset('black') }}/js/plugins/bootstrap-notify.js"></script>
         <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
-        <script src="{{ asset('black') }}/js/black-dashboard.min.js?v=1.0.1"></script>
+        <script src="{{ asset('black') }}/js/black-dashboard.min.js?v=1.0.2"></script>
         {{-- Afivenet JS codes --}}
-        <script src="{{ asset('black') }}/js/custom.js?v=1.0.1"></script>
+        <script src="{{ asset('black') }}/js/custom.js?v=1.0.2"></script>
         <script>
           $(document).ready(function () {
             @if (session('status'))
