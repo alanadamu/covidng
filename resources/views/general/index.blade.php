@@ -27,9 +27,8 @@
                     </div>
                   </div>
                 </div>
-                <div class="row">
-                  {!!$model->links()!!}
-
+                <div class="flex-wrap">
+                  {!!$model->onEachSide(2)->links()!!}
                 </div>
                 
                 

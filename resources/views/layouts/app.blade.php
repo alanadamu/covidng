@@ -88,6 +88,8 @@
         <script src="{{ asset('black') }}/js/plugins/bootstrap-notify.js"></script>
         <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
         <script src="{{ asset('black') }}/js/black-dashboard.min.js?v=1.0.1"></script>
+        {{-- Afivenet JS codes --}}
+        <script src="{{ asset('black') }}/js/custom.js?v=1.0.1"></script>
         <script>
           $(document).ready(function () {
             @if (session('status'))

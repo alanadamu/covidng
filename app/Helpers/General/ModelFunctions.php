@@ -47,7 +47,7 @@ class ModelFunctions
                 $model = $model->with($data['relationship_name']);
             }
         }
-        $model = $model->orderBy('id','desc')->paginate($paginate)->onEachSide(1);;
+        $model = $model->orderBy('id','desc')->paginate($paginate);
 
 
         return [$model,$blade_data,$route_name];
