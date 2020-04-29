@@ -14,18 +14,25 @@
                 <h4 class="card-title">{{ __($blade_data['titlePage']) }}</h4>
               </div>
               <div class="card-body">
-                <div class="btn-toolbar float-right" role="toolbar" aria-label="Toolbar with button groups">
-                  @foreach ($blade_data['indexLinks'] as $item)
-                    {{-- @can('create', App\Accounts::class) --}}
-                    <div class="btn-group m-2 " role="group" aria-label="First group">
-                      <a href="{{ route($item['route']) }}" class="btn btn-sm btn-primary">{{ __($item['label']) }}</a>
-                    </div>                              
-                  {{-- @endcan --}}
-                @endforeach
+                <div class="row">
+                  <div class="col-12">
+                    <div class="btn-group float-right">
+                      @foreach ($blade_data['indexLinks'] as $item)
+                        {{-- @can('create', App\Accounts::class) --}}
+                        <div class="btn-group m-2 ">
+                          <a href="{{ route($item['route']) }}" class="btn btn-sm btn-primary">{{ __($item['label']) }}</a>
+                        </div>                              
+                      {{-- @endcan --}}
+                    @endforeach
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  {!!$model->links()!!}
+
                 </div>
                 
                 
-                {!!$model->links()!!}
                 <div class="table">
                   <table class="table table-striped table-no-bordered table-hover">
                     <thead class="text-primary">
