@@ -106,7 +106,15 @@ class CovidCaseController extends Controller
      */
     public function edit($id)
     {
-        //
+        $model = new CovidCase;
+
+        list($model,$blade_data,$route_name,$options) = ModelFunctions::get_edit_data($model,$id);    
+        return view('general.edit', [
+                                        'model' => $model, 
+                                        'blade_data' => $blade_data, 
+                                        'route_name' => $route_name,
+                                        'options' => $options,
+                                    ]);
     }
 
     /**
@@ -116,9 +124,14 @@ class CovidCaseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CovidCaseRequest $request, $id)
     {
-        //
+        // dd($request->all());
+        $new_model = new CovidCase;
+        
+        $model_fn = new ModelFunctions;
+        $result = $model_fn->validate_and_update($id,$request,$new_model);        
+        return $result;
     }
 
     /**

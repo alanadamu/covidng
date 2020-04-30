@@ -77,11 +77,7 @@
                                   }
                               @endphp
                                 @can($action['model_policy_name'], $m)
-                                  @if ($m->{$action['action_indicator_field']} == $action['action_indicator_target'])
-                                    <a href="{{ route($action['route_to'], $m->id) }}" class="btn btn-link btn-{{$icon_color}} btn-icon btn-sm edit"><i class="tim-icons {{$action['icon']}}"></i></a>
-                                  @else
-                                    <div class="btn btn-link btn-{{$icon_color}} btn-icon btn-sm edit"><i class="tim-icons {{$action['icon']}}"></i></div>
-                                  @endif
+                                  <a href="{{ route($action['route_to'], $m) }}" class="btn btn-link btn-{{$icon_color}} btn-icon btn-sm edit"><i class="tim-icons {{$action['icon']}}"></i></a>
                                   
                                 @endcan
                               @endforeach

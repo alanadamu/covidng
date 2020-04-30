@@ -8,28 +8,26 @@ use App\Role;
 use App\User;
 use App\Category;
 
-use App\Models\Res\Partner;
+use App\Models\Covid\Test;
+use App\Models\Covid\Death;
 use App\Policies\TagPolicy;
-use App\Policies\ItemPolicy;
-use App\Policies\RolePolicy;
 
 /*-------------------------Policy Classes--------------------------------------------------------*/
 //Journal Policies
+use App\Policies\ItemPolicy;
+use App\Policies\RolePolicy;
 use App\Policies\UserPolicy;
+
+
+use App\Models\Covid\CovidCase;
+use App\Models\Covid\Discharge;
 use App\Policies\CategoryPolicy;
-use App\Policies\Res\PartnerPolicy;
+use App\Policies\Covid\TestPolicy;
+use App\Policies\Covid\DeathPolicy;
 use Illuminate\Support\Facades\Gate;
-
-
-use App\Models\Journal\Journal AS Journal;
-use App\Models\Journal\Account AS JournalAccount;
-use App\Policies\Journal\JournalPolicy AS JournalPolicy;
-use App\Models\Journal\AccountType AS JournalAccountType;
-use App\Policies\Journal\JournalAccountPolicy AS JournalAccountPolicy;
-use App\Policies\Journal\AccountTypePolicy AS JournalAccountTypePolicy;
-use App\Models\Journal\AccountTypeCategory AS JournalAccountTypeCategory;
+use App\Policies\Covid\CovidCasePolicy;
+use App\Policies\Covid\DischargePolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use App\Policies\Journal\AccountTypeCategoryPolicy AS JournalAccountTypeCategoryPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -45,13 +43,11 @@ class AuthServiceProvider extends ServiceProvider
         Role::class => RolePolicy::class,
         Tag::class => TagPolicy::class,
 
-        JournalAccountTypeCategory::class => JournalAccountTypeCategoryPolicy::class,
-        JournalAccountType::class => JournalAccountTypePolicy::class,
-        Journal::class => JournalPolicy::class,
-        JournalAccount::class => JournalAccountPolicy::class,
-
-        //Res
-        Partner::class => PartnerPolicy::class,
+        //Covid
+        Test::class => TestPolicy::class,
+        Death::class => DeathPolicy::class,
+        Discharge::class => DischargePolicy::class,
+        CovidCase::class => CovidCasePolicy::class,
     ];
 
     /**
@@ -67,14 +63,12 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('manage-users', 'App\Policies\UserPolicy@manageUsers');
 
-        Gate::define('manage-journal-account-type-categories', 'App\Policies\Journal\AccountTypeCategoryPolicy@manageAccountTypeCategories');
-        Gate::define('manage-journal-account-types', 'App\Policies\Journal\AccountTypePolicy@manageAccountTypes');
-        Gate::define('manage-journals', 'App\Policies\Journal\JournalPolicy@manageJournals');
-        Gate::define('manage-journal-accounts', 'App\Policies\Journal\JournalAccountPolicy@manageJournalAccounts');
-
         //Res Gates
-        Gate::define('manage-res-partners', 'App\Policies\Res\PartnerPolicy@manageResPartners');
-        Gate::define('link-journal-account', 'App\Policies\Res\PartnerPolicy@linkJournalAccounts');
+        Gate::define('manage-covid-cases', 'App\Policies\Covid\CovidCasePolicy@manageCovidCases');
+        Gate::define('manage-covid-discharges', 'App\Policies\Covid\DischargePolicy@manageCovidDischarges');
+        Gate::define('manage-covid-deaths', 'App\Policies\Covid\DeathPolicy@manageCovidDeaths');
+        Gate::define('manage-covid-tests', 'App\Policies\Covid\TestPolicy@manageCovidTests');
+
 
     }
 }

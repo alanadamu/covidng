@@ -18,7 +18,7 @@ class StatePolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return $user->isAdmin();
     }
 
     /**
@@ -30,7 +30,7 @@ class StatePolicy
      */
     public function view(User $user, State $state)
     {
-        //
+        return $user->isAdmin();
     }
 
     /**
@@ -41,7 +41,7 @@ class StatePolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->isAdmin();
     }
 
     /**
@@ -53,7 +53,7 @@ class StatePolicy
      */
     public function update(User $user, State $state)
     {
-        //
+        return $user->isAdmin();
     }
 
     /**
@@ -65,7 +65,7 @@ class StatePolicy
      */
     public function delete(User $user, State $state)
     {
-        //
+        return $user->isAdmin();
     }
 
     /**
@@ -77,7 +77,7 @@ class StatePolicy
      */
     public function restore(User $user, State $state)
     {
-        //
+        return $user->isAdmin();
     }
 
     /**
@@ -89,6 +89,17 @@ class StatePolicy
      */
     public function forceDelete(User $user, State $state)
     {
-        //
+        return $user->isAdmin();
+    }
+
+    /**
+     * Determine whether the authenticated user can manage covid states.
+     *
+     * @param  \App\User  $user
+     * @return boolean
+     */
+    public function manageCovidStates(User $user)
+    {
+        return $user->isAdmin();
     }
 }

@@ -14,6 +14,7 @@ class CovidCase extends Model
             'titlePage' => 'Covid Cases',  
             'modelName' => 'Covid Case',
             'createLabel' => 'Add Case',   
+            'editLabel' => 'Update Case',   
             'indexLinks' => array(
                                     array(
                                         'label' => 'Add Case',
@@ -68,7 +69,16 @@ class CovidCase extends Model
                 'policy_name' => 'manage-covid-cases',
                 'actions' => array(
                     array(
-                        
+                        'action_indicator_field' => 'value',
+                        'action_indicator_target' => true,
+                        'model_policy_name' => 'update',
+                         'name' => 'Edit Case',
+                         'route_to' => 'covid.covid_case.edit',
+                         'icon' =>  'icon-pencil',
+                         'icon_color_indicator_field' => 'value',
+                         'icon_color_indicator_target' => true,
+                         'icon_color_indicator_true' => 'warning',
+                         'icon_color_indicator_false' => 'warning',
                         )
                 )
             )
