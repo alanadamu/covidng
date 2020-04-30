@@ -82,6 +82,32 @@ class ModelFunctions
      *
      * @return \Illuminate\Http\Response
      */
+    public static function get_edit_data($model,$id){
+
+        $blade_data = $model->blade_data();
+        $route_name = $model->route_name;
+        $options = array();
+        foreach ($blade_data['indexData'] as $data) {            
+            if($data['has_relationship']){
+                $model = $model->with($data['relationship_name']);
+                $options[$data['relationship_name_plural']] = $data['relationship_model']->get();
+            }
+
+
+        }
+        $model = $model->findOrFail($id);
+
+
+        return [$model,$blade_data,$route_name,$options];
+
+        
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public static function get_bulk_create_data($model){
 
         $blade_data = $model->blade_data();
@@ -300,8 +326,8 @@ class ModelFunctions
         $data = $request->all();
         $data['date'] = $request->date ? Carbon::parse($request->date)->format('Y-m-d') : null;
         $messages = [
-            'date.unique' => 'This state and date Combination already exists',
-            'state_id.unique' => 'This state and date Combination already exists',
+            'date.unique' => 'This state and date combination already exists',
+            'state_id.unique' => 'This state and date combination already exists',
         ];
         $state_id = $data['state_id'];
         $date = $data['date'];
@@ -330,6 +356,50 @@ class ModelFunctions
         $route_name = $this->get_route($model);
         $model_name = $this->get_model_name($model);                
         return redirect()->route($route_name.'.index')->withStatus(__($model_name.' successfully created.'));
+     }
+
+     /**
+     * Get State Sum
+     *
+     * @return $sum
+     */
+
+    public function validate_and_update($id,$request,$new_model){
+        
+        $data = $request->all();
+        $model = $new_model->findOrFail($id);
+        $data['date'] = $request->date ? Carbon::parse($request->date)->format('Y-m-d') : null;
+        $messages = [
+            'date.unique' => 'This state and date combination already exists',
+            'state_id.unique' => 'This state and date combination already exists',
+        ];
+        $state_id = $data['state_id'];
+        $date = $data['date'];
+        // dd($date);
+        $validator = Validator::make($data, [
+            'date' => ['required',Rule::unique($model->getTable())->ignore($id ?? null)->where(function ($query) use ($state_id) {
+                return $query->where('state_id', $state_id);
+            })],
+            'state_id' => ['required',Rule::unique($model->getTable())->ignore($id ?? null)->where(function ($query) use ($date) {
+                return $query->where('date', $date);
+            })],
+            'value' => 'numeric|min:0'
+        ],$messages);
+        
+        //Redirect if Validator Fails
+        // dd($request->prev_route);
+        if ($validator->fails()) {
+            // dd('aa');
+            return redirect()->route($request->prev_route,$id)
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+        $model->update($request->all());
+
+        $route_name = $this->get_route($model);
+        $model_name = $this->get_model_name($model);                
+        return redirect()->route($route_name.'.index')->withStatus(__($model_name.' successfully updated.'));
      }
 
 

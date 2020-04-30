@@ -79,6 +79,7 @@ class UserController extends Controller
      */
     public function edit(User $user, Role $model)
     {
+        dd($user);
         return view('users.edit', ['user' => $user->load('role'), 'roles' => $model->get(['id', 'name'])]);
     }
 

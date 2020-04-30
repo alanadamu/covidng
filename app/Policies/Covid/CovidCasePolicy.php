@@ -18,7 +18,7 @@ class CovidCasePolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return $user->isAdmin();
     }
 
     /**
@@ -30,7 +30,7 @@ class CovidCasePolicy
      */
     public function view(User $user, CovidCase $covidCase)
     {
-        //
+        return $user->isAdmin();
     }
 
     /**
@@ -41,7 +41,7 @@ class CovidCasePolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->isAdmin();
     }
 
     /**
@@ -53,7 +53,7 @@ class CovidCasePolicy
      */
     public function update(User $user, CovidCase $covidCase)
     {
-        //
+        return $user->isAdmin();
     }
 
     /**
@@ -65,7 +65,7 @@ class CovidCasePolicy
      */
     public function delete(User $user, CovidCase $covidCase)
     {
-        //
+        return $user->isAdmin();
     }
 
     /**
@@ -77,7 +77,7 @@ class CovidCasePolicy
      */
     public function restore(User $user, CovidCase $covidCase)
     {
-        //
+        return $user->isAdmin();
     }
 
     /**
@@ -89,6 +89,17 @@ class CovidCasePolicy
      */
     public function forceDelete(User $user, CovidCase $covidCase)
     {
-        //
+        return $user->isAdmin();
+    }
+
+    /**
+     * Determine whether the authenticated user can manage covid cases.
+     *
+     * @param  \App\User  $user
+     * @return boolean
+     */
+    public function manageCovidCases(User $user)
+    {
+        return $user->isAdmin();
     }
 }

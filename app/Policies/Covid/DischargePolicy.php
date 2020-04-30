@@ -18,7 +18,7 @@ class DischargePolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return $user->isAdmin();
     }
 
     /**
@@ -30,7 +30,7 @@ class DischargePolicy
      */
     public function view(User $user, Discharge $discharge)
     {
-        //
+        return $user->isAdmin();
     }
 
     /**
@@ -41,7 +41,7 @@ class DischargePolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->isAdmin();
     }
 
     /**
@@ -53,7 +53,7 @@ class DischargePolicy
      */
     public function update(User $user, Discharge $discharge)
     {
-        //
+        return $user->isAdmin();
     }
 
     /**
@@ -65,7 +65,7 @@ class DischargePolicy
      */
     public function delete(User $user, Discharge $discharge)
     {
-        //
+        return $user->isAdmin();
     }
 
     /**
@@ -77,7 +77,7 @@ class DischargePolicy
      */
     public function restore(User $user, Discharge $discharge)
     {
-        //
+        return $user->isAdmin();
     }
 
     /**
@@ -89,6 +89,17 @@ class DischargePolicy
      */
     public function forceDelete(User $user, Discharge $discharge)
     {
-        //
+        return $user->isAdmin();
+    }
+
+    /**
+     * Determine whether the authenticated user can manage covid discharges.
+     *
+     * @param  \App\User  $user
+     * @return boolean
+     */
+    public function manageCovidDischarges(User $user)
+    {
+        return $user->isAdmin();
     }
 }

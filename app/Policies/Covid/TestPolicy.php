@@ -18,7 +18,7 @@ class TestPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return $user->isAdmin();
     }
 
     /**
@@ -30,7 +30,7 @@ class TestPolicy
      */
     public function view(User $user, Test $test)
     {
-        //
+        return $user->isAdmin();
     }
 
     /**
@@ -41,7 +41,7 @@ class TestPolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->isAdmin();
     }
 
     /**
@@ -53,7 +53,7 @@ class TestPolicy
      */
     public function update(User $user, Test $test)
     {
-        //
+        return $user->isAdmin();
     }
 
     /**
@@ -65,7 +65,7 @@ class TestPolicy
      */
     public function delete(User $user, Test $test)
     {
-        //
+        return $user->isAdmin();
     }
 
     /**
@@ -77,7 +77,7 @@ class TestPolicy
      */
     public function restore(User $user, Test $test)
     {
-        //
+        return $user->isAdmin();
     }
 
     /**
@@ -89,6 +89,17 @@ class TestPolicy
      */
     public function forceDelete(User $user, Test $test)
     {
-        //
+        return $user->isAdmin();
+    }
+
+    /**
+     * Determine whether the authenticated user can manage covid tests.
+     *
+     * @param  \App\User  $user
+     * @return boolean
+     */
+    public function manageCovidTests(User $user)
+    {
+        return $user->isAdmin();
     }
 }

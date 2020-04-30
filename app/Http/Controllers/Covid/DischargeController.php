@@ -106,7 +106,15 @@ class DischargeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $model = new Discharge;
+
+        list($model,$blade_data,$route_name,$options) = ModelFunctions::get_edit_data($model,$id);    
+        return view('general.edit', [
+                                        'model' => $model, 
+                                        'blade_data' => $blade_data, 
+                                        'route_name' => $route_name,
+                                        'options' => $options,
+                                    ]);
     }
 
     /**
