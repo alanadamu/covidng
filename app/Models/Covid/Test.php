@@ -14,6 +14,7 @@ class Test extends Model
             'titlePage' => 'Covid Tests',     
             'modelName' => 'Test',
             'createLabel' => 'Add Test',
+            'editLabel' => 'Update Test',   
             'indexLinks' => array(
                                     array(
                                         'label' => 'Add Test',
@@ -68,7 +69,16 @@ class Test extends Model
                 'policy_name' => 'manage-covid-tests',
                 'actions' => array(
                     array(
-                        
+                        'action_indicator_field' => 'value',
+                        'action_indicator_target' => true,
+                        'model_policy_name' => 'update',
+                         'name' => 'Edit Test',
+                         'route_to' => 'covid.test.edit',
+                         'icon' =>  'icon-pencil',
+                         'icon_color_indicator_field' => 'value',
+                         'icon_color_indicator_target' => true,
+                         'icon_color_indicator_true' => 'warning',
+                         'icon_color_indicator_false' => 'warning',
                         )
                 )
             )

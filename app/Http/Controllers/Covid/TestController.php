@@ -129,9 +129,13 @@ class TestController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TestRequest $request, $id)
     {
-        //
+        $new_model = new Test;
+        
+        $model_fn = new ModelFunctions;
+        $result = $model_fn->validate_and_update($id,$request,$new_model);        
+        return $result;
     }
 
     /**

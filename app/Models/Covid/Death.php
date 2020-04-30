@@ -14,6 +14,7 @@ class Death extends Model
             'titlePage' => 'Deaths',     
             'modelName' => 'Death',
             'createLabel' => 'Add Death',
+            'editLabel' => 'Update Death',   
             'indexLinks' => array(
                                     array(
                                         'label' => 'Add Death',
@@ -68,7 +69,16 @@ class Death extends Model
                 'policy_name' => 'manage-covid-deaths',
                 'actions' => array(
                     array(
-                        
+                        'action_indicator_field' => 'value',
+                        'action_indicator_target' => true,
+                        'model_policy_name' => 'update',
+                         'name' => 'Edit Death',
+                         'route_to' => 'covid.death.edit',
+                         'icon' =>  'icon-pencil',
+                         'icon_color_indicator_field' => 'value',
+                         'icon_color_indicator_target' => true,
+                         'icon_color_indicator_true' => 'warning',
+                         'icon_color_indicator_false' => 'warning',
                         )
                 )
             )

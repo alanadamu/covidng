@@ -126,7 +126,6 @@ class CovidCaseController extends Controller
      */
     public function update(CovidCaseRequest $request, $id)
     {
-        // dd($request->all());
         $new_model = new CovidCase;
         
         $model_fn = new ModelFunctions;
