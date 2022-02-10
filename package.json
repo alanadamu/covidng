@@ -34,7 +34,7 @@
         "bootstrap-select": "^1.13.12",
         "es6-promise": "^4.2.8",
         "fibers": "^4.0.2",
-        "node-sass": "^4.13.1",
+        "node-sass": "^7.0.0",
         "vue-select": "^3.10.1",
         "vuex": "^3.1.3"
     }
